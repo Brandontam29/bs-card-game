@@ -1,0 +1,27 @@
+{
+    "name": "bs-card-game-server",
+    "scripts": {
+        "cypress:open": "cypress open"
+    },
+    "dependencies": {
+        "axios": "^0.24.0",
+        "body-parser": "^1.19.1",
+        "cors": "^2.8.5",
+        "dotenv": "^14.3.2",
+        "express": "^4.17.2",
+        "express-validator": "^6.14.0",
+        "mongoose": "^6.2.0",
+        "mongoose-unique-validator": "^3.0.0",
+        "short-unique-id": "^4.4.4"
+    },
+    "devDependencies": {
+        "cypress": "^9.4.1",
+        "eslint": "^8.2.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-cypress": "^2.12.1",
+        "eslint-plugin-import": "^2.25.3",
+        "eslint-plugin-jsx-a11y": "^6.5.1",
+        "eslint-plugin-prettier": "^4.0.0",
+        "nodemon": "^2.0.15"
+    }
+}

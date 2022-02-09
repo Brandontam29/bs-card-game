@@ -1,0 +1,28 @@
+{
+    "extends": ["prettier", "plugin:cypress/recommended"],
+    "plugins": ["prettier", "cypress"],
+    "parserOptions": {
+        "ecmaVersion": 2017
+    },
+    "env": {
+        "es6": true,
+        "browser": true,
+        "node": true,
+        "commonjs": true,
+        "jest": true
+    },
+    "rules": {
+        "indent": ["error", 4, { "SwitchCase": 1 }],
+        "no-console": [
+            "error",
+            {
+                "allow": ["warn", "error"]
+            }
+        ],
+
+        "max-len": ["warn", 120],
+        "arrow-body-style": ["off", "always"],
+        "linebreak-style": ["error", "windows"],
+        "default-param-last": "off"
+    }
+}

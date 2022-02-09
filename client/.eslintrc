@@ -1,0 +1,46 @@
+{
+    "extends": ["airbnb", "prettier", "react-app", "react-app/jest"],
+    "plugins": ["prettier"],
+    // "parser": "@babel/eslint-parser",
+    "parserOptions": {
+        // "requireConfigFile": false,
+        // "sourceType": "module",
+        // "ecmaFeatures": {
+        //     "ecmaVersion": 8,
+        //     "jsx": true
+        // }
+    },
+    "env": {
+        "browser": true,
+        "node": true,
+        "commonjs": true,
+        "jest": true
+    },
+    "rules": {
+        "indent": ["error", 4, { "SwitchCase": 1 }],
+        "react/jsx-indent": ["error", 4],
+        "react/jsx-indent-props": ["error", 4],
+        "no-console": [
+            "error",
+            {
+                "allow": ["warn", "error"]
+            }
+        ],
+
+        "max-len": ["warn", 120],
+        "arrow-body-style": ["off", "always"],
+        "linebreak-style": ["error", "windows"],
+        "react/jsx-uses-react": "off", //React 17
+        "react/react-in-jsx-scope": "off",
+        "react/function-component-definition": [
+            "warn",
+            {
+                "namedComponents": "arrow-function",
+                "unnamedComponents": "arrow-function"
+            }
+        ],
+        "default-param-last": "off",
+        "no-unused-vars": "warn",
+        "react/no-unescaped-entities": ["off"]
+    }
+}
