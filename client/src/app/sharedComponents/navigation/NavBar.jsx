@@ -44,7 +44,7 @@ const NavBar = ({ pannelOpen, setPannelOpen, setPannelContent }) => {
                     </div>
 
                     {/* <!-- secondary nav --> */}
-                    <div className="hidden md:flex items-center space-x-1">
+                    <div className="flex items-center space-x-1">
                         <button
                             type="button"
                             onClick={() => onButtonClick('rules')}

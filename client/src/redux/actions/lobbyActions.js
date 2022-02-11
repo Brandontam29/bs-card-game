@@ -1,22 +1,17 @@
 export const SET_IN_GAME = 'SET_IN_GAME';
-export const ADD_PLAYER = 'ADD_PLAYER';
+export const SET_PLAYERS = 'SET_PLAYERS';
 export const REMOVE_PLAYER = 'REMOVE_PLAYER';
 export const INCREMENT_ROUND = 'INCREMENT_ROUND';
 export const SET_ROUND = 'SET_ROUND';
-export const SET_LOBBY_ID = 'SET_LOBBY_ID';
+export const SET_LOBBY_CODE = 'SET_LOBBY_CODE';
 
 export const setInGame = (payload) => ({
     type: SET_IN_GAME,
     payload,
 });
 
-export const addPlayer = (payload) => ({
-    type: ADD_PLAYER,
-    payload,
-});
-
-export const removePlayer = (payload) => ({
-    type: REMOVE_PLAYER,
+export const setPlayers = (payload) => ({
+    type: SET_PLAYERS,
     payload,
 });
 
@@ -29,7 +24,7 @@ export const setRound = (payload) => ({
     payload,
 });
 
-export const setLobbyId = (payload) => ({
-    type: SET_LOBBY_ID,
+export const setLobbyCode = (payload) => ({
+    type: SET_LOBBY_CODE,
     payload,
 });

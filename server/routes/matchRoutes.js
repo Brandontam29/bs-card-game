@@ -4,7 +4,7 @@ const express = require('express');
 const matchControllers = require('../controllers/matchControllers');
 
 const router = express.Router();
-
+router.get('/test', matchControllers.test);
 router.get('/:mid', matchControllers.getMatchById);
 router.post('/:mid', matchControllers.postMatch);
 

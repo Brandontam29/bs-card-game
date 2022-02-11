@@ -45,6 +45,9 @@ const postMatch = async (req, res, next) => {
 
     res.json(JSON.stringify({ match }));
 };
-
+const test = async (req, res, next) => {
+    res.json('data is here');
+};
 exports.getMatchById = getMatchById;
 exports.postMatch = postMatch;
+exports.test = test;

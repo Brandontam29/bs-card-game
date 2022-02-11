@@ -1,44 +1,33 @@
 import {
-    ADD_PLAYER,
-    REMOVE_PLAYER,
-    INCREMENT_ROUND,
-    SET_ROUND,
-    SET_LOBBY_ID,
+    SET_TURN_PLAYER,
+    SET_CARD_NEEDED,
+    SET_CALLING_BS,
 } from '../actions/gameActions';
 
 const initialState = {
-    players: [],
-    round: 0,
-    lobbyId: '',
+    turnPlayer: 'someone',
+    cardNeeded: 'A',
+    callingBS: true,
 };
 
 const gameReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ADD_PLAYER:
+        case SET_TURN_PLAYER:
             return {
                 ...state,
-                pannelOpen: action.payload,
+                turnPlayer: action.payload,
             };
-        case REMOVE_PLAYER:
+        case SET_CARD_NEEDED:
             return {
                 ...state,
-                pannelContent: action.payload,
+                cardNeeded: action.payload,
             };
-        case INCREMENT_ROUND:
+        case SET_CALLING_BS:
             return {
                 ...state,
-                round: state.round + 1,
+                callingBS: action.payload,
             };
-        case SET_ROUND:
-            return {
-                ...state,
-                round: action.payload,
-            };
-        case SET_LOBBY_ID:
-            return {
-                ...state,
-                lobbyId: action.payload,
-            };
+
         default:
             return state;
     }

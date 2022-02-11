@@ -1,12 +1,23 @@
-import { SET_PANNEL_OPEN, SET_PANNEL_CONTENT } from '../actions/siteActions';
+import {
+    SET_SOCKET,
+    SET_PANNEL_OPEN,
+    SET_PANNEL_CONTENT,
+} from '../actions/siteActions';
 
 const initialState = {
+    socket: null,
     pannelOpen: false,
     pannelContent: 'none',
 };
 
 const siteReducer = (state = initialState, action) => {
     switch (action.type) {
+        case SET_SOCKET:
+            return {
+                ...state,
+                socket: action.payload,
+            };
+
         case SET_PANNEL_OPEN:
             return {
                 ...state,

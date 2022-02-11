@@ -13,7 +13,6 @@ const defaultProps = {};
 const Layout = ({ children }) => {
     return (
         <>
-            <div className="w-0 h-0 absolute top-0 left-0 hidden" />
             <NavBar />
             {children}
         </>

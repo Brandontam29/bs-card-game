@@ -1,4 +1,5 @@
 /* eslint-disable object-shorthand */
+
 import PropTypes from 'prop-types';
 // Docs: https://github.com/facebook/prop-types
 
@@ -13,3 +14,5 @@ export const player = PropTypes.shape({
 });
 
 export const players = PropTypes.arrayOf(player);
+
+export const socket = PropTypes.any;

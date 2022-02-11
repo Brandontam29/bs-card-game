@@ -1,17 +1,22 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const cors = require('cors');
-require('dotenv').config();
+import express from 'express';
+import bodyParser from 'body-parser';
+import mongoose from 'mongoose';
+import cors from 'cors';
+import { Server } from 'socket.io';
 
-const deckRoutes = require('./routes/deckRoutes');
-const pileRoutes = require('./routes/pileRoutes');
-const matchRoutes = require('./routes/matchRoutes');
-const userRoutes = require('./routes/userRoutes');
-const HttpError = require('./models/http-error');
+import registerMessageHandlers from './handlers/messageHandlers.js';
+// import registerGameHandlers from './handlers/gameHandlers.js';
+import registerLobbyHandlers from './handlers/lobbyHandlers.js';
 
+// import deckRoutes from './routes/deckRoutes');
+// import pileRoutes from './routes/pileRoutes');
+// import matchRoutes from './routes/matchRoutes.js';
+// import userRoutes from './routes/userRoutes.js';
+import HttpError from './models/http-error.js';
+
+import dotenv from 'dotenv';
+dotenv.config();
 const app = express();
-
 app.use(bodyParser.json());
 
 const user = encodeURIComponent(process.env.DB_USER);
@@ -23,25 +28,21 @@ const uri = `mongodb+srv://${user}:${password}@cluster0.rzpas.mongodb.net/${data
 // CORS Protocol
 app.use(
     cors({
-        origin: 'http://localhost:3000',
+        origin: `${process.env.CLIENT_ORIGIN}`,
         methods: ['GET', 'POST', 'PATCH', 'DELETE'],
+        credentials: true,
     }),
 );
 
 // Routes
-app.use('/api/deck', deckRoutes);
-app.use('/api/pile', pileRoutes);
-app.use('/api/user', userRoutes);
-app.use('/api/match', matchRoutes);
+// const onConnection = (io, socket) => {
+//     registerLobbyHandlers(io, socket);
+//     registerGameHandlers(io, socket);
+//     registerMessageHandlers(io, socket);
+// };
 
-app.use('/', () => {
-    console.log('hihi');
-    return 'hihi';
-});
-app.use((req, res, next) => {
-    const error = new HttpError('Could not find this route.', 404);
-    throw error;
-});
+// app.use('/api/user', userRoutes);
+// app.use('/api/match', matchRoutes);
 
 app.use((req, res, next) => {
     const error = new HttpError('Could not find this route.', 404);
@@ -58,11 +59,21 @@ app.use((error, req, res, next) => {
 
 const port = 4000;
 
+// Connections
+
 mongoose
     .connect(uri, { useNewUrlParser: true })
     .then(() => {
-        app.listen(port, () => {
+        const server = app.listen(port, () => {
             console.log(`BS Card Game at http://localhost:${port}`);
+        });
+
+        const io = new Server(server);
+        io.on('connection', (socket) => {
+            console.log('connected');
+            registerMessageHandlers(io, socket);
+            registerLobbyHandlers(io, socket);
+            // registerGameHandlers(io, socket);
         });
     })
     .catch((err) => {

@@ -11,4 +11,4 @@ const matchSchema = new Schema({
     average_mmr: { type: Number, required: true },
 });
 
-module.exports = mongoose.model('Match', matchSchema);
+export default mongoose.model('Match', matchSchema);

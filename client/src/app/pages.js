@@ -11,11 +11,6 @@ export const Home = lazyLoad(
 );
 
 export const Lobby = lazyLoad(
-    () => import('./home'),
+    () => import('./lobby'),
     (module) => module.Lobby,
-);
-
-export const Game = lazyLoad(
-    () => import('./home'),
-    (module) => module.Game,
 );

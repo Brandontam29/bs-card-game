@@ -17,7 +17,7 @@ const Routing = () => {
 
     const routes = useRoutes([
         {
-            path: '/lobbies/:lid',
+            path: '/lobby/:lid',
             exact: true,
             element: PageWrapper(<Lobby />),
         },

@@ -1,17 +1,16 @@
 import {
     SET_IN_GAME,
-    ADD_PLAYER,
-    REMOVE_PLAYER,
+    SET_PLAYERS,
     INCREMENT_ROUND,
     SET_ROUND,
-    SET_LOBBY_ID,
+    SET_LOBBY_CODE,
 } from '../actions/lobbyActions';
 
 const initialState = {
     inGame: false,
     players: [],
     round: 0,
-    lobbyId: '',
+    lobbyCode: null,
 };
 
 const lobbyReducer = (state = initialState, action) => {
@@ -21,20 +20,11 @@ const lobbyReducer = (state = initialState, action) => {
                 ...state,
                 inGame: action.payload,
             };
-        case ADD_PLAYER:
+        case SET_PLAYERS:
             return {
                 ...state,
                 players: [state.players, action.payload],
             };
-        case REMOVE_PLAYER: {
-            const toRemove = new Set().add(action.payload);
-            const difference = state.cards.filter((x) => !toRemove.has(x));
-
-            return {
-                ...state,
-                players: difference,
-            };
-        }
         case INCREMENT_ROUND:
             return {
                 ...state,
@@ -45,10 +35,10 @@ const lobbyReducer = (state = initialState, action) => {
                 ...state,
                 round: action.payload,
             };
-        case SET_LOBBY_ID:
+        case SET_LOBBY_CODE:
             return {
                 ...state,
-                lobbyId: action.payload,
+                lobbyCode: action.payload,
             };
         default:
             return state;

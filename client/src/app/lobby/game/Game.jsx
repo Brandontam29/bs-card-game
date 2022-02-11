@@ -16,7 +16,7 @@ const defaultProps = {};
 const Game = ({ players }) => {
     useEffect(() => {});
 
-    return <div>this is the game room</div>;
+    return <div>This is the Game</div>;
 };
 
 Game.propTypes = propTypes;
