@@ -10,51 +10,40 @@ import {
 } from '../../../redux/actions/siteActions';
 
 const propTypes = {
-    pannelOpen: PropTypes.bool,
     setPannelOpen: PropTypes.func,
     setPannelContent: PropTypes.func,
 };
 
 const defaultProps = {
-    pannelOpen: false,
     setPannelOpen: () => {},
     setPannelContent: () => {},
 };
 
-const NavBar = ({ pannelOpen, setPannelOpen, setPannelContent }) => {
+const NavBar = ({ setPannelOpen, setPannelContent }) => {
     const onButtonClick = (content) => {
         setPannelContent(content);
         setPannelOpen(true);
     };
 
-    const onClosePannel = () => {
-        setPannelOpen(false);
-    };
     return (
-        <nav className="relative bg-gray-100">
+        <nav className="flex-initial bg-gray-100">
             <div className="max-w-6xl mx-auto px-4">
                 <div className="flex justify-between">
                     <div className="flex space-x-4">
                         {/* <!-- logo --> */}
                         <div className="flex items-center py-5 px-2 text-gray-700 hover:text-gray-900">
                             <Link to="/">
-                                <span className="font-bold">BS Card Game</span>
+                                <span className="font-bold">Cheat</span>
                             </Link>
                         </div>
                     </div>
 
                     {/* <!-- secondary nav --> */}
                     <div className="flex items-center space-x-1">
-                        <button
-                            type="button"
-                            onClick={() => onButtonClick('rules')}
-                        >
+                        <button type="button" onClick={() => onButtonClick('rules')}>
                             How to Play
                         </button>
-                        <button
-                            type="button"
-                            onClick={() => onButtonClick('feedback')}
-                        >
+                        <button type="button" onClick={() => onButtonClick('feedback')}>
                             Give Feedback
                         </button>
                     </div>

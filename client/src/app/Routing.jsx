@@ -1,9 +1,8 @@
 import { useRoutes } from 'react-router-dom';
 
-import { Lobby, Home, NotFound } from './pages';
+import { Lobby, Home, NotFound } from './pages/lazyloadPages';
 
 import Layout from './sharedComponents/navigation/Layout';
-import SidePannel from './sharedComponents/sidePannel/SidePannel';
 import SocketProvider from './sharedComponents/provider/SocketProvider';
 
 const Routing = () => {
@@ -11,8 +10,6 @@ const Routing = () => {
         return (
             <SocketProvider>
                 <Layout>{children}</Layout>
-                <SidePannel />
-                <SocketProvider />
             </SocketProvider>
         );
     };

@@ -1,9 +1,4 @@
-import lazyLoad from '../lib/lazyload';
-
-export const NotFound = lazyLoad(
-    () => import('./notFound'),
-    (module) => module.NotFound,
-);
+import lazyLoad from '../../lib/lazyload';
 
 export const Home = lazyLoad(
     () => import('./home'),
@@ -14,3 +9,9 @@ export const Lobby = lazyLoad(
     () => import('./lobby'),
     (module) => module.Lobby,
 );
+
+export const NotFound = lazyLoad(
+    () => import('./notFound'),
+    (module) => module.NotFound,
+);
+

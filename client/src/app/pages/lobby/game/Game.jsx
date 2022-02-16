@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 // import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import * as AppPropTypes from '../../../lib/PropTypes';
+import * as AppPropTypes from '../../../../lib/PropTypes';
 
-import { setPannelOpen as setPannelOpenAction } from '../../../redux/actions/siteActions';
+import { setPannelOpen as setPannelOpenAction } from '../../../../redux/actions/siteActions';
 
 const propTypes = {
     players: AppPropTypes.players.isRequired,

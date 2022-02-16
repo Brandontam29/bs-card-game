@@ -2,9 +2,9 @@ import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-// import * as AppPropTypes from '../../../lib/PropTypes';
+// import * as AppPropTypes from '../../../../lib/PropTypes';
 
-import CharacterCreation from '../../sharedComponents/characterCreation/CharacterCreation';
+import CharacterCreation from '../../../sharedComponents/characterCreation/CharacterCreation';
 
 const propTypes = {
     socket: PropTypes.string,

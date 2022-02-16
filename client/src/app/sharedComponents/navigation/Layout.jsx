@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 // import * as AppPropTypes from '../../../lib/PropTypes';
 import NavBar from './NavBar';
+import SidePannel from '../sidePannel/SidePannel';
 
 const propTypes = {
     children: PropTypes.node.isRequired,
@@ -15,6 +16,7 @@ const Layout = ({ children }) => {
         <>
             <NavBar />
             {children}
+            <SidePannel />
         </>
     );
 };

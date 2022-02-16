@@ -15,7 +15,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-    content: null,
+    content: 'none',
 };
 
 const SidePannel = ({ content, hidden, setPannelOpen }) => {
@@ -28,16 +28,7 @@ const SidePannel = ({ content, hidden, setPannelOpen }) => {
                 return <Feedback />;
 
             default:
-                return (
-                    <div>
-                        <div>nothing to see here yet</div>
-                        <div>nothing to see here yet</div>
-                        <div>nothing to see here yet</div>
-                        <div>nothing to see here yet</div>
-                        <div>nothing to see here yet</div>
-                        <div>nothing to see here yet</div>
-                    </div>
-                );
+                return <div>There may be a problem!</div>;
         }
     };
     const onClosePannel = () => {
@@ -45,11 +36,14 @@ const SidePannel = ({ content, hidden, setPannelOpen }) => {
     };
     return (
         <div
-            className={classNames('absolute top-0 right-0 w-[320px] ', {
-                'translate-x-[320px]': !hidden,
-            })}
+            className={classNames(
+                'absolute top-0 right-0 w-[320px] h-[100vh] flex flex-col bg-slate-400',
+                {
+                    'translate-x-[320px]': !hidden,
+                },
+            )}
         >
-            <button type="button" onClick={() => onClosePannel()}>
+            <button type="button" onClick={onClosePannel} className="text-right">
                 X
             </button>
             {switchCase(content)}

@@ -1,28 +1,26 @@
+/* eslint-disable max-len */
 module.exports = {
     content: ['./public/**/*.html', './src/**/*.{js,jsx,ts,tsx,vue}'],
     theme: {
+        fontFamily: {
+            header: ['arial', 'sans-serif'],
+            body: ['roboto', 'serif'],
+        },
         extend: {
-            animation: {
-                spinSlow: 'spin 20s linear infinite',
-                beat: 'beat 3s ease-in-out infinite',
-                spinBeat:
-                    'spin 10s linear infinite, beat2 3s ease-in-out infinite',
+            colors: {
+                green: {
+                    DEFAULT: '#79CF90',
+                },
+                brown: {
+                    DEFAULT: '#302926',
+                },
+                red: {
+                    DEFAULT: '#EF6B65',
+                },
             },
-            keyframes: {
-                beat: {
-                    '0,100%': { transform: 'scale(1)' },
-                    '50%': { transform: 'scale(1.2)' },
-                },
-                beat2: {
-                    0: { transform: 'scale(1)' },
-                    '50%': { transform: 'scale(1.2)' },
-                    '100%': { transform: 'scale(1)' },
-                },
-                spinBeat: {
-                    '0%': { transform: 'scale(1) rotate(0deg)' },
-                    '50%': { transform: 'scale(1.4) rotate(180deg)' },
-                    '100%': { transform: 'scale(1) rotate(360deg)' },
-                },
+            boxShadow: {
+                rainbow:
+                    '0 0 0 10px #ff0000,0 0 0 20px #ff7700,0 0 0 30px #FFDD00,0 0 0 40px #00FF00,0 0 0 50px #0000FF,0 0 0 60px #C77DF3,0 0 0 70px #8A2BE2',
             },
         },
     },

@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet-async';
 
 import { connect } from 'react-redux';
 
-import * as AppPropTypes from '../../../lib/PropTypes';
+import * as AppPropTypes from '../../../../lib/PropTypes';
 
 const propTypes = {
     socket: AppPropTypes.socket.isRequired,
@@ -23,7 +23,7 @@ const defaultProps = {
 
 const WaitingRoom = ({ socket, players }) => {
     useEffect(() => {
-        console.log(players);
+        // console.log(players);
     });
 
     return (

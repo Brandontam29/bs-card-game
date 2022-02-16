@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 
-import * as AppPropTypes from '../../../lib/PropTypes';
+import * as AppPropTypes from '../../../../lib/PropTypes';
 
-import { setSocket as setSocketAction } from '../../../redux/actions/siteActions';
+import { setSocket as setSocketAction } from '../../../../redux/actions/siteActions';
 
 const propTypes = {
     socket: AppPropTypes.socket.isRequired,

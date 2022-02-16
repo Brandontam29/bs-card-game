@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 
 // import * as AppPropTypes from '../../../lib/PropTypes';
 
-import { setSocket as setSocketAction } from '../../redux/actions/siteActions';
+import { setSocket as setSocketAction } from '../../../redux/actions/siteActions';
 
 import Login from './login/Login';
 import WaitingRoom from './waitingRoom/WaitingRoom';

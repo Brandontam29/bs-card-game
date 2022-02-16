@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { connect } from 'react-redux';
 // import { io } from 'socket.io-client';
 import { useParams } from 'react-router-dom';
@@ -10,11 +11,14 @@ import CreateAvatar from './CreateAvatar';
 
 const propTypes = {
     socket: AppPropTypes.socket.isRequired,
+    className: PropTypes.string,
 };
 
-const defaultProps = {};
+const defaultProps = {
+    className: null,
+};
 
-const CharacterCreation = ({ socket }) => {
+const CharacterCreation = ({ socket, className }) => {
     const [name, setName] = useState('');
     const [avatar, setAvatar] = useState('010101');
     const { lid } = useParams();
@@ -32,7 +36,13 @@ const CharacterCreation = ({ socket }) => {
     };
 
     return (
-        <div>
+        <div
+            // className={classNames('', {
+            //     className: !className,
+            // })}
+
+            className={`max-w-[800px] mx-auto ${className || ''}`}
+        >
             <form onSubmit={onFormSubmit}>
                 <input
                     type="text"
@@ -40,7 +50,7 @@ const CharacterCreation = ({ socket }) => {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                 />
-                {/* <CreateAvatar /> */}
+                <CreateAvatar />
                 <button type="submit" onClick={onFormSubmit}>
                     Submit
                 </button>
