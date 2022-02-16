@@ -13,19 +13,19 @@ import { setConnected as setConnectedAction } from '../../redux/actions/playerAc
 import CharacterCreation from '../sharedComponents/characterCreation/CharacterCreation';
 
 const propTypes = {
-    socket: AppPropTypes.socket,
-    setSocket: PropTypes.func,
-    setLobbyCode: PropTypes.func,
-    setConnected: PropTypes.func,
+    // socket: AppPropTypes.socket,
+    // setSocket: PropTypes.func,
+    // setLobbyCode: PropTypes.func,
+    // setConnected: PropTypes.func,
 };
 
 const defaultProps = {
-    socket: null,
-    setSocket: () => {},
-    setLobbyCode: () => {},
-    setConnected: () => {},
+    // socket: null,
+    // setSocket: () => {},
+    // setLobbyCode: () => {},
+    // setConnected: () => {},
 };
-const Home = ({ socket, setSocket, setLobbyCode, setConnected }) => {
+const Home = () => {
     // const joinRoom = (e) => {
     //     e.preventDefault();
     //     if (!socket) {
@@ -35,13 +35,13 @@ const Home = ({ socket, setSocket, setLobbyCode, setConnected }) => {
     // };
 
     useEffect(() => {
-        if (socket) {
-            setSocket(
-                io(`${process.env.REACT_APP_SERVER_API}`, {
-                    transports: ['websocket'],
-                }),
-            );
-        }
+        // if (socket) {
+        //     setSocket(
+        //         io(`${process.env.REACT_APP_SERVER_API}`, {
+        //             transports: ['websocket'],
+        //         }),
+        //     );
+        // }
         // const socketio = io(`${process.env.REACT_APP_SERVER_API}`, {
         //     transports: ['websocket'],
         // });
@@ -50,7 +50,7 @@ const Home = ({ socket, setSocket, setLobbyCode, setConnected }) => {
     return (
         <>
             <Helmet>
-                <title>Don't get Caught Cheating</title>
+                <title>BS Card Game</title>
                 <meta name="description" content="Home" />
             </Helmet>
             <div className="flex content-center items-center w-full h-full">
@@ -65,11 +65,11 @@ Home.propTypes = propTypes;
 Home.defaultProps = defaultProps;
 
 const WithReduxContainer = connect(
-    ({ site }) => ({ socket: site.socket }),
+    ({}) => ({}),
     (dispatch) => ({
-        setLobbyCode: (value) => dispatch(setLobbyCodeAction(value)),
-        setSocket: (value) => dispatch(setSocketAction(value)),
-        setConnected: (value) => dispatch(setConnectedAction(value)),
+        // setLobbyCode: (value) => dispatch(setLobbyCodeAction(value)),
+        // setSocket: (value) => dispatch(setSocketAction(value)),
+        // setConnected: (value) => dispatch(setConnectedAction(value)),
     }),
 )(Home);
 

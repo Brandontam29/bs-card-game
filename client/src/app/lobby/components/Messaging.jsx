@@ -8,50 +8,35 @@ import * as AppPropTypes from '../../../lib/PropTypes';
 import { setSocket as setSocketAction } from '../../../redux/actions/siteActions';
 
 const propTypes = {
-    playerName: PropTypes.string,
-    roomCode: PropTypes.string,
     socket: AppPropTypes.socket.isRequired,
-    inGame: PropTypes.bool.isRequired,
-    setSocket: PropTypes.func,
+    roomCode: PropTypes.string,
+    // eslint-disable-next-line react/forbid-prop-types
+    messages: PropTypes.any,
     className: PropTypes.string,
 };
 
 const defaultProps = {
-    playerName: 'No Name',
     roomCode: '',
-    setSocket: () => {},
+    messages: [],
     className: '',
 };
 
-const Messaging = ({
-    playerName,
-    roomCode,
-    socket,
-    inGame,
-    setSocket,
-    className,
-}) => {
+const Messaging = ({ roomCode, socket, messages, className }) => {
     const [message, setMessage] = useState('');
-    const [messageList, setMessageList] = useState([]);
 
-    const sendMessage = () => {
-        const messageContent = {
-            roomCode: roomCode,
-            content: {
-                author: playerName,
-                message: message,
-            },
-        };
+    const sendMessage = (e) => {
+        e.preventDefault();
+        // const messageContent = {
+        //     roomCode: roomCode,
+        //     content: {
+        //         author: playerName,
+        //         message: message,
+        //     },
+        // };
 
-        socket.emit('message:send', messageContent);
+        socket.emit('message:send', message);
         setMessage('');
     };
-
-    useEffect(() => {
-        socket.on('receive_message', (msg) => {
-            setMessageList([...messageList, msg]);
-        });
-    });
 
     return (
         <div
@@ -61,7 +46,7 @@ const Messaging = ({
         >
             <h2>{roomCode}</h2>
             <div className="">
-                {messageList.map((msg, key) => {
+                {messages.map((msg, key) => {
                     return (
                         <div className="">
                             <div className="">
@@ -80,7 +65,7 @@ const Messaging = ({
                         setMessage(e.target.value);
                     }}
                 />
-                <button type="button" onClick={sendMessage}>
+                <button type="button" onClick={(e) => sendMessage(e)}>
                     Send
                 </button>
             </div>
@@ -97,6 +82,7 @@ const WithReduxContainer = connect(
         playerName: player.name,
         roomCode: lobby.roomCode,
         inGame: lobby.inGame,
+        messages: lobby.messages,
     }),
     (dispatch) => ({ setSocket: (value) => dispatch(setSocketAction(value)) }),
 )(Messaging);

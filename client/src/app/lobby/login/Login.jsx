@@ -22,7 +22,7 @@ const Login = ({ socket, inGame, setSocket }) => {
 
     return (
         <div>
-            THI SIS THE LOGIN
+            THIS IS THE LOGIN
             <CharacterCreation />
         </div>
     );

@@ -5,8 +5,8 @@ import { userJoin, userLeave, getRoomUsers } from '../storage/users.js';
 const lobbyHandlers = (io, socket) => {
     const chatBot = 'Mr. BS';
 
-    const createRoom = ({ name, avatar }) => {
-        console.log('createRoom');
+    const createLobby = (name, avatar) => {
+        console.log('createLobby');
         const code = `${lobbyCodeGenerator()}`;
         console.log(code);
         userJoin(socket.id, name, avatar, code);
@@ -16,8 +16,8 @@ const lobbyHandlers = (io, socket) => {
         socket.emit('update_players', getRoomUsers(code));
     };
 
-    const joinRoom = ({ name, avatar, lobby }) => {
-        console.log('joinRoom');
+    const joinLobby = (name, avatar, lobby) => {
+        console.log('joinLobby');
         const user = userJoin(socket.id, name, avatar, lobby);
         socket.join(lobby);
         socket.emit(
@@ -35,8 +35,8 @@ const lobbyHandlers = (io, socket) => {
         io.to(lobby).emit('update_players', getRoomUsers(user.lobby));
     };
 
-    const disconnectRoom = () => {
-        console.log('disconnectRoom');
+    const disconnectLobby = () => {
+        console.log('disconnectLobby');
         const user = userLeave(socket.id);
         if (user) {
             io.to(user.room).emit(
@@ -49,9 +49,9 @@ const lobbyHandlers = (io, socket) => {
         }
     };
 
-    socket.on('lobby:create', createRoom);
-    socket.on('lobby:join', joinRoom);
-    socket.on('lobby:disconnect', disconnectRoom);
+    socket.on('lobby:create', createLobby);
+    socket.on('lobby:join', joinLobby);
+    socket.on('lobby:disconnect', disconnectLobby);
 };
 
 export default lobbyHandlers;

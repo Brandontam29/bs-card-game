@@ -4,6 +4,8 @@ import {
     INCREMENT_ROUND,
     SET_ROUND,
     SET_LOBBY_CODE,
+    ADD_MESSAGE,
+    SET_MESSAGES,
 } from '../actions/lobbyActions';
 
 const initialState = {
@@ -11,6 +13,7 @@ const initialState = {
     players: [],
     round: 0,
     lobbyCode: null,
+    messages: [],
 };
 
 const lobbyReducer = (state = initialState, action) => {
@@ -39,6 +42,16 @@ const lobbyReducer = (state = initialState, action) => {
             return {
                 ...state,
                 lobbyCode: action.payload,
+            };
+        case ADD_MESSAGE:
+            return {
+                ...state,
+                messages: [...state.messages, action.payload],
+            };
+        case SET_MESSAGES:
+            return {
+                ...state,
+                messages: action.payload,
             };
         default:
             return state;

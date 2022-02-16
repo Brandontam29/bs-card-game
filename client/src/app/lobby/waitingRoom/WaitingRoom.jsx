@@ -1,8 +1,6 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet-async';
-import { Route } from 'react-router-dom';
-import { io } from 'socket.io-client';
 
 import { connect } from 'react-redux';
 
@@ -24,7 +22,9 @@ const defaultProps = {
 };
 
 const WaitingRoom = ({ socket, players }) => {
-    useEffect(() => {});
+    useEffect(() => {
+        console.log(players);
+    });
 
     return (
         <>
@@ -49,10 +49,11 @@ WaitingRoom.propTypes = propTypes;
 WaitingRoom.defaultProps = defaultProps;
 
 const WithReduxContainer = connect(
-    ({ site }) => ({
+    ({ site, lobby }) => ({
         socket: site.socket,
         content: site.pannelContent,
         hidden: site.pannelOpen,
+        players: lobby.players,
     }),
     (dispatch) => ({}),
 )(WaitingRoom);
