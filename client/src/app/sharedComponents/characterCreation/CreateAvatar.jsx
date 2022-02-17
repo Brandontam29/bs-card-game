@@ -20,7 +20,10 @@ const defaultProps = {};
 const CreateAvatar = ({ avatar, setAvatar }) => {
     // const [avatar, setAvatar] = useState('000000');
 
-    const randomize = () => {};
+    const randomize = () => {
+        setAvatar(Math.floor(Math.random() * 10 ** 6).toString());
+    };
+
     const increment = (n) => {
         const str = avatar.slice();
         const arr = [str.substring(0, 2), str.substring(2, 4), str.substring(4, 6)];
@@ -77,12 +80,8 @@ const CreateAvatar = ({ avatar, setAvatar }) => {
                     <Chevron right />
                 </button>
             </div>
-            <button
-                type="button"
-                className="absolute top-0 right-0 -translate-x-1/2"
-                onClick={randomize}
-            >
-                <Dice className="h-[15px] w-[15px]" />
+            <button type="button" className="absolute top-0 right-0 h-6 w-auto" onClick={randomize}>
+                <Dice className="" />
             </button>
         </div>
     );

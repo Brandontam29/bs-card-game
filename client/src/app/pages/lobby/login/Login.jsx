@@ -1,29 +1,24 @@
-import { useEffect } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 // import * as AppPropTypes from '../../../../lib/PropTypes';
 
 import CharacterCreation from '../../../sharedComponents/characterCreation/CharacterCreation';
 
-const propTypes = {
-    socket: PropTypes.string,
-    inGame: PropTypes.bool.isRequired,
-    setSocket: PropTypes.func,
-};
+const propTypes = {};
 
-const defaultProps = {
-    socket: null,
-    setSocket: () => {},
-};
+const defaultProps = {};
 
-const Login = ({ socket, inGame, setSocket }) => {
-    useEffect(() => {});
-
+const Login = () => {
     return (
-        <div>
-            THIS IS THE LOGIN
-            <CharacterCreation />
+        <div className="flex flex-auto flex-col">
+            <h1 className="font-header text-center py-5">THIS IS THE LOGIN</h1>
+
+            <CharacterCreation className="flex-auto" />
+            <div className="">
+                News
+                <p>Here are the new updates!</p>
+            </div>
         </div>
     );
 };
@@ -31,12 +26,4 @@ const Login = ({ socket, inGame, setSocket }) => {
 Login.propTypes = propTypes;
 Login.defaultProps = defaultProps;
 
-const WithReduxContainer = connect(
-    ({ site, lobby }) => ({
-        socket: site.socket,
-        inGame: lobby.inGame,
-    }),
-    (dispatch) => ({}),
-)(Login);
-
-export default WithReduxContainer;
+export default Login;

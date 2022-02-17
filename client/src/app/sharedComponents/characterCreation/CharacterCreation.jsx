@@ -23,16 +23,24 @@ const CharacterCreation = ({ socket, className }) => {
     const [avatar, setAvatar] = useState(Math.floor(Math.random() * 10 ** 6).toString());
     const { lid } = useParams();
 
-    const onFormSubmit = (e) => {
-        console.log('submit');
-        e.preventDefault();
-        if (lid) {
-            socket.emit('lobby:join', name, avatar, lid);
+    const onCreateLobby = () => {
+        console.log('create lobby');
 
+        if (lid) {
+            // do some error
             return;
         }
 
         socket.emit('lobby:create', name, avatar);
+    };
+
+    const onJoinLobby = () => {
+        if (lid) {
+            socket.emit('lobby:join', name, avatar, lid);
+            return;
+        }
+
+        socket.emit('lobby:join', name, avatar, lobbyCode);
     };
 
     return (
@@ -43,36 +51,51 @@ const CharacterCreation = ({ socket, className }) => {
                     placeholder="Name..."
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="border border-solid border-black w-full"
+                    className="border border-solid border-black px-2 w-full"
                 />
                 <CreateAvatar avatar={avatar} setAvatar={setAvatar} />
             </form>
-            <div className="bg-white p-4 mb-3">
-                <button
-                    type="button"
-                    className="text-center w-full border border-solid border-black "
-                    onClick={onFormSubmit}
-                >
-                    Create Lobby
-                </button>
-            </div>
-
-            <form className="bg-white p-4">
-                <input
-                    type="text"
-                    placeholder="Lobby Code..."
-                    value={lobbyCode}
-                    onChange={(e) => setLobbyCode(e.target.value)}
-                    className="border border-solid border-black mb-3 w-full"
-                />
-                <button
-                    type="button"
-                    className="text-center w-full border border-solid border-black"
-                    onClick={onFormSubmit}
-                >
-                    Create Lobby
-                </button>
-            </form>
+            {!lid ? (
+                <>
+                    <div className="bg-white p-4 mb-3">
+                        <button
+                            type="button"
+                            className="text-center w-full border border-solid border-black "
+                            onClick={onCreateLobby}
+                        >
+                            Create Lobby
+                        </button>
+                    </div>
+                    <form className="bg-white p-4">
+                        <input
+                            type="text"
+                            placeholder="Lobby Code..."
+                            value={lobbyCode}
+                            onChange={(e) => setLobbyCode(e.target.value)}
+                            className="border border-solid border-black mb-3 px-2 w-full"
+                        />
+                        <button
+                            type="button"
+                            className={`text-center w-full border border-solid border-black disabled ${
+                                lid ? 'disabled' : ''
+                            } disabled:opacity-70 disabled:bg-gray-300`}
+                            onClick={onJoinLobby}
+                        >
+                            Join Lobby
+                        </button>
+                    </form>
+                </>
+            ) : (
+                <div className="bg-white p-4 mb-3">
+                    <button
+                        type="button"
+                        className="text-center w-full border border-solid border-black "
+                        onClick={onJoinLobby}
+                    >
+                        Join Lobby
+                    </button>
+                </div>
+            )}
         </div>
     );
 };

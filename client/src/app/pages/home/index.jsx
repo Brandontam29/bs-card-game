@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import * as AppPropTypes from '../../../lib/PropTypes';
 
 import CharacterCreation from '../../sharedComponents/characterCreation/CharacterCreation';
-
+import News from './News';
 const propTypes = {};
 
 const defaultProps = {};
@@ -24,10 +24,7 @@ const Home = () => {
                 <h1 className="font-header text-center py-5">Welcome to Cheat Card Game</h1>
 
                 <CharacterCreation className="flex-auto" />
-                <div className="">
-                    News
-                    <p>Here are the new updates!</p>
-                </div>
+                <News />
             </div>
         </>
     );

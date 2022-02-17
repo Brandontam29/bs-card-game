@@ -12,6 +12,7 @@ import Login from './login/Login';
 import WaitingRoom from './waitingRoom/WaitingRoom';
 import Game from './game/Game';
 import Messaging from './components/Messaging';
+// import NotConnected from './notConnected/notConnected';
 
 const propTypes = {
     // socket: PropTypes.string.isRequired,
@@ -25,16 +26,11 @@ const Lobby = ({ inGame, connected }) => {
     useEffect(() => {});
 
     if (!connected) {
-        return (
-            <div>
-                connected ...<div>return to home maybe? :(</div>
-            </div>
-        );
+        return <Login />;
     }
     return (
         <>
-            {inGame && <Game />}
-            {!inGame ? <WaitingRoom /> : <Login />}
+            {inGame ? <Game /> : <WaitingRoom />}
             <Messaging className="h-[600px]" />
         </>
     );
