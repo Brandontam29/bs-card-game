@@ -1,56 +1,46 @@
 import axios from 'axios';
 // import randomLobbyCode from '../util/lobbyCodeGenerator';
-import HttpError from '../models/http-error';
-
+import HttpError from '../models/http-error.js';
+import { splitCards } from '../util/splitCards.js';
+import {
+    getNewDeck,
+    drawAllCards,
+    handToPile,
+} from '../deckOfCardsApi/handToPile.js';
+import { newDeck, getDeckByLobby, dumpDeck } from '../storage/decks.js';
 const gameHandlers = (io, socket) => {
     const startGame = (lobby) => {
-        axios
-            .get({
-                url: 'https://deckofcardsapi.com/api/deck/new/shuffle/?jokers_enabled=true',
-                // headers: { 'X-Requested-With': 'XMLHttpRequest' },
-            })
-            .then((response) => {
-                const temp = response.data;
-                const deck = {
-                    success: temp.success,
-                    deck_id: temp.deck_id,
-                    remaining: temp.remaining,
-                };
+        const getNewDeckResponse = getNewDeck();
+        const deck = newDeck(getNewDeckResponse.deck_id, lobby);
+        const drawAllCardsResponse = drawAllCards(deck.id);
 
-                io.to(lobby).emit('game_start', deck);
-            })
-            .catch((err) => {
-                const error = new HttpError(err.messsage, 500);
-                io.to(lobby).emit('error', error);
-            });
+        const players = getRoomUsers(lobby);
+        const numOfPlayers = players.length;
+
+        // Consider splitCards to return [[cards],[cards]] instead of {player1: [cards], player2: [cards]}
+        // It was fun playing with objects
+        const hands = splitCards(drawAllCardsResponse.cards, numOfPlayers);
+        const handsArr = Object.values(hands);
+
+        for (i = 0; i < numOfPlayers; i++) {
+            handToPile(deckId, players[i].id, handsArr[i]);
+            io.to(players[i].id).emit('receive_cards', handsArr[i]);
+        }
+
+        io.in(lobby).emit('started_game');
     };
 
-    const playCard = (io, data) => {};
-    const callBS = (io, data) => {};
-    const winGame = (io, data) => {};
-    const restartGame = (io, data) => {};
+    const getHand = (lobby) => {
+        const deckId = getDeckByLobby(lobby).id;
+        const currentHand = getPile(deckId, socket.id);
 
-    const dealCards = async (req, res, next) => {
-        const deckId = req.body.data.deckId;
-        axios
-            .post(
-                `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=54`,
-            )
-            .then((response) => {
-                const temp = response.data;
-                let deck = {
-                    success: temp.success,
-                    deckId: temp.deck_id,
-                    remaining: temp.remaining,
-                };
-
-                res.json(JSON.stringify(deck));
-            })
-            .catch((err) => {
-                const error = new HttpError(err.messsage, 500);
-                return next(error);
-            });
+        io.to(socket.id).emit('receive_cards', currentHand);
     };
+
+    const playCard = () => {};
+    const callBS = () => {};
+    const winGame = () => {};
+    const restartGame = () => {};
 
     const reshuffleDeck = async (req, res, next) => {
         axios
@@ -71,6 +61,7 @@ const gameHandlers = (io, socket) => {
             });
     };
     socket.on('game:start_game', startGame);
+    socket.on('game:get_hand', getHand);
     socket.on('game:play_card', playCard);
     socket.on('game:call_bs', callBS);
     socket.on('game:win_game', winGame);
