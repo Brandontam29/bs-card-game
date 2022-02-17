@@ -1,1 +1,1 @@
-# BS Card Game
+# Cheat Card Game
