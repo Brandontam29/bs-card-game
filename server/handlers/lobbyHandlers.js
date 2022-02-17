@@ -19,20 +19,20 @@ const lobbyHandlers = (io, socket) => {
     const joinLobby = (name, avatar, lobby) => {
         console.log('joinLobby');
         const user = userJoin(socket.id, name, avatar, lobby);
-        socket.join(lobby);
+        socket.join(user.lobby);
         socket.emit(
             'receive_message',
             formatMessage(chatBot, 'Welcome to BS Card Game!'),
         );
 
         socket.broadcast
-            .to(lobby)
+            .to(user.lobby)
             .emit(
                 'receive_message',
                 formatMessage(chatBot, `${user.name} has joined the chat`),
             );
 
-        io.to(lobby).emit('update_players', getRoomUsers(user.lobby));
+        io.to(user.lobby).emit('update_players', getRoomUsers(user.lobby));
     };
 
     const disconnectLobby = () => {

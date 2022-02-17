@@ -25,15 +25,6 @@ const Messaging = ({ roomCode, socket, messages, className }) => {
     const [message, setMessage] = useState('');
 
     const sendMessage = (e) => {
-        e.preventDefault();
-        // const messageContent = {
-        //     roomCode: roomCode,
-        //     content: {
-        //         author: playerName,
-        //         message: message,
-        //     },
-        // };
-
         socket.emit('message:send', message);
         setMessage('');
     };

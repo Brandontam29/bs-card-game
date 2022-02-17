@@ -1,16 +1,9 @@
-const axios = require('axios');
-const { randomLobbyCode } = require('../util/lobbyCodeGenerator');
-const HttpError = require('../models/http-error');
+import axios from 'axios';
+// import randomLobbyCode from '../util/lobbyCodeGenerator';
+import HttpError from '../models/http-error';
 
 const gameHandlers = (io, socket) => {
-    const startGame = (io, data) => {};
-    const playCard = (io, data) => {};
-    const callBS = (io, data) => {};
-    const winGame = (io, data) => {};
-    const restartGame = (io, data) => {};
-
-    const getNewDeck = async (req, res, next) => {
-        console.log(req);
+    const startGame = (lobby) => {
         axios
             .get({
                 url: 'https://deckofcardsapi.com/api/deck/new/shuffle/?jokers_enabled=true',
@@ -18,19 +11,24 @@ const gameHandlers = (io, socket) => {
             })
             .then((response) => {
                 const temp = response.data;
-                let deck = {
+                const deck = {
                     success: temp.success,
                     deck_id: temp.deck_id,
                     remaining: temp.remaining,
                 };
 
-                res.json(JSON.stringify(deck));
+                io.to(lobby).emit('game_start', deck);
             })
             .catch((err) => {
                 const error = new HttpError(err.messsage, 500);
-                return next(error);
+                io.to(lobby).emit('error', error);
             });
     };
+
+    const playCard = (io, data) => {};
+    const callBS = (io, data) => {};
+    const winGame = (io, data) => {};
+    const restartGame = (io, data) => {};
 
     const dealCards = async (req, res, next) => {
         const deckId = req.body.data.deckId;
