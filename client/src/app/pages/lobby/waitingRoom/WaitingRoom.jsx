@@ -8,23 +8,29 @@ import * as AppPropTypes from '../../../../lib/PropTypes';
 
 const propTypes = {
     socket: AppPropTypes.socket.isRequired,
+    lobbyCode: PropTypes.string.isRequired,
     players: AppPropTypes.players,
 };
 
 const defaultProps = {
     players: [
         {
+            id: 'random',
             name: 'hello',
-            avatar: 'hello',
-            points: 22,
+            avatar: '111111',
+            lobby: 'none',
         },
     ],
 };
 
-const WaitingRoom = ({ socket, players }) => {
+const WaitingRoom = ({ socket, lobbyCode, players }) => {
     useEffect(() => {
         // console.log(players);
     });
+
+    const startGame = () => {
+        socket.emit('game:start');
+    };
 
     return (
         <>
@@ -33,14 +39,19 @@ const WaitingRoom = ({ socket, players }) => {
                 <meta name="description" content="Game" />
             </Helmet>
             <div>
-                Waiting Room
-                {players.map((player) => (
-                    <div key={player.id}>
-                        <b>{player.name}</b>
-                        {player.avatar}
-                    </div>
-                ))}
+                Waiting for the host to start...
+                <div>Code: {lobbyCode}</div> <h3>Players</h3>
+                <ul>
+                    {players.map((player) => (
+                        <li key={player.id}>
+                            <b>{player.name}</b>
+                            {player.avatar}
+                        </li>
+                    ))}
+                </ul>
             </div>
+
+            <button type="button" onClick={startGame}></button>
         </>
     );
 };
@@ -54,6 +65,7 @@ const WithReduxContainer = connect(
         content: site.pannelContent,
         hidden: site.pannelOpen,
         players: lobby.players,
+        lobbyCode: lobby.lobbyCode,
     }),
     (dispatch) => ({}),
 )(WaitingRoom);

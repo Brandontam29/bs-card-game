@@ -12,6 +12,7 @@ import {
     setPlayers as setPlayersAction,
     setLobbyCode as setLobbyCodeAction,
     addMessage as addMessageAction,
+    setInGame,
 } from '../../../redux/actions/lobbyActions';
 
 const propTypes = {
@@ -51,31 +52,36 @@ const SocketProvider = ({
         if (!socket) {
             setSocket(socketio);
         }
-
-        socketio.on('created_lobby', (code) => {
-            console.log('created_lobby', code);
-            setLobbyCode(code);
-            setConnected(true);
-            navigate(`/lobby/${code}`);
-        });
-
-        socketio.on('joined_lobby', (code) => {
-            console.log('joined_lobby', code);
-            setLobbyCode(code);
-            setConnected(true);
-        });
-
-        socketio.on('update_players', (players) => {
-            console.log('update players', players);
-            setPlayers(players);
-        });
-
-        socketio.on('new_message', (msg) => {
-            console.log('new message', msg);
-            addMessage(msg);
-        });
     });
 
+    socketio.off('created_lobby').on('created_lobby', (code) => {
+        console.log('created_lobby', code);
+        setLobbyCode(code);
+        setConnected(true);
+        navigate(`/lobby/${code}`);
+    });
+
+    socketio.off('joined_lobby').on('joined_lobby', (code) => {
+        console.log('joined_lobby', code);
+        setLobbyCode(code);
+        setConnected(true);
+        navigate(`/lobby/${code}`);
+    });
+
+    socketio.off('update_players').on('update_players', (players) => {
+        console.log('update players', players);
+        setPlayers(players);
+    });
+
+    socketio.off('new_message').on('new_message', (msg) => {
+        console.log('new message', msg);
+        addMessage(msg);
+    });
+
+    socketio.off('started_game').on('started_game', (msg) => {
+        console.log('new message', msg);
+        setInGame(true);
+    });
     return children;
 };
 

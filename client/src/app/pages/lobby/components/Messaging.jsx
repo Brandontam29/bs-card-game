@@ -11,13 +11,12 @@ const propTypes = {
     socket: AppPropTypes.socket.isRequired,
     roomCode: PropTypes.string,
     // eslint-disable-next-line react/forbid-prop-types
-    messages: PropTypes.any,
+    messages: PropTypes.any.isRequired,
     className: PropTypes.string,
 };
 
 const defaultProps = {
     roomCode: '',
-    messages: [],
     className: '',
 };
 
@@ -25,6 +24,8 @@ const Messaging = ({ roomCode, socket, messages, className }) => {
     const [message, setMessage] = useState('');
 
     const sendMessage = (e) => {
+        e.preventDefault();
+        console.log('message:send');
         socket.emit('message:send', message);
         setMessage('');
     };
@@ -52,6 +53,7 @@ const Messaging = ({ roomCode, socket, messages, className }) => {
                 <input
                     type="text"
                     placeholder="Message..."
+                    value={message}
                     onChange={(e) => {
                         setMessage(e.target.value);
                     }}

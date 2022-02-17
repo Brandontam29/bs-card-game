@@ -8,9 +8,10 @@ export const color = PropTypes.string;
 export const className = PropTypes.string;
 
 export const player = PropTypes.shape({
+    id: PropTypes.string,
     name: PropTypes.string.isRequired,
     avatar: PropTypes.string.isRequired,
-    points: PropTypes.number.isRequired,
+    lobby: PropTypes.string,
 });
 
 export const players = PropTypes.arrayOf(player);
