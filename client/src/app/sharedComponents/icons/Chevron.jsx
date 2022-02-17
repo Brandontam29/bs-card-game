@@ -16,15 +16,15 @@ const defaultProps = {
 
 const BurgerIcon = ({ right, color, className }) => (
     <svg
-        width="512px"
-        height="512px"
+        width="100%"
+        height="100%"
         viewBox="-77 0 512 512"
         stroke={color}
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
         xmlns="http://www.w3.org/2000/svg"
-        transform={`rotate(${right ? 180 : 0})`}
+        transform={`rotate(${right ? 0 : 180})`}
         className={className}
     >
         <path d="M98 460L64 426 227 262 64 98 98 64 294 262 98 460Z" />

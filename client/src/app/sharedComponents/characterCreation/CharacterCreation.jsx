@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { connect } from 'react-redux';
 // import { io } from 'socket.io-client';
 import { useParams } from 'react-router-dom';
@@ -20,7 +19,8 @@ const defaultProps = {
 
 const CharacterCreation = ({ socket, className }) => {
     const [name, setName] = useState('');
-    const [avatar, setAvatar] = useState('010101');
+    const [lobbyCode, setLobbyCode] = useState('');
+    const [avatar, setAvatar] = useState(Math.floor(Math.random() * 10 ** 6).toString());
     const { lid } = useParams();
 
     const onFormSubmit = (e) => {
@@ -36,23 +36,41 @@ const CharacterCreation = ({ socket, className }) => {
     };
 
     return (
-        <div
-            // className={classNames('', {
-            //     className: !className,
-            // })}
-
-            className={`max-w-[800px] mx-auto ${className || ''}`}
-        >
-            <form onSubmit={onFormSubmit}>
+        <div className={`max-w-[800px] mx-auto  ${className || ''}`}>
+            <form className="bg-white p-4 mb-3 ">
                 <input
                     type="text"
                     placeholder="Name..."
                     value={name}
                     onChange={(e) => setName(e.target.value)}
+                    className="border border-solid border-black w-full"
                 />
-                <CreateAvatar />
-                <button type="submit" onClick={onFormSubmit}>
-                    Submit
+                <CreateAvatar avatar={avatar} setAvatar={setAvatar} />
+            </form>
+            <div className="bg-white p-4 mb-3">
+                <button
+                    type="button"
+                    className="text-center w-full border border-solid border-black "
+                    onClick={onFormSubmit}
+                >
+                    Create Lobby
+                </button>
+            </div>
+
+            <form className="bg-white p-4">
+                <input
+                    type="text"
+                    placeholder="Lobby Code..."
+                    value={lobbyCode}
+                    onChange={(e) => setLobbyCode(e.target.value)}
+                    className="border border-solid border-black mb-3 w-full"
+                />
+                <button
+                    type="button"
+                    className="text-center w-full border border-solid border-black"
+                    onClick={onFormSubmit}
+                >
+                    Create Lobby
                 </button>
             </form>
         </div>

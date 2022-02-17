@@ -29,18 +29,20 @@ const NavBar = ({ setPannelOpen, setPannelContent }) => {
         <nav className="flex-initial bg-gray-100">
             <div className="max-w-6xl mx-auto px-4">
                 <div className="flex justify-between">
-                    <div className="flex space-x-4">
+                    <div className="flex items-center py-5 px-2 text-gray-700 hover:text-gray-900 ">
                         {/* <!-- logo --> */}
-                        <div className="flex items-center py-5 px-2 text-gray-700 hover:text-gray-900">
-                            <Link to="/">
-                                <span className="font-bold">Cheat</span>
-                            </Link>
-                        </div>
+                        <Link to="/">
+                            <span className="font-bold">Cheat</span>
+                        </Link>
                     </div>
 
                     {/* <!-- secondary nav --> */}
-                    <div className="flex items-center space-x-1">
-                        <button type="button" onClick={() => onButtonClick('rules')}>
+                    <div className="flex items-center">
+                        <button
+                            className="mr-8"
+                            type="button"
+                            onClick={() => onButtonClick('rules')}
+                        >
                             How to Play
                         </button>
                         <button type="button" onClick={() => onButtonClick('feedback')}>

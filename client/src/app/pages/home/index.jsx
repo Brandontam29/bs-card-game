@@ -21,7 +21,7 @@ const Home = () => {
                 />
             </Helmet>
             <div className="flex flex-auto flex-col">
-                <h1 className="font-header">Welcome to Cheat Card Game</h1>
+                <h1 className="font-header text-center py-5">Welcome to Cheat Card Game</h1>
 
                 <CharacterCreation className="flex-auto" />
                 <div className="">
