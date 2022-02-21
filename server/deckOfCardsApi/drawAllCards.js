@@ -3,11 +3,6 @@ import axios from 'axios';
 export const drawAllCards = (deck_id) => {
     let response;
 
-    let cardCodes = '';
-    cards.forEach((card) => {
-        cardCodes += `${card.code},`;
-    });
-
     axios
         .get({
             url: `https://deckofcardsapi.com/api/deck/${deck_id}/draw/?count=54`,

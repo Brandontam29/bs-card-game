@@ -19,7 +19,12 @@ const getDeckId = (lobbyCode) => {
 
 const incrementTurn = (lobbyCode) => {
     const deck = decks.find((deck) => deck.lobbyCode === lobbyCode);
-    return (deck.turn += 1);
+    deck.turn += 1;
+};
+
+const setTurn = (lobbyCode, number) => {
+    const deck = decks.find((deck) => deck.lobbyCode === lobbyCode);
+    deck.turn = number;
 };
 
 const getTurn = (lobbyCode) => {
@@ -35,4 +40,4 @@ const dumpDeck = (lobbyCode) => {
     }
 };
 
-export { newDeck, getDeckId, incrementTurn, getTurn, dumpDeck };
+export { newDeck, getDeckId, incrementTurn, setTurn, getTurn, dumpDeck };
