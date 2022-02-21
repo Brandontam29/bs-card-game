@@ -1,13 +1,29 @@
-import axios from 'axios';
-// import randomLobbyCode from '../util/lobbyCodeGenerator';
-import HttpError from '../models/http-error.js';
 import { splitCards } from '../util/splitCards.js';
+import { cardsToPile } from '../deckOfCardsApi/cardsToPile.js';
+import { drawAllCards } from '../deckOfCardsApi/drawAllCards.js';
+import { getNewDeck } from '../deckOfCardsApi/getNewDeck.js';
+import { rankPlayers } from '../deckOfCardsApi/rankPlayers.js';
+import { reshuffleDeck } from '../deckOfCardsApi/reshuffleDeck.js';
 import {
-    getNewDeck,
-    drawAllCards,
-    handToPile,
-} from '../deckOfCardsApi/handToPile.js';
-import { newDeck, getDeckByLobby, dumpDeck } from '../storage/decks.js';
+    userJoin,
+    getCurrentUser,
+    userLeave,
+    getRoomUsers,
+} from '../storage/users.js';
+import {
+    newPileRecord,
+    addRecord,
+    getLastRecord,
+    deletePileRecord,
+} from '../storage/centerPiles.js';
+import {
+    newDeck,
+    getDeckId,
+    incrementTurn,
+    getTurn,
+    dumpDeck,
+} from '../storage/decks.js';
+
 const gameHandlers = (io, socket) => {
     const startGame = (lobby) => {
         const getNewDeckResponse = getNewDeck();
@@ -22,49 +38,86 @@ const gameHandlers = (io, socket) => {
         const hands = splitCards(drawAllCardsResponse.cards, numOfPlayers);
         const handsArr = Object.values(hands);
 
+        newPileRecord(lobby);
         for (i = 0; i < numOfPlayers; i++) {
-            handToPile(deckId, players[i].id, handsArr[i]);
-            io.to(players[i].id).emit('receive_cards', handsArr[i]);
+            cardsToPile(deckId, players[i].id, handsArr[i]);
+            io.to(players[i].id).emit('get_hand', handsArr[i]);
         }
 
         io.in(lobby).emit('started_game');
     };
 
     const getHand = (lobby) => {
-        const deckId = getDeckByLobby(lobby).id;
+        const deckId = getDeckId(lobby);
         const currentHand = getPile(deckId, socket.id);
 
-        io.to(socket.id).emit('receive_cards', currentHand);
+        io.to(socket.id).emit('get_hand', currentHand);
     };
 
-    const playCard = () => {};
-    const callBS = () => {};
-    const winGame = () => {};
-    const restartGame = () => {};
+    const playCard = (lobby, cards) => {
+        // Add validation
 
-    const reshuffleDeck = async (req, res, next) => {
-        axios
-            .post(`https://deckofcardsapi.com/api/deck/${deckId}/shuffle`)
-            .then((response) => {
-                const temp = response.data;
-                let deck = {
-                    success: temp.success,
-                    deckId: temp.deck_id,
-                    remaining: temp.remaining,
-                };
+        const toPileResponse = cardsToPile(deckId, 'center_pile', cards);
+        const deckId = getDeckId(lobby);
 
-                res.json(JSON.stringify(deck));
-            })
-            .catch((err) => {
-                const error = new HttpError(err.messsage, 500);
-                return next(error);
-            });
+        const currentHand = getPile(deckId, socket.id);
+
+        // Establish turn system
+        incrementTurn(lobbyCode);
+        io.to(socket.id).emit('get_hand', currentHand);
+        io.to(socket.id).emit('finished_turn');
+
+        io.in(lobbyCode).emit('started_turn');
+
+        // Add number of cards placed to record
+        addRecord(lobby, cards.length);
+
+        // Check if they won the game
+        if (currentHand.length === 0) {
+            const players = getRoomUsers();
+            const ranks = rankPlayers(deckId, players);
+
+            io.in(lobby).emit('finished_game', ranks);
+
+            deletePileRecord(lobby);
+        }
     };
+
+    const callout = () => {
+        // check center pile
+        // check card counter
+        // compare
+        // assign center pile to the right pile
+        // Change turn
+    };
+
+    const restartGame = (lobby) => {
+        const deckId = getDeckId(lobby);
+        const reshuffleResponse = reshuffleDeck(deckId);
+        const drawAllCardsResponse = drawAllCards(deckId);
+
+        const players = getRoomUsers(lobby);
+        const numOfPlayers = players.length;
+
+        // Consider splitCards to return [[cards],[cards]] instead of {player1: [cards], player2: [cards]}
+        // It was fun playing with objects
+        const hands = splitCards(drawAllCardsResponse.cards, numOfPlayers);
+        const handsArr = Object.values(hands);
+
+        newPileRecord(lobby);
+
+        for (i = 0; i < numOfPlayers; i++) {
+            cardsToPile(deckId, players[i].id, handsArr[i]);
+            io.to(players[i].id).emit('get_hand', handsArr[i]);
+        }
+
+        io.in(lobby).emit('started_game');
+    };
+
     socket.on('game:start_game', startGame);
     socket.on('game:get_hand', getHand);
     socket.on('game:play_card', playCard);
-    socket.on('game:call_bs', callBS);
-    socket.on('game:win_game', winGame);
+    socket.on('game:callout', callout);
     socket.on('game:restart_game', restartGame);
 };
 

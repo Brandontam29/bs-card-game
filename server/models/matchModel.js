@@ -4,11 +4,23 @@ const { Schema } = mongoose;
 
 const matchSchema = new Schema({
     matchId: { type: Schema.Types.ObjectId, required: true },
-    date_started: { type: Date, required: true },
-    date_ended: { type: Date, required: true },
-    players_id: { type: [Schema.Types.ObjectId], required: true },
-    average_score: { type: Number, required: true },
-    average_mmr: { type: Number, required: true },
+    date_started: {
+        type: Date,
+        required: true,
+        default: new Date('December 17, 1995 03:24:00'),
+    },
+    date_ended: {
+        type: Date,
+        required: true,
+        default: new Date('December 25, 1995 03:24:00'),
+    },
+    players_id: {
+        type: [Schema.Types.ObjectId],
+        required: true,
+        default: ['123', '345', '567'],
+    },
+    average_mmr: { type: Number, required: true, default: 1000 },
+    deck_id: { type: String, required: true, default: '123456789012' },
 });
 
 export default mongoose.model('Match', matchSchema);

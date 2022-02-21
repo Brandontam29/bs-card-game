@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const handToPile = (deck_id, pile_name, cards) => {
+export const cardsToPile = (deck_id, pile_name, cards) => {
     let response;
     let cardCodes = '';
     cards.forEach((card) => {

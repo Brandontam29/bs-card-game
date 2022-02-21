@@ -1,20 +1,33 @@
 const decks = [];
 
-// Join user to chat
+// New Deck to track the deck_id by lobbyCode (don't want user to have access to the deck+_id)
 const newDeck = (id, lobbyCode) => {
-    const deck = { id, lobbyCode };
+    const deck = { id, lobbyCode, turn: 0 };
 
     decks.push(deck);
 
     return user;
 };
 
-// Get current user
-const getDeckByLobby = (lobbyCode) => {
-    return decks.find((deck) => deck.lobbyCode === lobbyCode);
+// Get deck_id
+const getDeckId = (lobbyCode) => {
+    const deck = decks.find((deck) => deck.lobbyCode === lobbyCode);
+    return deck.id;
 };
 
-// User leaves chat
+// Turns
+
+const incrementTurn = (lobbyCode) => {
+    const deck = decks.find((deck) => deck.lobbyCode === lobbyCode);
+    return (deck.turn += 1);
+};
+
+const getTurn = (lobbyCode) => {
+    const deck = decks.find((deck) => deck.lobbyCode === lobbyCode);
+    return deck.turn;
+};
+
+// Discard deck
 const dumpDeck = (lobbyCode) => {
     const index = decks.findIndex((deck) => deck.lobbyCode === lobbyCode);
     if (index !== -1) {
@@ -22,4 +35,4 @@ const dumpDeck = (lobbyCode) => {
     }
 };
 
-export { newDeck, getDeckByLobby, dumpDeck };
+export { newDeck, getDeckId, incrementTurn, getTurn, dumpDeck };
