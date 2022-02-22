@@ -12,8 +12,14 @@ import {
     setPlayers as setPlayersAction,
     setLobbyCode as setLobbyCodeAction,
     addMessage as addMessageAction,
-    setInGame,
+    setInGame as setInGameAction,
 } from '../../../redux/actions/lobbyActions';
+import { setHand as setHandAction } from '../../../redux/actions/handActions';
+import {
+    setTurnPlayer as setTurnPlayerAction,
+    setRanking as setRankingAction,
+    setCardNeeded as setCardNeededAction,
+} from '../../../redux/actions/gameActions';
 
 const propTypes = {
     socket: AppPropTypes.socket,
@@ -22,6 +28,10 @@ const propTypes = {
     setConnected: PropTypes.func.isRequired,
     setPlayers: PropTypes.func.isRequired,
     addMessage: PropTypes.func.isRequired,
+    setHand: PropTypes.func.isRequired,
+    setTurnPlayer: PropTypes.func.isRequired,
+    setRanking: PropTypes.func.isRequired,
+    setCardNeeded: PropTypes.func.isRequired,
     children: PropTypes.node,
 };
 
@@ -34,19 +44,24 @@ const socketio = io(`${process.env.REACT_APP_SERVER_API}`, {
     transports: ['websocket'],
 });
 
-const SocketProvider = ({
+/**
+ *
+ */
+const SocketListeners = ({
     socket,
     setSocket,
     setLobbyCode,
     setConnected,
     setPlayers,
     addMessage,
+    setHand,
+    setTurnPlayer,
+    setRanking,
+    setInGame,
+    setCardNeeded,
     children,
 }) => {
     const navigate = useNavigate();
-    useEffect(() => {
-        console.log(socketio);
-    });
 
     useEffect(() => {
         if (!socket) {
@@ -54,6 +69,7 @@ const SocketProvider = ({
         }
     });
 
+    //  Lobby events
     socketio.off('created_lobby').on('created_lobby', (code) => {
         console.log('created_lobby', code);
         setLobbyCode(code);
@@ -73,20 +89,44 @@ const SocketProvider = ({
         setPlayers(players);
     });
 
+    //  Message events
     socketio.off('new_message').on('new_message', (msg) => {
         console.log('new message', msg);
         addMessage(msg);
     });
 
-    socketio.off('started_game').on('started_game', (msg) => {
-        console.log('new message', msg);
+    // Game events
+    socketio.off('started_game').on('started_game', () => {
+        console.log('started_game');
         setInGame(true);
     });
+
+    socketio.off('get_hand').on('get_hand', (cards) => {
+        console.log('get_hand', cards);
+        setHand(cards);
+    });
+
+    socketio.off('udpated_clock').on('udpated_clock', (id) => {
+        console.log('udpated_clock', id);
+        setCardNeeded(id);
+    });
+
+    socketio.off('udpated_turn').on('udpated_turn', (id) => {
+        console.log('udpated_turn', id);
+        setTurnPlayer(id);
+    });
+
+    socketio.off('finished_game').on('finished_game', (ranks) => {
+        console.log('finished_game', ranks);
+        setInGame(false);
+        setRanking(ranks);
+    });
+
     return children;
 };
 
-SocketProvider.propTypes = propTypes;
-SocketProvider.defaultProps = defaultProps;
+SocketListeners.propTypes = propTypes;
+SocketListeners.defaultProps = defaultProps;
 
 const WithReduxContainer = connect(
     ({ site }) => ({
@@ -98,7 +138,12 @@ const WithReduxContainer = connect(
         setConnected: (value) => dispatch(setConnectedAction(value)),
         setPlayers: (value) => dispatch(setPlayersAction(value)),
         addMessage: (value) => dispatch(addMessageAction(value)),
+        setHand: (value) => dispatch(setHandAction(value)),
+        setTurnPlayer: (value) => dispatch(setTurnPlayerAction(value)),
+        setRanking: (value) => dispatch(setRankingAction(value)),
+        setInGame: (value) => dispatch(setInGameAction(value)),
+        setCardNeeded: (value) => dispatch(setCardNeededAction(value)),
     }),
-)(SocketProvider);
+)(SocketListeners);
 
 export default WithReduxContainer;

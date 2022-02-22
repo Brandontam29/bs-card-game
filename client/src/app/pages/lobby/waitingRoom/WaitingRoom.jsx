@@ -9,19 +9,10 @@ import * as AppPropTypes from '../../../../lib/PropTypes';
 const propTypes = {
     socket: AppPropTypes.socket.isRequired,
     lobbyCode: PropTypes.string.isRequired,
-    players: AppPropTypes.players,
+    players: AppPropTypes.players.isRequired,
 };
 
-const defaultProps = {
-    players: [
-        {
-            id: 'random',
-            name: 'hello',
-            avatar: '111111',
-            lobby: 'none',
-        },
-    ],
-};
+const defaultProps = {};
 
 const WaitingRoom = ({ socket, lobbyCode, players }) => {
     useEffect(() => {
@@ -51,7 +42,9 @@ const WaitingRoom = ({ socket, lobbyCode, players }) => {
                 </ul>
             </div>
 
-            <button type="button" onClick={startGame}></button>
+            <button type="button" onClick={startGame}>
+                Start Game
+            </button>
         </>
     );
 };

@@ -61,7 +61,7 @@ const CreateAvatar = ({ avatar, setAvatar }) => {
                 </button>
             </div>
             {/* Avatar */}
-            <div className=" ">
+            <div className="">
                 <div />
                 <div className="">
                     <Avatar name={avatar} square="true" variant="beam" size={60} />

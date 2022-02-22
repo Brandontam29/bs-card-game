@@ -3,14 +3,14 @@ import { useRoutes } from 'react-router-dom';
 import { Lobby, Home, NotFound } from './pages/lazyloadPages';
 
 import Layout from './sharedComponents/navigation/Layout';
-import SocketProvider from './sharedComponents/provider/SocketProvider';
+import SocketListeners from './sharedComponents/listeners/SocketListeners';
 
 const Routing = () => {
     const PageWrapper = (children) => {
         return (
-            <SocketProvider>
+            <SocketListeners>
                 <Layout>{children}</Layout>
-            </SocketProvider>
+            </SocketListeners>
         );
     };
 

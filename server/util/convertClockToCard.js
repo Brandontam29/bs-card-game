@@ -1,5 +1,5 @@
-export const getTurnCard = (turn) => {
-    const number = (turn % 13) + 1;
+export const convertClockToCard = (cardClock) => {
+    const number = (cardClock % 13) + 1;
 
     switch (number) {
         case 1: {

@@ -17,19 +17,11 @@ export const setPlayers = (payload) => ({
     payload,
 });
 
-export const incremementRound = () => ({
-    type: INCREMENT_ROUND,
-});
-
-export const setRound = (payload) => ({
-    type: SET_ROUND,
-    payload,
-});
-
 export const setLobbyCode = (payload) => ({
     type: SET_LOBBY_CODE,
     payload,
 });
+
 export const addMessage = (payload) => ({
     type: ADD_MESSAGE,
     payload,

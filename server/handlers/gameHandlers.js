@@ -1,11 +1,12 @@
 import { splitCards } from '../util/splitCards.js';
+
 import { cardsToPile } from '../deckOfCardsApi/cardsToPile.js';
 import { drawAllCards } from '../deckOfCardsApi/drawAllCards.js';
 import { getNewDeck } from '../deckOfCardsApi/getNewDeck.js';
 import { rankPlayers } from '../deckOfCardsApi/rankPlayers.js';
 import { reshuffleDeck } from '../deckOfCardsApi/reshuffleDeck.js';
-import { getTurnCard } from '../deckOfCardsApi/getTurnCard.js';
 import { compareCards } from '../deckOfCardsApi/compareCards.js';
+
 import {
     userJoin,
     getCurrentUser,
@@ -17,19 +18,66 @@ import {
     addRecord,
     getLastRecord,
     deletePileRecord,
-} from '../storage/centerPiles.js';
+} from '../storage/stack.js';
 import {
     newDeck,
     getDeckId,
     incrementTurn,
     setTurn,
     getTurn,
+    incrementCardClock,
+    getCardClock,
+    getTurnCard,
     dumpDeck,
 } from '../storage/decks.js';
 import { getTurnPlayerId } from '../util/getTurnPlayerId.js';
 
+// Todo Important
+/**
+ * Implement taking only one callout (the fastest)
+ * Implement individualized "Your callout was RIGHT"
+ */
+
+// Glossary (needs refactoring)
+/**
+ * centerPile: cards that are played face down
+ * center_pile_records: history of the number of cards played each time
+ * cardClock: counter that determines the turnCard
+ * turnCard: card that needs to be played to the center_pile
+ * turn: counter that determines the turn player
+ * turnPlayer: player that needs to play a card
+ * loser: the person who takes the cards after the callout
+ * hand: cards of a player
+ * ranks: players in order of least card when the game is finished
+ */
+
+// Naming Refactoring
+/**
+ * lobby vs code vs lobbyCode
+ * center_pile => stack
+ * center_pile_records => ???
+ * cardClock => ???
+ * turnCard =>???
+ * turn => ???
+ * turnPlayer => ???
+ * loser => ???
+ * ranks => ???
+ */
+
+// Structure Refactoring
+/**
+ * Differentiate API calls and util functions
+ * Implement clear cache
+ * Remove everything clumped into storage/deck
+ * Rename /storage (to caching?)
+ * Use hash map for efficiency
+ * Inplement database for games played, results and analytics
+ * Modularize even further
+ */
+
 const gameHandlers = (io, socket) => {
     const startGame = (lobby) => {
+        // Get new deck and distribute cards
         const getNewDeckResponse = getNewDeck();
         const deck = newDeck(getNewDeckResponse.deck_id, lobby);
         const drawAllCardsResponse = drawAllCards(deck_id);
@@ -48,6 +96,17 @@ const gameHandlers = (io, socket) => {
             io.to(players[i].id).emit('get_hand', handsArr[i]);
         }
 
+        // Get card clock
+        const turnCard = getTurnCard(lobby);
+
+        // Get turn player
+        const turn = Math.floor(Math.random() * numOfPlayers);
+        const turnPlayerId = getTurnPlayerId(players, turn);
+
+        // Get center pile record
+
+        io.in(lobby).emit('udpated_clock', turnCard);
+        io.in(lobby).emit('udpated_turn', turnPlayerId);
         io.in(lobby).emit('started_game');
     };
 
@@ -79,6 +138,10 @@ const gameHandlers = (io, socket) => {
         // Add number of cards placed to record
         addRecord(lobby, cards.length);
 
+        // Increment card clock
+        incrementCardClock();
+        const turnCard = getTurnCard(lobby);
+
         // Determine next turn
         const players = getRoomUsers(lobby);
         incrementTurn();
@@ -88,6 +151,7 @@ const gameHandlers = (io, socket) => {
         // Responses
         io.to(socket.id).emit('get_hand', currentHand);
         io.in(lobby).emit('udpated_turn', turnPlayerId);
+        io.in(lobby).emit('udpated_clock', turnCard);
     };
 
     const callout = (lobby) => {
@@ -130,7 +194,13 @@ const gameHandlers = (io, socket) => {
         const loserTurn = players.findIndex((player) => (player.id = loserId));
         setTurn(loserTurn);
 
+        // Increment card clock
+        incrementCardClock();
+        const turnCard = getTurnCard(lobby);
+
         // Responses
+
+        io.in(lobby).emit('udpated_clock', turnCard);
         io.to(loserId).emit('get_hand', loserHand);
         io.in(lobby).emit('udpated_turn', loserId);
     };
