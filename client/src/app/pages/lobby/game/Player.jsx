@@ -5,10 +5,6 @@ import Avatar from 'boring-avatars';
 
 import * as AppPropTypes from '../../../../lib/PropTypes';
 
-import Hand from './Hand';
-
-import { setPannelOpen as setPannelOpenAction } from '../../../../redux/actions/siteActions';
-
 const propTypes = {
     player: AppPropTypes.player.isRequired,
     hand: AppPropTypes.cards.isRequired,
@@ -24,7 +20,6 @@ const UserPlayerCard = ({ player, hand, className }) => {
         <div className={`${className}`}>
             <h4>{player.name}</h4>
             <Avatar name={player.avatar} square="true" variant="beam" size={60} />
-            <Hand />
         </div>
     );
 };

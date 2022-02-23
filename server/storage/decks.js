@@ -1,4 +1,5 @@
-import { convertClockToCard } from '../util/convertClockToCard';
+import { convertClockToCard } from '../util/convertClockToCard.js';
+
 const decks = [];
 
 // New Deck to track the deck_id by lobbyCode (don't want user to have access to the deck+_id)

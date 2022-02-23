@@ -1,46 +1,50 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import './Button.css';
+const propTypes = {
+    className: PropTypes.string,
+    href: PropTypes.string,
+    to: PropTypes.string,
+    exact: PropTypes.bool,
+    onClick: PropTypes.func,
+    disabled: PropTypes.bool,
+    children: PropTypes.node,
+};
 
-const Button = (props) => {
-    if (props.href) {
+const defaultProps = {
+    className: '',
+    href: null,
+    to: null,
+    exact: false,
+    onClick: () => {},
+    disabled: false,
+    children: <div />,
+};
+const Button = ({ className, href, to, exact, onClick, disabled, children }) => {
+    if (href) {
         return (
-            <a
-                className={`button button--${props.size || 'default'} ${
-                    props.inverse && 'button--inverse'
-                } ${props.danger && 'button--danger'}`}
-                href={props.href}
-            >
-                {props.children}
+            <a href={href} className={`${className}`}>
+                {children}
             </a>
         );
     }
-    if (props.to) {
+
+    if (to) {
         return (
-            <Link
-                to={props.to}
-                exact={props.exact}
-                className={`button button--${props.size || 'default'} ${
-                    props.inverse && 'button--inverse'
-                } ${props.danger && 'button--danger'}`}
-            >
-                {props.children}
+            <Link to={to} exact={exact} className={`${className}`}>
+                {children}
             </Link>
         );
     }
+
     return (
-        <button
-            className={`button button--${props.size || 'default'} ${
-                props.inverse && 'button--inverse'
-            } ${props.danger && 'button--danger'}`}
-            type={props.type}
-            onClick={props.onClick}
-            disabled={props.disabled}
-        >
-            {props.children}
+        <button type="button" onClick={onClick} disabled={disabled} className={`${className}`}>
+            {children}
         </button>
     );
 };
+
+Button.propTypes = propTypes;
+Button.defaultProps = defaultProps;
 
 export default Button;

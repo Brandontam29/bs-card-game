@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 
 import * as AppPropTypes from '../../../../lib/PropTypes';
 
+import Card from './Card';
+
 const propTypes = {
     hand: AppPropTypes.cards.isRequired,
     className: PropTypes.string,

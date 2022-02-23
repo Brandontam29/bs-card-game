@@ -10,7 +10,13 @@ import {
 
 const initialState = {
     inGame: false,
-    players: [],
+    players: [
+        {
+            id: 'NA',
+            name: 'NA',
+            avatar: 'NA',
+        },
+    ],
     round: 0,
     lobbyCode: null,
     messages: [],

@@ -5,6 +5,7 @@ const messageHandlers = (io, socket) => {
     const sendMessage = (msg) => {
         console.log('message:send');
         const user = getCurrentUser(socket.id);
+
         io.in(user.lobby).emit('new_message', formatMessage(user.name, msg));
     };
 

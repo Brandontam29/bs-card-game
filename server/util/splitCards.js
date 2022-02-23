@@ -1,4 +1,4 @@
-export const handToPile = (cardsArr, numOfPlayers) => {
+export const splitCards = (cardsArr, numOfPlayers) => {
     let hands = {};
     switch (numOfPlayers) {
         case 3: {

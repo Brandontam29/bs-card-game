@@ -5,8 +5,10 @@ import { connect } from 'react-redux';
 
 import * as AppPropTypes from '../../../../lib/PropTypes';
 
-import PlayerCard from './PlayerCard';
-import UserPlayerCard from './UserPlayerCard';
+import Player from './Player';
+import OtherPlayer from './OtherPlayer';
+import Hand from './Hand';
+import Controls from './Controls';
 import { setPannelOpen as setPannelOpenAction } from '../../../../redux/actions/siteActions';
 
 const propTypes = {
@@ -16,17 +18,18 @@ const propTypes = {
 const defaultProps = {};
 
 const Game = ({ players }) => {
-    useEffect(() => {});
     // TODO Implement style array to put players based on number of players
 
     return (
-        <div>
+        <div className="relative">
             {players.map((player) => (
-                <PlayerCard player={player} />
+                <OtherPlayer player={player} />
             ))}
 
             <div>Center Pile</div>
-            <UserPlayerCard />
+            <Player />
+            <Hand />
+            <Controls />
         </div>
     );
 };

@@ -1,20 +1,18 @@
 import axios from 'axios';
+import HttpError from '../models/http-error.js';
 
 export const getNewDeck = () => {
-    let response;
-    axios
-        .get({
-            url: 'https://deckofcardsapi.com/api/deck/new/shuffle/?jokers_enabled=true',
-        })
+    return axios
+        .get(
+            'https://deckofcardsapi.com/api/deck/new/shuffle/?jokers_enabled=true',
+        )
         .then((res) => {
-            response = res.data;
+            return res.data;
         })
         .catch((err) => {
             const error = new HttpError(err.messsage, 500);
-            response = error;
+            return error;
         });
-
-    return response;
 };
 
 // const exmaple_response = {

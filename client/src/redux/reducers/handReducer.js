@@ -1,28 +1,46 @@
-import { SET_HAND } from '../actions/handActions';
+import {
+    SET_HAND,
+    SELECT_CARD,
+    DESELECT_CARD,
+    DESELECT_ALL,
+    SORT_HAND,
+} from '../actions/handActions';
 
-const initialState = { hand: [] };
+const initialState = { hand: [], selectedCards: [] };
 
 const handReducer = (state = initialState, action) => {
     switch (action.type) {
-        // case ADD_CARDS: {
-        //     return {
-        //         ...state,
-        //         cards: [...state.cards, ...action.payload],
-        //     };
-        // }
-        // case REMOVE_CARDS: {
-        //     const toRemove = new Set(action.payload);
-        //     const difference = state.cards.filter((x) => !toRemove.has(x));
-
-        //     return {
-        //         ...state,
-        //         cards: difference,
-        //     };
-        // }
         case SET_HAND: {
             return {
                 ...state,
                 hand: action.payload,
+            };
+        }
+        case SORT_HAND: {
+            const sortedHand = state.hand.sort((a, b) => a - b);
+            return {
+                ...state,
+                hand: sortedHand,
+            };
+        }
+        case SELECT_CARD: {
+            return {
+                ...state,
+                selectedCards: [...state.cards, action.payload],
+            };
+        }
+        case DESELECT_CARD: {
+            const difference = state.cards.filter((card) => card.code === action.payload.code);
+
+            return {
+                ...state,
+                selectedCards: difference,
+            };
+        }
+        case DESELECT_ALL: {
+            return {
+                ...state,
+                selectedCards: [],
             };
         }
         default:

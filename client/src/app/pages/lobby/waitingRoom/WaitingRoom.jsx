@@ -16,11 +16,12 @@ const defaultProps = {};
 
 const WaitingRoom = ({ socket, lobbyCode, players }) => {
     useEffect(() => {
-        // console.log(players);
+        console.log('waiting room: ', socket);
     });
 
-    const startGame = () => {
-        socket.emit('game:start');
+    const onStartGame = () => {
+        console.log('game:start_game');
+        socket.emit('game:start_game');
     };
 
     return (
@@ -42,7 +43,7 @@ const WaitingRoom = ({ socket, lobbyCode, players }) => {
                 </ul>
             </div>
 
-            <button type="button" onClick={startGame}>
+            <button type="button" onClick={onStartGame}>
                 Start Game
             </button>
         </>
@@ -60,7 +61,7 @@ const WithReduxContainer = connect(
         players: lobby.players,
         lobbyCode: lobby.lobbyCode,
     }),
-    (dispatch) => ({}),
+    () => ({}),
 )(WaitingRoom);
 
 export default WithReduxContainer;

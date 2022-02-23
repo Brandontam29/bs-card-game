@@ -5,7 +5,7 @@ import Avatar from 'boring-avatars';
 
 import * as AppPropTypes from '../../../../lib/PropTypes';
 
-import { setPannelOpen as setPannelOpenAction } from '../../../../redux/actions/siteActions';
+import HiddenCards from './HiddenCards';
 
 const propTypes = {
     player: AppPropTypes.player.isRequired,
@@ -20,7 +20,8 @@ const PlayerCard = ({ player, className }) => {
     return (
         <div className={`${className}`}>
             <h4>{player.name}</h4>
-            <Avatar name={player.avatar} square="true" variant="beam" size={60} />
+            <Avatar name={player.avatar} square="true" variant="beam" size={40} />
+            <HiddenCards handSize={player.handSize} />
         </div>
     );
 };

@@ -8,19 +8,19 @@ const lobbyHandlers = (io, socket) => {
     const createLobby = (name, avatar) => {
         console.log('createLobby');
         const code = `${lobbyCodeGenerator()}`;
-        console.log(code);
         const user = userJoin(socket.id, name, avatar, code);
-        console.log(getRoomUsers(code));
         socket.join(code);
-        socket.emit('created_lobby', code);
         io.in(code).emit('update_players', getRoomUsers(code));
+        socket.emit('created_lobby', code);
     };
 
     const joinLobby = (name, avatar, lobby) => {
+        console.log('lobby:join');
         const user = userJoin(socket.id, name, avatar, lobby);
         socket.join(lobby);
-        socket.emit('joined_lobby', lobby);
+
         io.in(user.lobby).emit('update_players', getRoomUsers(user.lobby));
+        socket.emit('joined_lobby', lobby);
         io.in(user.lobby).emit(
             'new_message',
             formatMessage(botName, `${user.name} has joined the chat`),

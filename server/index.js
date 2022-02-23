@@ -5,7 +5,7 @@ import cors from 'cors';
 import { Server } from 'socket.io';
 
 import registerMessageHandlers from './handlers/messageHandlers.js';
-// import registerGameHandlers from './handlers/gameHandlers.js';
+import registerGameHandlers from './handlers/gameHandlers.js';
 import registerLobbyHandlers from './handlers/lobbyHandlers.js';
 
 // import deckRoutes from './routes/deckRoutes');
@@ -73,7 +73,7 @@ mongoose
             console.log('connected');
             registerMessageHandlers(io, socket);
             registerLobbyHandlers(io, socket);
-            // registerGameHandlers(io, socket);
+            registerGameHandlers(io, socket);
         });
     })
     .catch((err) => {
