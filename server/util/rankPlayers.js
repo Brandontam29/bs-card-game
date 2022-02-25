@@ -1,4 +1,4 @@
-import { getPile } from './getPile.js';
+import { getPile } from '../deckOfCardsApi/getPile.js';
 
 export const rankPlayers = (deckId, players) => {
     let rankedPlayers = [];

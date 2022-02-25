@@ -1,18 +1,15 @@
 import axios from 'axios';
+import HttpError from '../models/http-error.js';
 
-export const drawAllCards = (deck_id) => {
-    let response;
-
-    axios
-        .get({
-            url: `https://deckofcardsapi.com/api/deck/${deck_id}/draw/?count=54`,
-        })
+export const drawAllCards = async (deck_id) => {
+    const response = await axios
+        .get(`https://deckofcardsapi.com/api/deck/${deck_id}/draw/?count=54`)
         .then((res) => {
-            response = res.data;
+            return res.data;
         })
         .catch((err) => {
             const error = new HttpError(err.messsage, 500);
-            response = error;
+            return error;
         });
 
     return response;

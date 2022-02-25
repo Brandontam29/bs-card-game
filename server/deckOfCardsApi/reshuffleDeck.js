@@ -1,16 +1,15 @@
 import axios from 'axios';
+import HttpError from '../models/http-error.js';
 
-export const reshuffleDeck = (deck_id) => {
-    let response;
-
-    axios
+export const reshuffleDeck = async (deck_id) => {
+    const response = await axios
         .post(`https://deckofcardsapi.com/api/deck/${deck_id}/shuffle`)
         .then((res) => {
-            response = res.data;
+            return res.data;
         })
         .catch((err) => {
             const error = new HttpError(err.messsage, 500);
-            response = error;
+            return error;
         });
 
     return response;

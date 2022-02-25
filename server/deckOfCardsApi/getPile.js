@@ -1,17 +1,19 @@
 import axios from 'axios';
+import HttpError from '../models/http-error.js';
 
-export const getPile = (deck_id, pile_name) => {
-    let response;
-    axios
-        .get({
-            url: `https://deckofcardsapi.com/api/deck/${deck_id}/pile/${pile_name}/list/`,
-        })
+export const getPile = async (deck_id, pile_name) => {
+    const response = await axios
+        .get(
+            `https://deckofcardsapi.com/api/deck/${deck_id}/pile/${pile_name}/list/`,
+        )
         .then((res) => {
-            response = res.data.piles.pile_name.cards;
+            const cardsArr = res.data.piles[pile_name].cards;
+
+            return cardsArr;
         })
         .catch((err) => {
             const error = new HttpError(err.messsage, 500);
-            response = error;
+            return error;
         });
 
     return response;

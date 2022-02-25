@@ -1,22 +1,22 @@
 import axios from 'axios';
+import HttpError from '../models/http-error.js';
 
-export const cardsToPile = (deck_id, pile_name, cards) => {
-    let response;
+export const cardsToPile = async (deck_id, pile_name, cards) => {
     let cardCodes = '';
     cards.forEach((card) => {
         cardCodes += `${card.code},`;
     });
 
-    axios
-        .get({
-            url: `https://deckofcardsapi.com/api/deck/${deck_id}/pile/${pile_name}/add/?cards=${cardCodes}`,
-        })
+    const response = await axios
+        .get(
+            `https://deckofcardsapi.com/api/deck/${deck_id}/pile/${pile_name}/add/?cards=${cardCodes}`,
+        )
         .then((res) => {
-            response = res.data;
+            return res.data;
         })
         .catch((err) => {
             const error = new HttpError(err.messsage, 500);
-            response = error;
+            return error;
         });
 
     return response;
