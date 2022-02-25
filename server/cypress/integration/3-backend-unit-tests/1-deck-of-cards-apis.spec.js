@@ -12,7 +12,6 @@ describe('Test functions in the folder deckOfCardsApi', () => {
 
     it('getNewDeck', () => {
         const response = getNewDeck();
-        // deckId = response.deck_id;
 
         cy.wrap(response).should('have.property', 'success');
         cy.wrap(response).its('success').should('be.true');
