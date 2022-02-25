@@ -10,13 +10,7 @@ import {
 
 const initialState = {
     inGame: false,
-    players: [
-        {
-            id: 'NA',
-            name: 'NA',
-            avatar: 'NA',
-        },
-    ],
+    players: [],
     round: 0,
     lobbyCode: null,
     messages: [],
@@ -32,7 +26,7 @@ const lobbyReducer = (state = initialState, action) => {
         case SET_PLAYERS:
             return {
                 ...state,
-                players: [state.players, action.payload],
+                players: action.payload,
             };
         case INCREMENT_ROUND:
             return {

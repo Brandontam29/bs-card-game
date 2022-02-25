@@ -1,6 +1,6 @@
 {
-    "extends": ["airbnb", "prettier", "react-app", "react-app/jest"],
-    "plugins": ["prettier"],
+    "extends": ["airbnb", "prettier", "react-app"],
+    "plugins": ["prettier", "cypress"],
     // "parser": "@babel/eslint-parser",
     "parserOptions": {
         // "requireConfigFile": false,
@@ -14,7 +14,7 @@
         "browser": true,
         "node": true,
         "commonjs": true,
-        "jest": true
+        "cypress": true
     },
     "rules": {
         "indent": ["error", 4, { "SwitchCase": 1 }],
