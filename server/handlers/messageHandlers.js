@@ -1,4 +1,4 @@
-import formatMessage from '../util/formatMessage.js';
+import formatMessage from '../utils/formatMessage.js';
 import { getCurrentUser } from '../storage/users.js';
 
 const messageHandlers = (io, socket) => {

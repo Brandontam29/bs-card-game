@@ -52,6 +52,7 @@ const CharacterCreation = ({ socket, className }) => {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     className="border border-solid border-black px-2 w-full"
+                    data-cy="name"
                 />
                 <CreateAvatar avatar={avatar} setAvatar={setAvatar} />
             </form>
@@ -62,6 +63,7 @@ const CharacterCreation = ({ socket, className }) => {
                             type="button"
                             className="text-center w-full border border-solid border-black "
                             onClick={onCreateLobby}
+                            data-cy="create_lobby"
                         >
                             Create Lobby
                         </button>
@@ -80,6 +82,7 @@ const CharacterCreation = ({ socket, className }) => {
                                 lid ? 'disabled' : ''
                             } disabled:opacity-70 disabled:bg-gray-300`}
                             onClick={onJoinLobby}
+                            data-cy="join_lobby"
                         >
                             Join Lobby
                         </button>

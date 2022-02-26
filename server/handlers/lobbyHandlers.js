@@ -1,5 +1,5 @@
-import lobbyCodeGenerator from '../util/lobbyCodeGenerator.js';
-import formatMessage from '../util/formatMessage.js';
+import lobbyCodeGenerator from '../utils/lobbyCodeGenerator.js';
+import formatMessage from '../utils/formatMessage.js';
 import { userJoin, userLeave, getRoomUsers } from '../storage/users.js';
 
 const lobbyHandlers = (io, socket) => {

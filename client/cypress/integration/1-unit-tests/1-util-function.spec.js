@@ -8,6 +8,6 @@ describe('Test functions in utils (/src/lib/utils)', () => {
     });
 
     it('Add', () => {
-        cy.expect(add(1, 1)).to.equal(2);
+        expect(add(1, 1)).to.equal(2);
     });
 });

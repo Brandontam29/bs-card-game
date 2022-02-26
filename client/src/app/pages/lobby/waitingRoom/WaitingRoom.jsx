@@ -32,7 +32,13 @@ const WaitingRoom = ({ socket, lobbyCode, players }) => {
             </Helmet>
             <div>
                 Waiting for the host to start...
-                <div>Code: {lobbyCode}</div> <h3>Players</h3>
+                <div>
+                    Code:{' '}
+                    <span className="text-xl bold tracking-wide" data-cy="lobbyCode">
+                        {lobbyCode}
+                    </span>
+                </div>
+                <h3>Players</h3>
                 <ul>
                     {players.map((player) => (
                         <li key={player.id}>

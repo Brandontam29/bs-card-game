@@ -1,10 +1,10 @@
-import { splitCards } from '../util/splitCards.js';
-import { compareCards } from '../util/compareCards.js';
+import { splitCards } from '../utils/splitCards.js';
+import { compareCards } from '../utils/compareCards.js';
+import { rankPlayers } from '../utils/rankPlayers.js';
 
 import { cardsToPile } from '../deckOfCardsApi/cardsToPile.js';
 import { drawAllCards } from '../deckOfCardsApi/drawAllCards.js';
 import { getNewDeck } from '../deckOfCardsApi/getNewDeck.js';
-import { rankPlayers } from '../deckOfCardsApi/rankPlayers.js';
 import { reshuffleDeck } from '../deckOfCardsApi/reshuffleDeck.js';
 
 import {
@@ -30,7 +30,7 @@ import {
     getTurnCard,
     dumpDeck,
 } from '../storage/decks.js';
-import { getTurnPlayerId } from '../util/getTurnPlayerId.js';
+import { getTurnPlayerId } from '../utils/getTurnPlayerId.js';
 
 // Todo Important
 /**

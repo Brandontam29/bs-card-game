@@ -1,4 +1,4 @@
-import { convertClockToCard } from '../util/convertClockToCard.js';
+import { convertClockToCard } from '../utils/convertClockToCard.js';
 
 const decks = [];
 

@@ -23,8 +23,7 @@ const defaultProps = {
 const Messaging = ({ roomCode, socket, messages, className }) => {
     const [message, setMessage] = useState('');
 
-    const sendMessage = (e) => {
-        e.preventDefault();
+    const sendMessage = () => {
         console.log('message:send');
         socket.emit('message:send', message);
         setMessage('');
@@ -41,9 +40,7 @@ const Messaging = ({ roomCode, socket, messages, className }) => {
                 {messages.map((msg, key) => {
                     return (
                         <div className="">
-                            <div className="">
-                                {msg.name}: {msg.text}
-                            </div>
+                            {msg.name}: <span className="">{msg.text}</span>
                         </div>
                     );
                 })}
@@ -54,11 +51,10 @@ const Messaging = ({ roomCode, socket, messages, className }) => {
                     type="text"
                     placeholder="Message..."
                     value={message}
-                    onChange={(e) => {
-                        setMessage(e.target.value);
-                    }}
+                    onChange={(e) => setMessage(e.target.value)}
+                    data-cy="message"
                 />
-                <button type="button" onClick={(e) => sendMessage(e)}>
+                <button type="button" onClick={() => sendMessage()} data-cy="send_message">
                     Send
                 </button>
             </div>

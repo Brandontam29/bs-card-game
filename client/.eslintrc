@@ -14,7 +14,7 @@
         "browser": true,
         "node": true,
         "commonjs": true,
-        "cypress": true
+        "cypress/globals": true
     },
     "rules": {
         "indent": ["error", 4, { "SwitchCase": 1 }],
