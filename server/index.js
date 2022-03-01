@@ -13,8 +13,8 @@ import registerLobbyHandlers from './handlers/lobbyHandlers.js';
 // import matchRoutes from './routes/matchRoutes.js';
 // import userRoutes from './routes/userRoutes.js';
 import HttpError from './models/http-error.js';
-
 import dotenv from 'dotenv';
+
 dotenv.config();
 const app = express();
 app.use(bodyParser.json());
@@ -24,7 +24,6 @@ const password = encodeURIComponent(process.env.DB_PASS);
 const databaseName = encodeURIComponent(process.env.DB_NAME);
 
 const uri = `mongodb+srv://${user}:${password}@cluster0.rzpas.mongodb.net/${databaseName}?retryWrites=true&w=majority"`;
-
 // CORS Protocol
 app.use(
     cors({
@@ -65,7 +64,7 @@ mongoose
     .connect(uri, { useNewUrlParser: true })
     .then(() => {
         const server = app.listen(port, () => {
-            console.log(`BS Card Game at http://localhost:${port}`);
+            console.log(`Cheat Card Game at http://localhost:${port}`);
         });
 
         const io = new Server(server);
