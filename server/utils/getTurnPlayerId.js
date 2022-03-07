@@ -1,10 +1,11 @@
-export const getTurnPlayerId = (playerArr, turn) => {
+const getTurnPlayerId = (playerArr, turn) => {
     const index = turn % playerArr.length;
     const turnPlayerId = playerArr[index].id;
 
     return turnPlayerId;
 };
 
+module.exports = getTurnPlayerId;
 /*
     0 % 4 = 0
     1 % 4 = 1

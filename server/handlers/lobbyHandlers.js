@@ -1,13 +1,15 @@
-import lobbyCodeGenerator from '../utils/lobbyCodeGenerator.js';
-import formatMessage from '../utils/formatMessage.js';
-import { userJoin, userLeave, getRoomUsers } from '../storage/users.js';
+const lobbyCodeGenerator = require('../utils/lobbyCodeGenerator.js');
+const formatMessage = require('../utils/formatMessage.js');
+const { userJoin, userLeave, getRoomUsers } = require('../storage/users.js');
 
 const lobbyHandlers = (io, socket) => {
     const botName = 'Mr. BS';
 
-    const createLobby = (name, avatar) => {
-        console.log('createLobby');
-        const code = `${lobbyCodeGenerator()}`;
+    const createLobby = (name, avatar, lobby = null) => {
+        const code = lobby ? lobby : `${lobbyCodeGenerator()}`;
+
+        console.log('createLobby', `lobby: ${code}`);
+
         const user = userJoin(socket.id, name, avatar, code);
         socket.join(code);
         io.in(code).emit('update_players', getRoomUsers(code));
@@ -19,6 +21,7 @@ const lobbyHandlers = (io, socket) => {
         const user = userJoin(socket.id, name, avatar, lobby);
         socket.join(lobby);
 
+        console.log(getRoomUsers(user.lobby));
         io.in(user.lobby).emit('update_players', getRoomUsers(user.lobby));
         socket.emit('joined_lobby', lobby);
         io.in(user.lobby).emit(
@@ -47,4 +50,4 @@ const lobbyHandlers = (io, socket) => {
     socket.on('lobby:disconnect', disconnectLobby);
 };
 
-export default lobbyHandlers;
+module.exports = lobbyHandlers;

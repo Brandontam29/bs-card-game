@@ -1,7 +1,7 @@
-import axios from 'axios';
-import HttpError from '../models/http-error.js';
+const axios = require('axios');
+const HttpError = require('../models/http-error.js');
 
-export const getPile = async (deck_id, pile_name) => {
+const getPile = async (deck_id, pile_name) => {
     const response = await axios
         .get(
             `https://deckofcardsapi.com/api/deck/${deck_id}/pile/${pile_name}/list/`,
@@ -19,6 +19,7 @@ export const getPile = async (deck_id, pile_name) => {
     return response;
 };
 
+module.exports = getPile;
 // const exampleResponse = {
 //     success: true,
 //     deck_id: 'ojfgzb2v6qdz',

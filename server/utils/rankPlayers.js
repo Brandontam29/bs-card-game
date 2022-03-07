@@ -1,6 +1,6 @@
-import { getPile } from '../deckOfCardsApi/getPile.js';
+const { getPile } = require('../deckOfCardsApi/getPile.js');
 
-export const rankPlayers = (deckId, players) => {
+const rankPlayers = (deckId, players) => {
     let rankedPlayers = [];
 
     for (let i = 0; i < players.length; i++) {
@@ -16,3 +16,5 @@ export const rankPlayers = (deckId, players) => {
 
     return rankedPlayers;
 };
+
+module.exports = rankPlayers;

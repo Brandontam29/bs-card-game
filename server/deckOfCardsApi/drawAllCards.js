@@ -1,7 +1,7 @@
-import axios from 'axios';
-import HttpError from '../models/http-error.js';
+const axios = require('axios');
+const HttpError = require('../models/http-error.js');
 
-export const drawAllCards = async (deck_id) => {
+const drawAllCards = async (deck_id) => {
     const response = await axios
         .get(`https://deckofcardsapi.com/api/deck/${deck_id}/draw/?count=54`)
         .then((res) => {
@@ -14,6 +14,7 @@ export const drawAllCards = async (deck_id) => {
 
     return response;
 };
+module.exports = drawAllCards;
 
 // const exmapleResponse = {
 //     "success": true,

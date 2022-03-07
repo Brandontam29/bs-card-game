@@ -1,5 +1,5 @@
-import formatMessage from '../utils/formatMessage.js';
-import { getCurrentUser } from '../storage/users.js';
+const formatMessage = require('../utils/formatMessage.js');
+const { getCurrentUser } = require('../storage/users.js');
 
 const messageHandlers = (io, socket) => {
     const sendMessage = (msg) => {
@@ -12,4 +12,4 @@ const messageHandlers = (io, socket) => {
     socket.on('message:send', sendMessage);
 };
 
-export default messageHandlers;
+module.exports = messageHandlers;

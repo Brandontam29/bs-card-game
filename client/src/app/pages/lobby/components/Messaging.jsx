@@ -36,15 +36,15 @@ const Messaging = ({ roomCode, socket, messages, className }) => {
             })}
         >
             <h2>{roomCode}</h2>
-            <div className="">
+            <ul className="" data-cy="messages">
                 {messages.map((msg, key) => {
                     return (
-                        <div className="">
+                        <li className="">
                             {msg.name}: <span className="">{msg.text}</span>
-                        </div>
+                        </li>
                     );
                 })}
-            </div>
+            </ul>
 
             <div className="">
                 <input

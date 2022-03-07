@@ -24,4 +24,4 @@ const getUserByAccountId = async (req, res, next) => {
     res.json(JSON.stringify({ user }));
 };
 
-exports.getUserByAccountId = getUserByAccountId;
+module.exports = { getUserByAccountId };

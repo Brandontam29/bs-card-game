@@ -33,6 +33,6 @@ describe('One client from homepage to waiting room', () => {
         cy.get('[data-cy=message]').type(message);
         cy.get('[data-cy=send_message]').click();
 
-        cy.get('div span').last('span').should('exist');
+        cy.get('div span').last('span').should('include.text', message);
     });
 });

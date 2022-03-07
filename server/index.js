@@ -1,19 +1,19 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import mongoose from 'mongoose';
-import cors from 'cors';
-import { Server } from 'socket.io';
+const express = require('express');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const { Server } = require('socket.io');
 
-import registerMessageHandlers from './handlers/messageHandlers.js';
-import registerGameHandlers from './handlers/gameHandlers.js';
-import registerLobbyHandlers from './handlers/lobbyHandlers.js';
+const registerMessageHandlers = require('./handlers/messageHandlers.js');
+const registerGameHandlers = require('./handlers/gameHandlers.js');
+const registerLobbyHandlers = require('./handlers/lobbyHandlers.js');
 
-// import deckRoutes from './routes/deckRoutes');
-// import pileRoutes from './routes/pileRoutes');
-// import matchRoutes from './routes/matchRoutes.js';
-// import userRoutes from './routes/userRoutes.js';
-import HttpError from './models/http-error.js';
-import dotenv from 'dotenv';
+// const deckRoutes  = require('./routes/deckRoutes'));
+// const pileRoutes  = require('./routes/pileRoutes'));
+// const matchRoutes  = require('./routes/matchRoutes.js');
+// const userRoutes  = require('./routes/userRoutes.js');
+const HttpError = require('./models/http-error.js');
+const dotenv = require('dotenv');
 
 dotenv.config();
 const app = express();

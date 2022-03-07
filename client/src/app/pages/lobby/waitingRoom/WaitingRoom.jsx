@@ -39,7 +39,7 @@ const WaitingRoom = ({ socket, lobbyCode, players }) => {
                     </span>
                 </div>
                 <h3>Players</h3>
-                <ul>
+                <ul data-cy="players">
                     {players.map((player) => (
                         <li key={player.id}>
                             <b>{player.name}</b>

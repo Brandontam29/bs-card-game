@@ -18,4 +18,4 @@ const userSchema = new Schema({
     matches_id: { type: [Schema.Types.ObjectId], required: true },
 });
 
-export default mongoose.model('User', userSchema);
+module.exports = mongoose.model('User', userSchema);

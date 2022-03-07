@@ -1,7 +1,7 @@
-import axios from 'axios';
-import HttpError from '../models/http-error.js';
+const axios = require('axios');
+const HttpError = require('../models/http-error.js');
 
-export const cardsToPile = async (deck_id, pile_name, cards) => {
+const cardsToPile = async (deck_id, pile_name, cards) => {
     let cardCodes = '';
     cards.forEach((card) => {
         cardCodes += `${card.code},`;
@@ -22,6 +22,7 @@ export const cardsToPile = async (deck_id, pile_name, cards) => {
     return response;
 };
 
+module.exports = cardsToPile;
 // const exampleResponse = {
 //     "success": true,
 //     "deck_id": "3p40paa87x90",

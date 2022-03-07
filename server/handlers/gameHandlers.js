@@ -1,25 +1,25 @@
-import { splitCards } from '../utils/splitCards.js';
-import { compareCards } from '../utils/compareCards.js';
-import { rankPlayers } from '../utils/rankPlayers.js';
+const { splitCards } = require('../utils/splitCards.js');
+const { compareCards } = require('../utils/compareCards.js');
+const { rankPlayers } = require('../utils/rankPlayers.js');
 
-import { cardsToPile } from '../deckOfCardsApi/cardsToPile.js';
-import { drawAllCards } from '../deckOfCardsApi/drawAllCards.js';
-import { getNewDeck } from '../deckOfCardsApi/getNewDeck.js';
-import { reshuffleDeck } from '../deckOfCardsApi/reshuffleDeck.js';
+const { cardsToPile } = require('../deckOfCardsApi/cardsToPile.js');
+const { drawAllCards } = require('../deckOfCardsApi/drawAllCards.js');
+const { getNewDeck } = require('../deckOfCardsApi/getNewDeck.js');
+const { reshuffleDeck } = require('../deckOfCardsApi/reshuffleDeck.js');
 
-import {
+const {
     userJoin,
     getCurrentUser,
     userLeave,
     getRoomUsers,
-} from '../storage/users.js';
-import {
+} = require('../storage/users.js');
+const {
     newPileRecord,
     addRecord,
     getLastRecord,
     deletePileRecord,
-} from '../storage/stack.js';
-import {
+} = require('../storage/stack.js');
+const {
     newDeck,
     getDeckId,
     incrementTurn,
@@ -29,10 +29,10 @@ import {
     getCardClock,
     getTurnCard,
     dumpDeck,
-} from '../storage/decks.js';
-import { getTurnPlayerId } from '../utils/getTurnPlayerId.js';
+} = require('../storage/decks.js');
+const { getTurnPlayerId } = require('../utils/getTurnPlayerId.js');
 
-// Todo Important
+// Todo constant
 /**
  * Implement taking only one callout (the fastest)
  * Implement individualized "Your callout was RIGHT"
@@ -242,4 +242,4 @@ const gameHandlers = (io, socket) => {
     socket.on('game:restart_game', restartGame);
 };
 
-export default gameHandlers;
+module.exports = gameHandlers;

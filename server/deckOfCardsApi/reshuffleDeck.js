@@ -1,7 +1,7 @@
-import axios from 'axios';
-import HttpError from '../models/http-error.js';
+const axios = require('axios');
+const HttpError = require('../models/http-error.js');
 
-export const reshuffleDeck = async (deck_id) => {
+const reshuffleDeck = async (deck_id) => {
     const response = await axios
         .post(`https://deckofcardsapi.com/api/deck/${deck_id}/shuffle`)
         .then((res) => {
@@ -15,6 +15,7 @@ export const reshuffleDeck = async (deck_id) => {
     return response;
 };
 
+module.exports = reshuffleDeck;
 // const exampleResponse = {
 //     success: true,
 //     deck_id: 'ojfgzb2v6qdz',

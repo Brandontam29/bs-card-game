@@ -1,4 +1,4 @@
-export const splitCards = (cardsArr, numOfPlayers) => {
+const splitCards = (cardsArr, numOfPlayers) => {
     let hands = {};
     switch (numOfPlayers) {
         case 3: {
@@ -34,3 +34,5 @@ export const splitCards = (cardsArr, numOfPlayers) => {
 
     return hands;
 };
+
+module.exports = splitCards;

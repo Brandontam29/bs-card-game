@@ -11,4 +11,4 @@ const formatMessage = (name, text) => {
     };
 };
 
-export default formatMessage;
+module.exports = formatMessage;

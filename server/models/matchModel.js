@@ -23,4 +23,4 @@ const matchSchema = new Schema({
     deck_id: { type: String, required: true, default: '123456789012' },
 });
 
-export default mongoose.model('Match', matchSchema);
+module.exports = mongoose.model('Match', matchSchema);

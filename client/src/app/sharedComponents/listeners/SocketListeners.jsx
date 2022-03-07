@@ -64,8 +64,6 @@ const SocketListeners = ({
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log(socket);
-        console.log(process.env.REACT_APP_SERVER_API);
         if (!socket) {
             setSocket(socketio);
         }

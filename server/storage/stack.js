@@ -27,4 +27,4 @@ const deletePileRecord = (lobbyCode) => {
     }
 };
 
-export { newPileRecord, addRecord, getLastRecord, deletePileRecord };
+module.exports = { newPileRecord, addRecord, getLastRecord, deletePileRecord };

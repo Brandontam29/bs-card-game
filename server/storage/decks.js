@@ -1,4 +1,4 @@
-import { convertClockToCard } from '../utils/convertClockToCard.js';
+const { convertClockToCard } = require('../utils/convertClockToCard.js');
 
 const decks = [];
 
@@ -57,7 +57,7 @@ const dumpDeck = (lobbyCode) => {
     }
 };
 
-export {
+module.exports = {
     newDeck,
     getDeckId,
     incrementTurn,

@@ -1,4 +1,4 @@
-export const convertClockToCard = (cardClock) => {
+const convertClockToCard = (cardClock) => {
     const number = (cardClock % 13) + 1;
 
     switch (number) {
@@ -18,7 +18,7 @@ export const convertClockToCard = (cardClock) => {
             return `${number}`;
     }
 };
-
+module.exports = convertClockToCard;
 /*
     0 % 13 = 0
     1 % 13 = 1

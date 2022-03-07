@@ -1,4 +1,4 @@
-import ShortUniqueId from 'short-unique-id';
+const ShortUniqueId = require('short-unique-id');
 
 const options = {
     length: 6,
@@ -7,4 +7,4 @@ const options = {
 
 const lobbyCode = new ShortUniqueId(options);
 
-export default lobbyCode;
+module.exports = lobbyCode;
