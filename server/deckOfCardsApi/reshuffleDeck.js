@@ -15,7 +15,7 @@ const reshuffleDeck = async (deck_id) => {
     return response;
 };
 
-module.exports = reshuffleDeck;
+module.exports = { reshuffleDeck };
 // const exampleResponse = {
 //     success: true,
 //     deck_id: 'ojfgzb2v6qdz',

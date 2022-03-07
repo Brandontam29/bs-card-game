@@ -8,7 +8,7 @@ const newDeck = (id, lobbyCode) => {
 
     decks.push(deck);
 
-    return user;
+    return deck;
 };
 
 // Get deck_id

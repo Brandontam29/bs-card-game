@@ -20,7 +20,7 @@ describe('One client from homepage to waiting room', () => {
         cy.get('[data-cy=create_lobby]').click();
 
         cy.url().should('include', 'lobby/');
-        cy.get('[data-cy=lobbyCode]').invoke('text').should('have.length', 6);
+        cy.get('[data-cy=lobby_code]').invoke('text').should('have.length', 6);
         cy.get('ul li').last('li').should('include.text', name);
     });
 

@@ -5,6 +5,10 @@ const options = {
     dictionary: 'alpha_upper',
 };
 
-const lobbyCode = new ShortUniqueId(options);
+const lobbyCodeGenerator = () => {
+    const code = new ShortUniqueId(options);
 
-module.exports = lobbyCode;
+    return code();
+};
+
+module.exports = { lobbyCodeGenerator };

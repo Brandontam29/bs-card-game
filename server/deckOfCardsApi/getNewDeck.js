@@ -24,7 +24,7 @@ const getNewDeck = async () => {
     return response;
 };
 
-module.exports = getNewDeck;
+module.exports = { getNewDeck };
 // const exmaple_response = {
 //     success: true,
 //     deck_id: '29dj3x5w4nf1',

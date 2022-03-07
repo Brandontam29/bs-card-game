@@ -1,14 +1,14 @@
-const lobbyCodeGenerator = require('../utils/lobbyCodeGenerator.js');
-const formatMessage = require('../utils/formatMessage.js');
+const { lobbyCodeGenerator } = require('../utils/lobbyCodeGenerator.js');
+const { formatMessage } = require('../utils/formatMessage.js');
 const { userJoin, userLeave, getRoomUsers } = require('../storage/users.js');
 
 const lobbyHandlers = (io, socket) => {
     const botName = 'Mr. BS';
 
     const createLobby = (name, avatar, lobby = null) => {
-        const code = lobby ? lobby : `${lobbyCodeGenerator()}`;
+        const code = lobby ? lobby : lobbyCodeGenerator();
 
-        console.log('createLobby', `lobby: ${code}`);
+        console.log('createLobby', code);
 
         const user = userJoin(socket.id, name, avatar, code);
         socket.join(code);

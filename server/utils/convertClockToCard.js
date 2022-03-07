@@ -18,7 +18,7 @@ const convertClockToCard = (cardClock) => {
             return `${number}`;
     }
 };
-module.exports = convertClockToCard;
+module.exports = { convertClockToCard };
 /*
     0 % 13 = 0
     1 % 13 = 1

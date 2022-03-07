@@ -35,4 +35,4 @@ const splitCards = (cardsArr, numOfPlayers) => {
     return hands;
 };
 
-module.exports = splitCards;
+module.exports = { splitCards };

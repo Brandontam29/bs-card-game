@@ -19,7 +19,7 @@ const getPile = async (deck_id, pile_name) => {
     return response;
 };
 
-module.exports = getPile;
+module.exports = { getPile };
 // const exampleResponse = {
 //     success: true,
 //     deck_id: 'ojfgzb2v6qdz',

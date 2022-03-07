@@ -11,4 +11,4 @@ const formatMessage = (name, text) => {
     };
 };
 
-module.exports = formatMessage;
+module.exports = { formatMessage };

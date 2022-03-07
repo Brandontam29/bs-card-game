@@ -3,4 +3,4 @@ const compareCards = (cardsArr, card) => {
     return index === -1;
 };
 
-module.exports = compareCards;
+module.exports = { compareCards };

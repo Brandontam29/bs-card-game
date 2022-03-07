@@ -9,7 +9,7 @@ describe('One client from homepage to waiting room', () => {
 
     before(() => {});
 
-    it('Visit Webpage', () => {
+    it('Emulate no window open join room', () => {
         cy.visit('/');
 
         cy.get('[data-cy=name]').type(name);
@@ -17,7 +17,7 @@ describe('One client from homepage to waiting room', () => {
 
         let lobbyCode;
 
-        cy.get('[data-cy=lobbyCode]')
+        cy.get('[data-cy=lobby_code]')
             .invoke('text')
             .then((text) => {
                 cy.log(text);
@@ -27,26 +27,40 @@ describe('One client from homepage to waiting room', () => {
                 expect(lobbyCode).have.length(6);
             })
             .then(() => {
-                cy.task('connect', { username: name2, room: lobbyCode });
-                cy.task('sendMessage', message2);
+                cy.task('connect', { username: name2, room: lobbyCode }).then(
+                    () => {
+                        cy.task('sendMessage', message2).then(() => {
+                            cy.get('ul[data-cy=players] li')
+                                .last('li')
+                                .should('include.text', name2);
+
+                            cy.get('ul[data-cy=messages] li')
+                                .last('li')
+                                .should('include.text', message2);
+                        });
+                    },
+                );
+            });
+    });
+
+    it('Go to game room', () => {
+        cy.visit('/');
+
+        cy.get('[data-cy=name]').type(name);
+        cy.get('[data-cy=create_lobby]').click();
+
+        let lobbyCode;
+
+        cy.get('[data-cy=lobby_code]')
+            .invoke('text')
+            .then((text) => {
+                cy.log(text);
+                lobbyCode = text;
             })
             .then(() => {
-                cy.get('ul[data-cy=players] li')
-                    .last('li')
-                    .should('include.text', name2);
-
-                cy.get('ul[data-cy=messages] li')
-                    .last('li')
-                    .should('include.text', message2);
+                cy.task('connect', { username: name2, room: lobbyCode });
             });
 
-        // Connect doesn't work yet
-        // cy.task('connect', { username: name2, room: lobbyCode });
-
-        // cy.get('[data-cy=message]').type(message);
-        // cy.get('[data-cy=send_message]').click();
-
-        // cy.task('sendMessage', message2);
-        // cy.get('span').last().should('have.text', message2);
+        cy.get('button[data-cy=start_game]').click();
     });
 });

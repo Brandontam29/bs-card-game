@@ -14,7 +14,8 @@ const drawAllCards = async (deck_id) => {
 
     return response;
 };
-module.exports = drawAllCards;
+
+module.exports = { drawAllCards };
 
 // const exmapleResponse = {
 //     "success": true,

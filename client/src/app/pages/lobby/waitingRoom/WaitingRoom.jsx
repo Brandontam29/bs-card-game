@@ -21,7 +21,7 @@ const WaitingRoom = ({ socket, lobbyCode, players }) => {
 
     const onStartGame = () => {
         console.log('game:start_game');
-        // socket.emit('game:start_game');
+        socket.emit('game:start_game');
     };
 
     return (
@@ -34,7 +34,7 @@ const WaitingRoom = ({ socket, lobbyCode, players }) => {
                 Waiting for the host to start...
                 <div>
                     Code:{' '}
-                    <span className="text-xl bold tracking-wide" data-cy="lobbyCode">
+                    <span className="text-xl bold tracking-wide" data-cy="lobby_code">
                         {lobbyCode}
                     </span>
                 </div>
@@ -49,7 +49,7 @@ const WaitingRoom = ({ socket, lobbyCode, players }) => {
                 </ul>
             </div>
 
-            <button type="button" onClick={onStartGame}>
+            <button type="button" onClick={onStartGame} data-cy="start_game">
                 Start Game
             </button>
         </>

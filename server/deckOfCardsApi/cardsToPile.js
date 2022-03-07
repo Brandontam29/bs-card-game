@@ -22,7 +22,7 @@ const cardsToPile = async (deck_id, pile_name, cards) => {
     return response;
 };
 
-module.exports = cardsToPile;
+module.exports = { cardsToPile };
 // const exampleResponse = {
 //     "success": true,
 //     "deck_id": "3p40paa87x90",

@@ -30,50 +30,8 @@ const {
     getTurnCard,
     dumpDeck,
 } = require('../storage/decks.js');
+
 const { getTurnPlayerId } = require('../utils/getTurnPlayerId.js');
-
-// Todo constant
-/**
- * Implement taking only one callout (the fastest)
- * Implement individualized "Your callout was RIGHT"
- */
-
-// Glossary (needs refactoring)
-/**
- * centerPile: cards that are played face down
- * center_pile_records: history of the number of cards played each time
- * cardClock: counter that determines the turnCard
- * turnCard: card that needs to be played to the center_pile
- * turn: counter that determines the turn player
- * turnPlayer: player that needs to play a card
- * loser: the person who takes the cards after the callout
- * hand: cards of a player
- * ranks: players in order of least card when the game is finished
- */
-
-// Naming Refactoring
-/**
- * lobby vs code vs lobbyCode
- * center_pile => stack
- * center_pile_records => ???
- * cardClock => ???
- * turnCard =>???
- * turn => ???
- * turnPlayer => ???
- * loser => ???
- * ranks => ???
- */
-
-// Structure Refactoring
-/**
- * Differentiate API calls and util functions
- * Implement clear cache
- * Remove everything clumped into storage/deck
- * Rename /storage (to caching?)
- * Use hash map for efficiency
- * Inplement database for games played, results and analytics
- * Modularize even further
- */
 
 const gameHandlers = (io, socket) => {
     const startGame = async (lobby) => {
@@ -82,7 +40,7 @@ const gameHandlers = (io, socket) => {
         const getNewDeckResponse = await getNewDeck();
         console.log('game handler', getNewDeckResponse);
         const deck = newDeck(getNewDeckResponse.deck_id, lobby);
-        const drawAllCardsResponse = await drawAllCards(deck_id);
+        const drawAllCardsResponse = await drawAllCards(deck.deck_id);
 
         const players = getRoomUsers(lobby);
         const numOfPlayers = players.length;

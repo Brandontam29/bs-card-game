@@ -17,4 +17,4 @@ const rankPlayers = (deckId, players) => {
     return rankedPlayers;
 };
 
-module.exports = rankPlayers;
+module.exports = { rankPlayers };

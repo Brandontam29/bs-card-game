@@ -5,7 +5,7 @@ const getTurnPlayerId = (playerArr, turn) => {
     return turnPlayerId;
 };
 
-module.exports = getTurnPlayerId;
+module.exports = { getTurnPlayerId };
 /*
     0 % 4 = 0
     1 % 4 = 1
