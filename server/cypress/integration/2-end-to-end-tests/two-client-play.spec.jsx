@@ -7,8 +7,6 @@ describe('One client from homepage to waiting room', () => {
     const name2 = 'Cypress_Bot';
     const message2 = 'I am the cypress bot';
 
-    before(() => {});
-
     it('Go to game room', () => {
         cy.visit('/');
 
@@ -22,10 +20,10 @@ describe('One client from homepage to waiting room', () => {
             .then((text) => {
                 cy.log(text);
                 lobbyCode = text;
-            })
-            .then(() => {
-                cy.task('connect', { username: name2, room: lobbyCode });
             });
+        cy.wrap(null).then(() =>
+            cy.task('connect', { username: name2, room: lobbyCode }),
+        );
 
         cy.get('button[data-cy=start_game]').click();
     });

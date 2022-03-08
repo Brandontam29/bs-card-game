@@ -75,7 +75,7 @@ const CharacterCreation = ({ socket, className }) => {
                             value={lobbyCode}
                             onChange={(e) => setLobbyCode(e.target.value)}
                             className="border border-solid border-black mb-3 px-2 w-full"
-                            data-cy="lobby_code"
+                            data-cy="input_lobby_code"
                         />
                         <button
                             type="button"

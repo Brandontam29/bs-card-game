@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe('One client from homepage to waiting room', () => {
+describe('Emulate two client events', () => {
     const name = 'Brandon Tam';
     const message = 'Hi how are you doing?';
 
@@ -9,58 +9,34 @@ describe('One client from homepage to waiting room', () => {
 
     before(() => {});
 
-    it('Emulate no window open join room', () => {
+    it('Client and Cypress in Waiting Room', () => {
         cy.visit('/');
 
         cy.get('[data-cy=name]').type(name);
         cy.get('[data-cy=create_lobby]').click();
 
         let lobbyCode;
+        cy.url().should('include', 'lobby/');
+        cy.wrap(null).then(() =>
+            cy
+                .get('[data-cy=lobby_code]')
+                .invoke('text')
+                .then((text) => {
+                    lobbyCode = text;
+                    expect(text).have.length(6);
+                }),
+        );
 
-        cy.get('[data-cy=lobby_code]')
-            .invoke('text')
-            .then((text) => {
-                cy.log(text);
-                lobbyCode = text;
-            })
-            .then(() => {
-                expect(lobbyCode).have.length(6);
-            })
-            .then(() => {
-                cy.task('connect', { username: name2, room: lobbyCode }).then(
-                    () => {
-                        cy.task('sendMessage', message2).then(() => {
-                            cy.get('ul[data-cy=players] li')
-                                .last('li')
-                                .should('include.text', name2);
+        cy.wrap(null).then(() =>
+            cy.task('connect', { username: name2, room: lobbyCode }),
+        );
 
-                            cy.get('ul[data-cy=messages] li')
-                                .last('li')
-                                .should('include.text', message2);
-                        });
-                    },
-                );
-            });
-    });
+        cy.wrap(null).then(() => cy.task('sendMessage', message2));
 
-    it('Go to game room', () => {
-        cy.visit('/');
+        cy.get('ul[data-cy=players] li').last().should('include.text', name2);
 
-        cy.get('[data-cy=name]').type(name);
-        cy.get('[data-cy=create_lobby]').click();
-
-        let lobbyCode;
-
-        cy.get('[data-cy=lobby_code]')
-            .invoke('text')
-            .then((text) => {
-                cy.log(text);
-                lobbyCode = text;
-            })
-            .then(() => {
-                cy.task('connect', { username: name2, room: lobbyCode });
-            });
-
-        cy.get('button[data-cy=start_game]').click();
+        cy.get('ul[data-cy=messages] li')
+            .last()
+            .should('include.text', message2);
     });
 });

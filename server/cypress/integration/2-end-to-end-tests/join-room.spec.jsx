@@ -11,7 +11,7 @@ describe('One client from homepage to waiting room', () => {
         cy.visit('/');
 
         cy.get('[data-cy=name]').type(name);
-        cy.get('[data-cy=lobby_code]').type(lobby);
+        cy.get('[data-cy=input_lobby_code]').type(lobby);
         cy.get('[data-cy=join_lobby]').click();
 
         cy.get('[data-cy=lobbyCode]').invoke('text').should('have.length', 3);

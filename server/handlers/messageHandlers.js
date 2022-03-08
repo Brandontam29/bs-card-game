@@ -1,4 +1,4 @@
-const formatMessage = require('../utils/formatMessage.js');
+const { formatMessage } = require('../utils/formatMessage.js');
 const { getCurrentUser } = require('../storage/users.js');
 
 const messageHandlers = (io, socket) => {

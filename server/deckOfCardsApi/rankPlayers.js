@@ -1,4 +1,4 @@
-const { getPile } = require('../deckOfCardsApi/getPile.js');
+const { getPile } = require('./getPile.js');
 
 const rankPlayers = (deckId, players) => {
     let rankedPlayers = [];

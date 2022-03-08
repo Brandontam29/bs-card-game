@@ -51,6 +51,8 @@ describe('Test functions in the folder deckOfCardsApi', () => {
                 const gpResponse = getPile(deckId, pileName);
                 cy.wrap(gpResponse).should('to.exist');
 
+                cy.log('rank players (na)');
+
                 cy.log('reshuffleDeck');
                 const rdResponse = reshuffleDeck(deckId);
                 cy.wrap(rdResponse).should('have.property', 'success');

@@ -21,7 +21,7 @@ const WaitingRoom = ({ socket, lobbyCode, players }) => {
 
     const onStartGame = () => {
         console.log('game:start_game');
-        socket.emit('game:start_game');
+        socket.emit('game:start_game', lobbyCode);
     };
 
     return (

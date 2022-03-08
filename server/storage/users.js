@@ -24,7 +24,8 @@ const userLeave = (id) => {
 
 // Get lobby users
 const getRoomUsers = (lobby) => {
-    return users.filter((user) => user.lobby === lobby);
+    const filtered = users.filter((user) => user.lobby === lobby);
+    return filtered;
 };
 
 module.exports = { userJoin, getCurrentUser, userLeave, getRoomUsers };

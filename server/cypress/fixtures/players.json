@@ -1,0 +1,20 @@
+{
+    "players": [
+        {
+            "name": "Cypress Bot 1",
+            "id": "ID_XYZ_01"
+        },
+        {
+            "name": "Cypress Bot 2",
+            "id": "ID_XYZ_02"
+        },
+        {
+            "name": "Cypress Bot 3",
+            "id": "ID_XYZ_03"
+        },
+        {
+            "name": "Cypress Bot 4",
+            "id": "ID_XYZ_04"
+        }
+    ]
+}

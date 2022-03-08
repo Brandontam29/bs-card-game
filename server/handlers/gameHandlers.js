@@ -1,10 +1,10 @@
 const { splitCards } = require('../utils/splitCards.js');
 const { compareCards } = require('../utils/compareCards.js');
-const { rankPlayers } = require('../utils/rankPlayers.js');
 
 const { cardsToPile } = require('../deckOfCardsApi/cardsToPile.js');
 const { drawAllCards } = require('../deckOfCardsApi/drawAllCards.js');
 const { getNewDeck } = require('../deckOfCardsApi/getNewDeck.js');
+const { rankPlayers } = require('../deckOfCardsApi/rankPlayers.js');
 const { reshuffleDeck } = require('../deckOfCardsApi/reshuffleDeck.js');
 
 const {
@@ -35,12 +35,12 @@ const { getTurnPlayerId } = require('../utils/getTurnPlayerId.js');
 
 const gameHandlers = (io, socket) => {
     const startGame = async (lobby) => {
-        console.log('game:start');
+        console.log('game:start', lobby);
         // Get new deck and distribute cards
         const getNewDeckResponse = await getNewDeck();
-        console.log('game handler', getNewDeckResponse);
         const deck = newDeck(getNewDeckResponse.deck_id, lobby);
-        const drawAllCardsResponse = await drawAllCards(deck.deck_id);
+
+        const drawAllCardsResponse = await drawAllCards(deck.id);
 
         const players = getRoomUsers(lobby);
         const numOfPlayers = players.length;
@@ -60,6 +60,7 @@ const gameHandlers = (io, socket) => {
         const turnCard = getTurnCard(lobby);
 
         // Get turn player
+        console.log(players);
         const turn = Math.floor(Math.random() * numOfPlayers);
         const turnPlayerId = getTurnPlayerId(players, turn);
 
