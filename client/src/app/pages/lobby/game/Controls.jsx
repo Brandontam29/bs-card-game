@@ -8,6 +8,7 @@ import {
     deselectAll as deselectAllAction,
     sortHand as sortHandAction,
 } from '../../../../redux/actions/handActions';
+import className from '../../../../lib/className';
 
 const propTypes = {
     socket: AppPropTypes.socket.isRequired,
@@ -42,7 +43,7 @@ const Controls = ({ socket, turnPlayer, deselectAll, selectedCards, sortHand }) 
 
     return (
         <div>
-            <button type="button" onClick={onPlay} className={` ${enabled ? 'disabled' : ''}`}>
+            <button type="button" onClick={onPlay} className={className([{ disabled: !enabled }])}>
                 Play
             </button>
             <button type="button" onClick={onDeselect} className="">

@@ -14,10 +14,10 @@ describe('Waiting room page with random players', () => {
     const store = configureStore();
     before(() => {
         const players = [
-            { id: '111111', name: 'Cypress_Bot', avatar: '111111', lobby: '111111' },
-            { id: '222222', name: 'Cypress_Bot', avatar: '222222', lobby: '222222' },
-            { id: '333333', name: 'Cypress_Bot', avatar: '333333', lobby: '333333' },
-            { id: '444444', name: 'Cypress_Bot', avatar: '444444', lobby: '444444' },
+            { id: '111111', name: 'Cypress_Bot', avatar: '111111', lobby: 'ABCDEF' },
+            { id: '222222', name: 'Cypress_Bot', avatar: '222222', lobby: 'ABCDEF' },
+            { id: '333333', name: 'Cypress_Bot', avatar: '333333', lobby: 'ABCDEF' },
+            { id: '444444', name: 'Cypress_Bot', avatar: '444444', lobby: 'ABCDEF' },
         ];
 
         store.dispatch(setPlayers(players));

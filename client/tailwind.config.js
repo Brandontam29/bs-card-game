@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 module.exports = {
-    content: ['./public/**/*.html', './src/**/*.{js,jsx,ts,tsx,vue}'],
+    content: ['./src/**/*.{js,jsx,ts,tsx}'],
     theme: {
         fontFamily: {
             header: ['arial', 'sans-serif'],

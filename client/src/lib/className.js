@@ -2,6 +2,7 @@
 const argumentType = (arg) => {
     const argType = typeof arg;
 
+    // additional check because typeof null = 'object'
     if (arg === null) {
         return 'null';
     }
@@ -34,7 +35,7 @@ export const className = (arr) => {
         }
 
         if (argType === 'object') {
-            const keys = Object.keys(current);
+            const keys = Object.keys(current); // looping this way is faster
             for (let j = 0, lenJ = keys.length; j < lenJ; j++) {
                 if (current[keys[j]] === true) {
                     classes.push([keys[j]]);
@@ -45,7 +46,10 @@ export const className = (arr) => {
 
         if (argType === 'array') {
             if (current.length) {
-                classes.push(className(current));
+                const inner = className(current); // checks for [[]] which produces " "
+                if (inner.length) {
+                    classes.push(inner);
+                }
             }
             continue;
         }

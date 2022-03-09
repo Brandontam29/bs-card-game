@@ -13,7 +13,5 @@ describe('Character creation component', () => {
                 <CharacterCreation socket="none" />
             </ReduxProvider>,
         );
-
-        // cy.get('ul').find('li').should('exist');
     });
 });
