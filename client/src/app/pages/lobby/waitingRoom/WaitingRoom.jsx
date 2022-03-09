@@ -15,12 +15,9 @@ const propTypes = {
 const defaultProps = {};
 
 const WaitingRoom = ({ socket, lobbyCode, players }) => {
-    useEffect(() => {
-        // console.log('waiting room: ', socket);
-    });
+    useEffect(() => {});
 
     const onStartGame = () => {
-        console.log('game:start_game');
         socket.emit('game:start_game', lobbyCode);
     };
 

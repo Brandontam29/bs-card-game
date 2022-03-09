@@ -1,8 +1,32 @@
 {
     "players": [
-        { "id": "111111", "name": "Cypress_Bot 1", "avatar": "111111", "lobby": "ABCDEF" },
-        { "id": "222222", "name": "Cypress_Bot 2", "avatar": "222222", "lobby": "ABCDEF" },
-        { "id": "333333", "name": "Cypress_Bot 3", "avatar": "333333", "lobby": "ABCDEF" },
-        { "id": "444444", "name": "Cypress_Bot 4", "avatar": "444444", "lobby": "ABCDEF" }
+        {
+            "id": "111111",
+            "name": "Cypress_Bot 1",
+            "avatar": "111111",
+            "lobby": "ABCDEF",
+            "handSize": 27
+        },
+        {
+            "id": "222222",
+            "name": "Cypress_Bot 2",
+            "avatar": "222222",
+            "lobby": "ABCDEF",
+            "handSize": 1
+        },
+        {
+            "id": "333333",
+            "name": "Cypress_Bot 3",
+            "avatar": "333333",
+            "lobby": "ABCDEF",
+            "handSize": 0
+        },
+        {
+            "id": "444444",
+            "name": "Cypress_Bot 4",
+            "avatar": "444444",
+            "lobby": "ABCDEF",
+            "handSize": 3
+        }
     ]
 }

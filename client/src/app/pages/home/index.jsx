@@ -1,11 +1,12 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { connect } from 'react-redux';
 
-import * as AppPropTypes from '../../../lib/PropTypes';
+// import * as AppPropTypes from '../../../lib/PropTypes';
 
 import CharacterCreation from '../../sharedComponents/characterCreation/CharacterCreation';
 import News from './News';
+
 const propTypes = {};
 
 const defaultProps = {};
@@ -34,7 +35,7 @@ Home.propTypes = propTypes;
 Home.defaultProps = defaultProps;
 
 const WithReduxContainer = connect(
-    ({}) => ({}),
+    () => ({}),
     () => ({}),
 )(Home);
 

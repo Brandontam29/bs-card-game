@@ -6,21 +6,21 @@ import {
     SORT_HAND,
 } from '../actions/handActions';
 
-const initialState = { hand: [], selectedCards: [] };
+const initialState = { cards: [], selectedCards: [] };
 
 const handReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_HAND: {
             return {
                 ...state,
-                hand: action.payload,
+                cards: action.payload,
             };
         }
         case SORT_HAND: {
             const sortedHand = state.hand.sort((a, b) => a - b);
             return {
                 ...state,
-                hand: sortedHand,
+                cards: sortedHand,
             };
         }
         case SELECT_CARD: {

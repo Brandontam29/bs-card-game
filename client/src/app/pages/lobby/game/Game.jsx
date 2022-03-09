@@ -1,12 +1,12 @@
-import { useEffect } from 'react';
-import PropTypes from 'prop-types';
+// import { useEffect } from 'react';
+// import PropTypes from 'prop-types';
 // import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import * as AppPropTypes from '../../../../lib/PropTypes';
 
 import Player from './Player';
-import OtherPlayer from './OtherPlayer';
+import OtherPlayer from './opponent/OtherPlayer';
 import Hand from './Hand';
 import Controls from './Controls';
 import { setPannelOpen as setPannelOpenAction } from '../../../../redux/actions/siteActions';

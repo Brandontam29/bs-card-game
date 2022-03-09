@@ -9,7 +9,8 @@ import configureStore from '../../../src/redux/store/configureStore';
 import { setPlayers, setLobbyCode } from '../../../src/redux/actions/lobbyActions';
 import WaitingRoom from '../../../src/app/pages/lobby/waitingRoom/WaitingRoom';
 
-// const dispatch = useDispatch();
+import '../../../src/index.css';
+
 describe('Waiting room page with random players', () => {
     const store = configureStore();
     before(() => {

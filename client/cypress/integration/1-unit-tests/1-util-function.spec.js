@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 import { add } from '../../../src/lib/utils';
-import { className } from '../../../src/lib/className';
+import { classNames } from '../../../src/lib/classNames';
 
 describe('Test functions in utils (/src/lib/utils)', () => {
     it('Add', () => {
@@ -21,10 +21,10 @@ describe('Test functions in utils (/src/lib/utils)', () => {
             { 10: [] },
         ];
 
-        expect(className(argument)).to.be.a('string');
-        expect(className(argument)).to.equal('0 1 2 3 4 5 6 7 8 9');
+        expect(classNames(argument)).to.be.a('string');
+        expect(classNames(argument)).to.equal('0 1 2 3 4 5 6 7 8 9');
 
-        expect(className(invalidArgument)).to.be.a('string');
-        expect(className(invalidArgument)).to.be.empty();
+        expect(classNames(invalidArgument)).to.be.a('string');
+        expect(classNames(invalidArgument)).to.be.empty();
     });
 });

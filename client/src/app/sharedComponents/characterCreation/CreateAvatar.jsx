@@ -1,9 +1,6 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Avatar from 'boring-avatars';
-
-import * as AppPropTypes from '../../../lib/PropTypes';
 
 // import { setAvatar as setAvatarAction } from '../../../redux/actions/playerActions';
 
@@ -18,8 +15,6 @@ const propTypes = {
 const defaultProps = {};
 
 const CreateAvatar = ({ avatar, setAvatar }) => {
-    // const [avatar, setAvatar] = useState('000000');
-
     const randomize = () => {
         setAvatar(Math.floor(Math.random() * 10 ** 6).toString());
     };
@@ -92,9 +87,7 @@ CreateAvatar.defaultProps = defaultProps;
 
 const WithReduxContainer = connect(
     () => ({}),
-    (dispatch) => ({
-        // setAvatarAction: (value) => dispatch(setAvatarAction(value)),
-    }),
+    () => ({}),
 )(CreateAvatar);
 
 export default WithReduxContainer;

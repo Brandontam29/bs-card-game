@@ -10,7 +10,12 @@ import { Provider as ReduxProvider } from 'react-redux';
 import Lobby from '../../../src/app/pages/lobby';
 
 import configureStore from '../../../src/redux/store/configureStore';
-import { setPlayers, setLobbyCode, setInGame } from '../../../src/redux/actions/lobbyActions';
+import {
+    setPlayers,
+    setLobbyCode,
+    setInGame,
+    setMessages,
+} from '../../../src/redux/actions/lobbyActions';
 import { setAvatar, setConnected, setName } from '../../../src/redux/actions/playerActions';
 import { setHand } from '../../../src/redux/actions/handActions';
 import { setSocket } from '../../../src/redux/actions/siteActions';
@@ -35,9 +40,27 @@ describe('Lobby component testing', () => {
         cy.fixture('socket.json').then((socket) => {
             store.dispatch(setSocket(socket));
         });
+
+        cy.fixture('messages.json').then((file) => {
+            store.dispatch(setMessages(file.messages));
+        });
     });
 
-    it('With players and a lobby code', () => {
+    // it('Smallest screen (320 x 480)', () => {
+    //     cy.viewport('iphone-5', 'landscape');
+    //     mount(
+    //         <HelmetProvider>
+    //             <ReduxProvider store={store}>
+    //                 <Lobby />
+    //             </ReduxProvider>
+    //         </HelmetProvider>,
+    //     );
+
+    //     cy.screenshot();
+    // });
+
+    it('Phone screen (360 x 640)', () => {
+        cy.viewport(640, 360);
         mount(
             <HelmetProvider>
                 <ReduxProvider store={store}>
@@ -46,6 +69,46 @@ describe('Lobby component testing', () => {
             </HelmetProvider>,
         );
 
-        cy.get('ul').find('li').should('exist');
+        cy.screenshot();
     });
+
+    // it('iPad mini screen (768 x 1024)', () => {
+    //     mount(
+    //         <HelmetProvider>
+    //             <ReduxProvider store={store}>
+    //                 <Lobby />
+    //             </ReduxProvider>
+    //         </HelmetProvider>,
+    //     );
+    // });
+
+    // it('Medium DPI Laptop Screen (1366 x 368)', () => {
+    //     mount(
+    //         <HelmetProvider>
+    //             <ReduxProvider store={store}>
+    //                 <Lobby />
+    //             </ReduxProvider>
+    //         </HelmetProvider>,
+    //     );
+    // });
+
+    // it('High DPI Laptop Screen (1440 x 770)', () => {
+    //     mount(
+    //         <HelmetProvider>
+    //             <ReduxProvider store={store}>
+    //                 <Lobby />
+    //             </ReduxProvider>
+    //         </HelmetProvider>,
+    //     );
+    // });
+
+    // it('Normal Desktop Screen (1920 x 950)', () => {
+    //     mount(
+    //         <HelmetProvider>
+    //             <ReduxProvider store={store}>
+    //                 <Lobby />
+    //             </ReduxProvider>
+    //         </HelmetProvider>,
+    //     );
+    // });
 });

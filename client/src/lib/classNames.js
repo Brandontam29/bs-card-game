@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 /* eslint-disable no-continue */
 const argumentType = (arg) => {
     const argType = typeof arg;
@@ -18,7 +19,7 @@ const argumentType = (arg) => {
     return 'object';
 };
 
-export const className = (arr) => {
+export const classNames = (arr) => {
     const classes = [];
 
     for (let i = 0, len = arr.length; i < len; i++) {
@@ -46,7 +47,7 @@ export const className = (arr) => {
 
         if (argType === 'array') {
             if (current.length) {
-                const inner = className(current); // checks for [[]] which produces " "
+                const inner = classNames(current); // checks for [[]] which produces " "
                 if (inner.length) {
                     classes.push(inner);
                 }
@@ -57,5 +58,3 @@ export const className = (arr) => {
 
     return classes.join(' ');
 };
-
-export default className;

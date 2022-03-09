@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 // import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { classNames } from '../../../../lib/classNames';
 
 import * as AppPropTypes from '../../../../lib/PropTypes';
 
@@ -12,14 +13,14 @@ const propTypes = {
 };
 
 const defaultProps = {
-    className: '',
+    className: null,
 };
 
 const Hand = ({ hand, className }) => {
     return (
-        <div className={`${className}`}>
+        <div className={classNames('flex flex-row', [className])}>
             {hand.map((card) => (
-                <Card card={card.code} />
+                <Card card={card} />
             ))}
         </div>
     );
@@ -30,7 +31,7 @@ Hand.defaultProps = defaultProps;
 
 const WithReduxContainer = connect(
     ({ hand }) => ({
-        hand: hand.hand,
+        hand: hand.cards,
     }),
     () => ({}),
 )(Hand);

@@ -24,8 +24,6 @@ const CharacterCreation = ({ socket, className }) => {
     const { lid } = useParams();
 
     const onCreateLobby = () => {
-        console.log('create lobby');
-
         if (lid) {
             // do some error
             return;

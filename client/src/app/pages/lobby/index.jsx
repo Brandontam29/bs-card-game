@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Helmet } from 'react-helmet-async';
 // import { io } from 'socket.io-client';
 import { connect } from 'react-redux';
 
@@ -31,7 +30,7 @@ const Lobby = ({ inGame, connected }) => {
     return (
         <div className="relative">
             {inGame ? <Game /> : <WaitingRoom />}
-            <Messaging className="fixed bottom-0 right-0" />
+            <Messaging />
         </div>
     );
 };

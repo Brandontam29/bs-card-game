@@ -1,5 +1,5 @@
 {
-    "name": "bs-card-game-server",
+    "name": "cheat-card-game-server",
     "scripts": {
         "cypress": "npx cypress open"
     },

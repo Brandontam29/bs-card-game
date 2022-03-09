@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import Avatar from 'boring-avatars';
 
 import * as AppPropTypes from '../../../../lib/PropTypes';
+import { classNames } from '../../../../lib/classNames';
 
 const propTypes = {
     player: AppPropTypes.player.isRequired,
-    hand: AppPropTypes.cards.isRequired,
     className: PropTypes.string,
 };
 
@@ -15,9 +15,9 @@ const defaultProps = {
     className: '',
 };
 
-const UserPlayerCard = ({ player, hand, className }) => {
+const UserPlayerCard = ({ player, className }) => {
     return (
-        <div className={`${className}`}>
+        <div className={classNames([className])}>
             <h4>{player.name}</h4>
             <Avatar name={player.avatar} square="true" variant="beam" size={60} />
         </div>
@@ -30,7 +30,6 @@ UserPlayerCard.defaultProps = defaultProps;
 const WithReduxContainer = connect(
     ({ player, hand }) => ({
         player: player,
-        hand: hand.hand,
     }),
     () => ({}),
 )(UserPlayerCard);

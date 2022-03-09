@@ -19,10 +19,8 @@ const Feedback = ({ setPannelOpen }) => {
     const [body, setBody] = useState('');
     const [submitted, setSubmitted] = useState(false);
 
-    const onFormSubmit = (e) => {
-        e.preventDefault();
+    const handleSubmit = () => {
         setSubmitted(true);
-        console.log(email, body);
         // const id = setTimeout(() => setSubmitted(false), 3);
         // setPannelOpen(false);
         // return clearTimeout(id);
@@ -34,18 +32,15 @@ const Feedback = ({ setPannelOpen }) => {
                 <>
                     <h3>Thank you for your feedback</h3>
                     <p>
-                        We read every thing you send us, but it may take some
-                        time to change things, so thank you for your patience
+                        We read every thing you send us, but it may take some time to change things,
+                        so thank you for your patience
                     </p>
                 </>
             ) : (
                 <>
                     <h3>Give some Feeback</h3>
-                    <div>
-                        Your feedback is valuable in helping the development of
-                        this website.
-                    </div>
-                    <form onSubmit={onFormSubmit}>
+                    <div>Your feedback is valuable in helping the development of this website.</div>
+                    <form>
                         <div>
                             <label htmlFor="email">
                                 Email
@@ -69,7 +64,9 @@ const Feedback = ({ setPannelOpen }) => {
                             </label>
                         </div>
 
-                        <input type="submit" value="Submit" />
+                        <button type="button" onClick={handleSubmit}>
+                            Submit
+                        </button>
                     </form>
                 </>
             )}

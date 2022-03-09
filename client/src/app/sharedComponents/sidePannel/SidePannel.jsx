@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { connect } from 'react-redux';
 // import * as AppPropTypes from '../../lib/PropTypes';
 
@@ -7,6 +6,7 @@ import Rules from './Rules';
 import Feedback from './Feeback';
 
 import { setPannelOpen as setPannelOpenAction } from '../../../redux/actions/siteActions';
+import { classNames } from '../../../lib/classNames';
 
 const propTypes = {
     content: PropTypes.oneOf(['rules', 'feedback', 'none']),
@@ -36,12 +36,12 @@ const SidePannel = ({ content, hidden, setPannelOpen }) => {
     };
     return (
         <div
-            className={classNames(
+            className={classNames([
                 'absolute top-0 right-0 w-[320px] h-[100vh] flex flex-col bg-slate-400',
                 {
                     'translate-x-[320px]': !hidden,
                 },
-            )}
+            ])}
         >
             <button type="button" onClick={onClosePannel} className="text-right">
                 X

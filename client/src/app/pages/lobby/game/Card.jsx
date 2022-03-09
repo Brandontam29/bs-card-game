@@ -8,6 +8,8 @@ import {
     deselectCard as deselectCardAction,
 } from '../../../../redux/actions/handActions';
 
+import { classNames } from '../../../../lib/classNames';
+
 const propTypes = {
     card: AppPropTypes.card,
     selectCard: PropTypes.func.isRequired,
@@ -22,7 +24,7 @@ const defaultProps = {
         suit: 'NA',
         code: 'NA',
     },
-    className: '',
+    className: null,
 };
 
 const Card = ({ card, selectCard, deselectCard, className }) => {
@@ -39,8 +41,16 @@ const Card = ({ card, selectCard, deselectCard, className }) => {
     };
 
     return (
-        <button type="button" onClick={onClickCard} className={`${className}`}>
-            <img alt={`${card.value} of ${card.suit}`} src={card.img} className="" />
+        <button
+            type="button"
+            onClick={onClickCard}
+            className={classNames([
+                'w-20 h-auto',
+                { 'border solid border-yellow': selected },
+                className,
+            ])}
+        >
+            <img alt={`${card.value} of ${card.suit}`} src={card.image} className="" />
         </button>
     );
 };
