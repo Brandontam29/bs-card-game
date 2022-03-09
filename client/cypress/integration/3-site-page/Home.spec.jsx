@@ -7,10 +7,11 @@ import { Provider as ReduxProvider } from 'react-redux';
 
 import configureStore from '../../../src/redux/store/configureStore';
 import { setPlayers, setLobbyCode } from '../../../src/redux/actions/lobbyActions';
-import WaitingRoom from '../../../src/app/pages/lobby/waitingRoom/WaitingRoom';
+import '../../../src/styles/globals.css';
 
-// const dispatch = useDispatch();
-describe('Waiting room page with random players', () => {
+import Home from '../../../src/app/pages/home';
+
+describe('Home component testing', () => {
     const store = configureStore();
     before(() => {
         const players = [
@@ -19,7 +20,6 @@ describe('Waiting room page with random players', () => {
             { id: '333333', name: 'Cypress_Bot', avatar: '333333', lobby: '333333' },
             { id: '444444', name: 'Cypress_Bot', avatar: '444444', lobby: '444444' },
         ];
-
         store.dispatch(setPlayers(players));
         store.dispatch(setLobbyCode('Cypress_Lobby'));
     });
@@ -28,7 +28,7 @@ describe('Waiting room page with random players', () => {
         mount(
             <HelmetProvider>
                 <ReduxProvider store={store}>
-                    <WaitingRoom socket="none" />
+                    <Home socket="none" />
                 </ReduxProvider>
             </HelmetProvider>,
         );

@@ -40,7 +40,7 @@ const Card = ({ card, selectCard, deselectCard, className }) => {
 
     return (
         <button type="button" onClick={onClickCard} className={`${className}`}>
-            <img alt={`${card.value} of ${card.suit}`} src={card.img} />
+            <img alt={`${card.value} of ${card.suit}`} src={card.img} className="" />
         </button>
     );
 };

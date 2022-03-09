@@ -11,6 +11,7 @@ export const player = PropTypes.shape({
     id: PropTypes.string,
     name: PropTypes.string.isRequired,
     avatar: PropTypes.string.isRequired,
+    handSize: PropTypes.number,
     lobby: PropTypes.string,
 });
 

@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 const injectDevServer = require('@cypress/react/plugins/react-scripts');
 
 /// <reference types="cypress" />

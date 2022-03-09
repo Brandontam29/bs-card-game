@@ -29,9 +29,9 @@ const Lobby = ({ inGame, connected }) => {
         return <Login />;
     }
     return (
-        <div className="max-w-6xl mx-auto flex flex-col">
+        <div className="relative">
             {inGame ? <Game /> : <WaitingRoom />}
-            <Messaging className="mt-3 w-full" />
+            <Messaging className="fixed bottom-0 right-0" />
         </div>
     );
 };
