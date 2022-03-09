@@ -11,9 +11,10 @@ describe('All util functions', () => {
     before(() => {});
 
     it('compareCards', () => {
-        cy.fixtures('deck.json').then((deck) => {
-            cy.expect(compareCards(deck.cards, 'JOKER')).to.be.true;
+        cy.fixture('deck.json').then((deck) => {
             cy.expect(compareCards(deck.cards, 'DNE')).to.be.false;
+            cy.expect(compareCards(deck.cards, 'ACE')).to.be.true;
+            cy.expect(compareCards(deck.cards, 'JOKER')).to.be.true;
         });
     });
 
@@ -27,15 +28,16 @@ describe('All util functions', () => {
     });
 
     it('formatMessage', () => {
-        const message = formatMessage(
-            'Cypress Bot',
-            'This is the message of Cypress Bot',
-        );
-        cy.expect(message).to.have.all.keys('name', 'text', 'time');
-        cy.expect(message.name).to.equal('Cypress Bot');
-        cy.expect(message.text).to.equal('THis is the message of Cypress Bot');
-        cy.expect(message.time).to.be.a('string');
-        cy.expect(message.time).to.include(':');
+        const message = {
+            name: 'Cypress Bot',
+            text: 'This is the message of Cypress Bot',
+        };
+        const formattedMessage = formatMessage(message.name, message.text);
+        cy.expect(formattedMessage).to.have.all.keys('name', 'text', 'time');
+        cy.expect(formattedMessage.name).to.equal(message.name);
+        cy.expect(formattedMessage.text).to.equal(message.text);
+        cy.expect(formattedMessage.time).to.be.a('string');
+        cy.expect(formattedMessage.time).to.include(':');
     });
 
     it('getTurnPlayerId', () => {
