@@ -42,6 +42,8 @@
         "default-param-last": "off",
         "no-unused-vars": "warn",
         "react/no-unescaped-entities": ["off"],
-        "object-shorthand": ["off"]
+        "object-shorthand": ["off"],
+        "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+        "no-continue": "error"
     }
 }
