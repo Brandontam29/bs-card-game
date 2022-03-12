@@ -12,6 +12,7 @@ describe('Test functions in utils (/src/lib/utils)', () => {
         const argument = [0, 1, '2', { 3: true, 4: false, 5: 1 }, [4, '5 6', '7 8', 3 * 3]];
 
         const invalidArgument = [
+            '',
             {},
             [],
             [null, undefined],

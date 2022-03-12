@@ -44,6 +44,7 @@ const Card = ({ card, selectCard, deselectCard, className }) => {
         <button
             type="button"
             onClick={onClickCard}
+            data-cy={card.value}
             className={classNames([
                 'w-20 h-auto',
                 { 'border solid border-yellow': selected },

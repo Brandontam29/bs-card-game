@@ -30,7 +30,7 @@ export const classNames = (arr) => {
             continue;
         }
 
-        if (argType === 'string' || argType === 'number') {
+        if ((argType === 'string' && current.length !== 0) || argType === 'number') {
             classes.push(current);
             continue;
         }

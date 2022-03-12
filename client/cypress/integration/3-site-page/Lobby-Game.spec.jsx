@@ -55,8 +55,6 @@ describe('Lobby component testing', () => {
     //             </ReduxProvider>
     //         </HelmetProvider>,
     //     );
-
-    //     cy.screenshot();
     // });
 
     it('Phone screen (360 x 640)', () => {
@@ -68,8 +66,6 @@ describe('Lobby component testing', () => {
                 </ReduxProvider>
             </HelmetProvider>,
         );
-
-        cy.screenshot();
     });
 
     // it('iPad mini screen (768 x 1024)', () => {

@@ -6,6 +6,7 @@ import * as AppPropTypes from '../../../../lib/PropTypes';
 
 import { setSocket as setSocketAction } from '../../../../redux/actions/siteActions';
 import { classNames } from '../../../../lib/classNames';
+import MessageBubbleIcon from '../../../sharedComponents/icons/MessageBubble';
 
 const propTypes = {
     socket: AppPropTypes.socket.isRequired,
@@ -30,63 +31,76 @@ const Messaging = ({ lobbyCode, socket, messages, className }) => {
     };
 
     return (
-        <div
-            className={classNames([
-                'fixed bottom-0 right-0',
-                'h-full max-h-[800px] w-full max-w-[640px]',
-                'flex flex-col',
-                'bg-white overflow-y-scroll',
-                { 'bottom-[-100vh-1.25rem]': !minimized },
-                className,
-            ])}
-        >
-            {/* tab button */}
+        <>
+            {/* Message button */}
             <button
                 type="button"
-                onClick={() => {
-                    console.log(minimized);
-                    setMinimized(!minimized);
-                }}
-            >
-                <h5>Chat: {lobbyCode}</h5>
-            </button>
-
-            {/* messages */}
-            <ul className="grow" data-cy="messages">
-                {messages.map((msg, key) => {
-                    return (
-                        <li className="">
-                            {msg.name}: <span className="">{msg.text}</span>
-                        </li>
-                    );
-                })}
-            </ul>
-
-            {/* input field for sending message */}
-            <div
+                onClick={() => setMinimized(false)}
                 className={classNames([
-                    'fixed bottom-0 right-0 w-full max-w-[inherit] p-1 bg-slate-300',
-                    'flex flex-row',
+                    { hidden: !minimized },
+
+                    'fixed top-2 w-[calc(30vw)] max-w-[80px] h-auto p-1',
+                    'md:bottom-2 md:top-auto right-2 ',
                 ])}
             >
-                <input
-                    type="text"
-                    placeholder="Message..."
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    className="grow p-1"
-                    data-cy="message"
-                />
-                <button
-                    type="button"
-                    onClick={() => sendMessage()}
-                    className="shrink py-1 px-2"
-                    data-cy="send_message"
+                <MessageBubbleIcon />
+            </button>
+
+            {/*  Messages */}
+            <div
+                className={classNames([
+                    { 'top-[100vh] bottom-auto': minimized },
+                    'fixed bottom-0 right-0',
+                    'h-full max-h-[800px] w-80 mx-auto',
+                    'flex flex-col',
+                    'bg-white overflow-y-scroll',
+
+                    className,
+                ])}
+            >
+                <div className="flex content-between w-full space-x-2.5">
+                    <h5>Chat: {lobbyCode}</h5>
+                    <button type="button" onClick={() => setMinimized(true)}>
+                        -
+                    </button>
+                </div>
+
+                <ul className="grow" data-cy="messages">
+                    {messages.map((msg) => {
+                        return (
+                            <li key={msg.name + msg.text + msg.time} className="">
+                                {msg.name}: <span className="">{msg.text}</span>
+                            </li>
+                        );
+                    })}
+                </ul>
+
+                {/* input field for sending message */}
+                <div
+                    className={classNames([
+                        'sticky bottom-0 right-0 w-full max-w-[inherit] p-1 bg-slate-300',
+                        'flex flex-row',
+                    ])}
                 >
-                    Send
-                </button>
+                    <input
+                        type="text"
+                        placeholder="Message..."
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                        className="grow p-1"
+                        data-cy="message"
+                    />
+                    <button
+                        type="button"
+                        onClick={() => sendMessage()}
+                        className="shrink py-1 px-2"
+                        data-cy="send_message"
+                    >
+                        Send
+                    </button>
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 
