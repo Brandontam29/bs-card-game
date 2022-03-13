@@ -20,10 +20,12 @@ export const players = PropTypes.arrayOf(player);
 export const socket = PropTypes.any;
 
 export const card = PropTypes.shape({
-    img: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired,
     suit: PropTypes.string.isRequired,
     code: PropTypes.string.isRequired,
 });
 
 export const cards = PropTypes.arrayOf(card);
+
+export const playerCardsLeft = PropTypes.objectOf(PropTypes.number);

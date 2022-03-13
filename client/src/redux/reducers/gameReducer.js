@@ -2,12 +2,16 @@ import {
     SET_TURN_PLAYER,
     SET_CARD_NEEDED,
     SET_CALLING_BS,
+    SET_PLAYER_CARDS_LEFT,
+    SET_RANKING,
 } from '../actions/gameActions';
 
 const initialState = {
     turnPlayer: 'someone',
     cardNeeded: 'A',
     callingBS: true,
+    playerCardsLeft: {},
+    ranking: [],
 };
 
 const gameReducer = (state = initialState, action) => {
@@ -27,7 +31,16 @@ const gameReducer = (state = initialState, action) => {
                 ...state,
                 callingBS: action.payload,
             };
-
+        case SET_PLAYER_CARDS_LEFT:
+            return {
+                ...state,
+                playerCardsLeft: action.payload,
+            };
+        case SET_RANKING:
+            return {
+                ...state,
+                ranking: action.payload,
+            };
         default:
             return state;
     }

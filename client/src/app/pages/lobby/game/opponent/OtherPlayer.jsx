@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-// import { Route } from 'react-router-dom';
 import Avatar from 'boring-avatars';
 
 import * as AppPropTypes from '../../../../../lib/PropTypes';
@@ -9,6 +8,7 @@ import { classNames } from '../../../../../lib/classNames';
 
 const propTypes = {
     player: AppPropTypes.player.isRequired,
+    handSize: PropTypes.number.isRequired,
     className: PropTypes.string,
 };
 
@@ -16,17 +16,17 @@ const defaultProps = {
     className: null,
 };
 
-const PlayerCard = ({ player, className }) => {
+const OtherPlayer = ({ player, handSize, className }) => {
     return (
         <div className={classNames([className])}>
             <h4>{player.name}</h4>
             <Avatar name={player.avatar} square="true" variant="beam" size={40} />
-            <HiddenCards handSize={player.handSize} />
+            <HiddenCards handSize={handSize} />
         </div>
     );
 };
 
-PlayerCard.propTypes = propTypes;
-PlayerCard.defaultProps = defaultProps;
+OtherPlayer.propTypes = propTypes;
+OtherPlayer.defaultProps = defaultProps;
 
-export default PlayerCard;
+export default OtherPlayer;

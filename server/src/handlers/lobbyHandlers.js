@@ -3,7 +3,7 @@ const { formatMessage } = require('../utils/formatMessage.js');
 const { userJoin, userLeave, getRoomUsers } = require('../storage/users.js');
 
 const lobbyHandlers = (io, socket) => {
-    const botName = 'Mr. BS';
+    const botName = 'Mr. Cheat';
 
     const createLobby = (name, avatar, lobby = null) => {
         const code = lobby ? lobby : lobbyCodeGenerator();
@@ -20,8 +20,6 @@ const lobbyHandlers = (io, socket) => {
         console.log('lobby:join');
         const user = userJoin(socket.id, name, avatar, lobby);
         socket.join(lobby);
-
-        console.log(getRoomUsers(user.lobby));
         io.in(user.lobby).emit('update_players', getRoomUsers(user.lobby));
         socket.emit('joined_lobby', lobby);
         io.in(user.lobby).emit(

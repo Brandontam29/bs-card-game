@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -29,6 +29,14 @@ const Messaging = ({ lobbyCode, socket, messages, className }) => {
         socket.emit('message:send', message);
         setMessage('');
     };
+
+    useEffect(() => {
+        const windowWidth = window.innerWidth;
+        console.log(windowWidth);
+        if (windowWidth > 768) {
+            setMinimized(false);
+        }
+    }, []);
 
     return (
         <>

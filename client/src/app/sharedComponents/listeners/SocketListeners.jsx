@@ -19,6 +19,7 @@ import {
     setTurnPlayer as setTurnPlayerAction,
     setRanking as setRankingAction,
     setCardNeeded as setCardNeededAction,
+    setPlayerCardsLeft as setPlayerCardsLeftAction,
 } from '../../../redux/actions/gameActions';
 
 const propTypes = {
@@ -32,6 +33,7 @@ const propTypes = {
     setTurnPlayer: PropTypes.func.isRequired,
     setRanking: PropTypes.func.isRequired,
     setCardNeeded: PropTypes.func.isRequired,
+    setPlayerCardsLeft: PropTypes.func.isRequired,
     children: PropTypes.node,
 };
 
@@ -44,9 +46,6 @@ const socketio = io(`${process.env.REACT_APP_SERVER_API}`, {
     transports: ['websocket'],
 });
 
-/**
- *
- */
 const SocketListeners = ({
     socket,
     setSocket,
@@ -59,6 +58,7 @@ const SocketListeners = ({
     setRanking,
     setInGame,
     setCardNeeded,
+    setPlayerCardsLeft,
     children,
 }) => {
     const navigate = useNavigate();
@@ -106,6 +106,11 @@ const SocketListeners = ({
         setHand(cards);
     });
 
+    socketio.off('update_player_cards_left').on('update_player_cards_left', (obj) => {
+        console.log('update_player_cards_left', obj);
+        setPlayerCardsLeft(obj);
+    });
+
     socketio.off('udpated_clock').on('udpated_clock', (id) => {
         console.log('udpated_clock', id);
         setCardNeeded(id);
@@ -143,6 +148,7 @@ const WithReduxContainer = connect(
         setRanking: (value) => dispatch(setRankingAction(value)),
         setInGame: (value) => dispatch(setInGameAction(value)),
         setCardNeeded: (value) => dispatch(setCardNeededAction(value)),
+        setPlayerCardsLeft: (value) => dispatch(setPlayerCardsLeftAction(value)),
     }),
 )(SocketListeners);
 

@@ -6,6 +6,7 @@ const { drawAllCards } = require('../deckOfCardsApi/drawAllCards.js');
 const { getNewDeck } = require('../deckOfCardsApi/getNewDeck.js');
 const { rankPlayers } = require('../deckOfCardsApi/rankPlayers.js');
 const { reshuffleDeck } = require('../deckOfCardsApi/reshuffleDeck.js');
+const { getPile } = require('../deckOfCardsApi/getPile.js');
 
 const {
     userJoin,
@@ -31,6 +32,12 @@ const {
     dumpDeck,
 } = require('../storage/decks.js');
 
+const {
+    setPlayerCardsLeft,
+    getPlayerCardsLeft,
+    deletePlayerCardsLeft,
+} = require('../storage/playerCardsLeft');
+
 const { getTurnPlayerId } = require('../utils/getTurnPlayerId.js');
 
 const gameHandlers = (io, socket) => {
@@ -51,8 +58,12 @@ const gameHandlers = (io, socket) => {
         const handsArr = Object.values(hands);
 
         newPileRecord(lobby);
+
+        // send the player hands and prepare player cards left info
+        let playerCardsLeft = {};
         for (i = 0; i < numOfPlayers; i++) {
-            cardsToPile(deck.id, players[i].id, handsArr[i]);
+            await cardsToPile(deck.id, players[i].id, handsArr[i]);
+            playerCardsLeft[players[i].id] = handsArr[i].length;
             io.to(players[i].id).emit('get_hand', handsArr[i]);
         }
 
@@ -60,72 +71,79 @@ const gameHandlers = (io, socket) => {
         const turnCard = getTurnCard(lobby);
 
         // Get turn player
-        console.log(players);
         const turn = Math.floor(Math.random() * numOfPlayers);
         const turnPlayerId = getTurnPlayerId(players, turn);
 
-        // Get center pile record
+        // Set player cards left
+        setPlayerCardsLeft(lobby, playerCardsLeft);
 
+        io.in(lobby).emit('update_player_cards_left', playerCardsLeft);
         io.in(lobby).emit('udpated_clock', turnCard);
         io.in(lobby).emit('udpated_turn', turnPlayerId);
         io.in(lobby).emit('started_game');
     };
 
-    const getHand = (lobby) => {
+    const getHand = async (lobby) => {
         console.log('game:get_hand');
         const deckId = getDeckId(lobby);
-        const currentHand = getPile(deckId, socket.id);
+        const currentHand = await getPile(deckId, socket.id);
 
         io.to(socket.id).emit('get_hand', currentHand);
     };
 
-    const playCard = (cards) => {
+    const playCard = async (cards) => {
+        if (cards) {
+        }
         console.log('game:play_card');
         // TODO add validation
 
         // Move the played cards
-        const lobby = getCurrentUser(socket.id).id;
-        const toPileResponse = cardsToPile(deckId, 'center_pile', cards);
+        const lobby = getCurrentUser(socket.id).lobby;
         const deckId = getDeckId(lobby);
-        const currentHand = getPile(deckId, socket.id);
-
+        const toPileResponse = await cardsToPile(deckId, 'center_pile', cards);
+        const currentHand = await getPile(deckId, socket.id);
+        console.log(currentHand);
         // Check if they won the game
         if (currentHand.length === 0) {
             const players = getRoomUsers();
-            const ranks = rankPlayers(deckId, players);
+            const ranks = await rankPlayers(deckId, players);
 
             io.in(lobby).emit('finished_game', ranks);
 
             deletePileRecord(lobby);
             return;
         }
+        // Update cards left in hand
+
         // Add number of cards placed to record
         addRecord(lobby, cards.length);
 
         // Increment card clock
-        incrementCardClock();
+        incrementCardClock(lobby);
         const turnCard = getTurnCard(lobby);
 
         // Determine next turn
         const players = getRoomUsers(lobby);
-        incrementTurn();
+        incrementTurn(lobby);
         const turn = getTurn(lobby);
         const turnPlayerId = getTurnPlayerId(players, turn);
 
         // Responses
         io.to(socket.id).emit('get_hand', currentHand);
+        io.in(lobby).emit('update_player_cards_left', []);
         io.in(lobby).emit('udpated_turn', turnPlayerId);
         io.in(lobby).emit('udpated_clock', turnCard);
     };
 
-    const callout = (lobby) => {
+    const callout = async () => {
         console.log('game:callout');
         // Basic information needed
+        const lobby = getCurrentUser(socket.id).lobby;
         const deckId = getDeckId(lobby);
 
         // Find the cards played last turn
         const numberOfCardsPlayedLastTurn = getLastRecord(lobby);
-        const centerPileCards = getPile(deckId, 'center_pile');
+        const centerPileCards = await getPile(deckId, 'center_pile');
         const lastPlayedCards = centerPileCards.slice(
             centerPileCards.length - numberOfCardsPlayedLastTurn,
             centerPileCards.length,
@@ -148,33 +166,35 @@ const gameHandlers = (io, socket) => {
         }
 
         // Loser gets the center pile
-        const cardsToPileResponse = cardsToPile(
+        const cardsToPileResponse = await cardsToPile(
             deckId,
             loserId,
             centerPileCards,
         );
-        const loserHand = getPile(deckId, loserId);
+        const loserHand = await getPile(deckId, loserId);
 
         // Determine next turn
         const loserTurn = players.findIndex((player) => (player.id = loserId));
         setTurn(loserTurn);
 
         // Increment card clock
-        incrementCardClock();
+        incrementCardClock(lobby);
         const turnCard = getTurnCard(lobby);
 
         // Responses
 
         io.in(lobby).emit('udpated_clock', turnCard);
-        io.to(loserId).emit('get_hand', loserHand);
         io.in(lobby).emit('udpated_turn', loserId);
+        io.in(socket.id).emit('update_player_cards_left', []);
+        io.to(loserId).emit('get_hand', loserHand);
     };
 
-    const restartGame = (lobby) => {
+    const restartGame = async (lobby) => {
+        // add clock record and update player cards
         console.log('game:restart');
         const deckId = getDeckId(lobby);
-        const reshuffleResponse = reshuffleDeck(deckId);
-        const drawAllCardsResponse = drawAllCards(deckId);
+        const reshuffleResponse = await reshuffleDeck(deckId);
+        const drawAllCardsResponse = await drawAllCards(deckId);
 
         const players = getRoomUsers(lobby);
         const numOfPlayers = players.length;
@@ -187,7 +207,7 @@ const gameHandlers = (io, socket) => {
         newPileRecord(lobby);
 
         for (i = 0; i < numOfPlayers; i++) {
-            cardsToPile(deckId, players[i].id, handsArr[i]);
+            await cardsToPile(deckId, players[i].id, handsArr[i]);
             io.to(players[i].id).emit('get_hand', handsArr[i]);
         }
 

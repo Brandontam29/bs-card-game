@@ -5,7 +5,6 @@ const decks = [];
 // New Deck to track the deck_id by lobbyCode (don't want user to have access to the deck+_id)
 const newDeck = (id, lobbyCode) => {
     const deck = { id, lobbyCode, turn: 0, cardClock: 0 };
-
     decks.push(deck);
 
     return deck;
@@ -35,8 +34,10 @@ const getTurn = (lobbyCode) => {
 };
 
 const incrementCardClock = (lobbyCode) => {
-    const deck = decks.find((deck) => deck.lobbyCode === lobbyCode);
-    deck.cardClock += 1;
+    let deck = decks.find((deck) => deck.lobbyCode === lobbyCode);
+    if (deck) {
+        deck.cardClock += 1;
+    }
 };
 
 const getCardClock = (lobbyCode) => {
