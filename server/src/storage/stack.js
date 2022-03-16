@@ -1,30 +1,26 @@
-const centerPiles = [];
+const centerPiles = new Map();
 
 // Track number of cards placed in the center pile
 const newPileRecord = (lobbyCode) => {
-    const pile = { lobbyCode, history: [] };
-
-    centerPiles.push(pile);
-
-    return pile;
+    const history = [];
+    centerPiles.set(lobbyCode, history);
+    return history;
 };
 const addRecord = (lobbyCode, number) => {
-    const index = centerPiles.findIndex((pile) => pile.lobbyCode === lobbyCode);
-    return centerPiles[index].history.push(number);
+    const history = centerPiles.get(lobbyCode);
+    history.push(number);
 };
 
 // Get the  number of cards played by  the last player
 const getLastRecord = (lobbyCode) => {
-    const pile = centerPiles.find((pile) => pile.lobbyCode === lobbyCode);
-    return pile.history[pile.history.length - 1];
+    const history = centerPiles.get(lobbyCode);
+    return history[history.length - 1];
 };
 
 // Remove the pile from memory
 const deletePileRecord = (lobbyCode) => {
-    const index = centerPiles.findIndex((pile) => pile.lobbyCode === lobbyCode);
-    if (index !== -1) {
-        return decks.splice(index, 1)[0];
-    }
+    const success = centerPiles.delete(lobbyCode);
+    return success;
 };
 
 module.exports = { newPileRecord, addRecord, getLastRecord, deletePileRecord };

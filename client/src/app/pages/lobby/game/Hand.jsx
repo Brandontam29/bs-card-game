@@ -18,7 +18,7 @@ const defaultProps = {
 
 const Hand = ({ hand, className }) => {
     return (
-        <div className={classNames('flex flex-row', [className])}>
+        <div className={classNames(['flex flex-row flex-wrap', className])}>
             {hand.map((card) => (
                 <Card card={card} />
             ))}

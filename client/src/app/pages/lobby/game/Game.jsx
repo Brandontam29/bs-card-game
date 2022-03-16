@@ -10,6 +10,7 @@ import Player from './Player';
 import OtherPlayer from './opponent/OtherPlayer';
 import Hand from './Hand';
 import Controls from './Controls';
+import Clock from './Clock';
 import { setPannelOpen as setPannelOpenAction } from '../../../../redux/actions/siteActions';
 
 const propTypes = {
@@ -20,7 +21,6 @@ const propTypes = {
 const defaultProps = {};
 
 const Game = ({ players, playerCardsLeft }) => {
-    console.log(playerCardsLeft);
     // TODO Implement style array to put players based on number of players
 
     return (
@@ -33,7 +33,10 @@ const Game = ({ players, playerCardsLeft }) => {
                 />
             ))}
 
-            <div>Center Pile</div>
+            <div>
+                Center Pile
+                <Clock />
+            </div>
             <Player />
             <Hand />
             <Controls />

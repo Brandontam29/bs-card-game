@@ -4,6 +4,14 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const { Server } = require('socket.io');
 
+import { ErrorRequestHandler, Request, Response, NextFunction } from 'express';
+import {
+    ClientToServerEvents,
+    ServerToClientEvents,
+    InterServerEvents,
+    SocketData,
+} from './types';
+
 const registerMessageHandlers = require('./handlers/messageHandlers.js');
 const registerGameHandlers = require('./handlers/gameHandlers.js');
 const registerLobbyHandlers = require('./handlers/lobbyHandlers.js');
@@ -19,9 +27,9 @@ dotenv.config();
 const app = express();
 app.use(bodyParser.json());
 
-const user = encodeURIComponent(process.env.DB_USER);
-const password = encodeURIComponent(process.env.DB_PASS);
-const databaseName = encodeURIComponent(process.env.DB_NAME);
+const user: string = encodeURIComponent(process.env.DB_USER || '');
+const password: string = encodeURIComponent(process.env.DB_PASS || '');
+const databaseName: string = encodeURIComponent(process.env.DB_NAME || '');
 
 const uri = `mongodb+srv://${user}:${password}@cluster0.rzpas.mongodb.net/${databaseName}?retryWrites=true&w=majority"`;
 // CORS Protocol
@@ -43,18 +51,18 @@ app.use(
 // app.use('/api/user', userRoutes);
 // app.use('/api/match', matchRoutes);
 
-app.use((req, res, next) => {
+app.use((req: Request, res: Response, next: NextFunction) => {
     const error = new HttpError('Could not find this route.', 404);
     throw error;
 });
 
-app.use((error, req, res, next) => {
-    if (res.headerSent) {
+app.use(((error, req, res, next) => {
+    if (res.headersSent) {
         return next(error);
     }
     res.status(error.code || 500);
     res.json({ message: error.message || 'An unknown error occurred!' });
-});
+}) as ErrorRequestHandler);
 
 const port = 4000;
 
@@ -68,13 +76,13 @@ mongoose
         });
 
         const io = new Server(server);
-        io.on('connection', (socket) => {
+        io.on('connection', (socket: InterServerEvents) => {
             console.log('connected');
             registerMessageHandlers(io, socket);
             registerLobbyHandlers(io, socket);
             registerGameHandlers(io, socket);
         });
     })
-    .catch((err) => {
+    .catch((err: Error) => {
         console.error(err);
     });

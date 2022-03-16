@@ -25,6 +25,7 @@ const Controls = ({ socket, turnPlayer, deselectAll, selectedCards, sortHand }) 
     const [enabled, setEnabled] = useState(false);
 
     const onPlay = () => {
+        console.log(selectedCards);
         socket.emit('game:play_card', selectedCards);
         deselectAll();
     };
@@ -35,6 +36,10 @@ const Controls = ({ socket, turnPlayer, deselectAll, selectedCards, sortHand }) 
     const onSort = () => {
         sortHand();
     };
+
+    useEffect(() => {
+        console.log(selectedCards);
+    }, [selectedCards]);
 
     useEffect(() => {
         if (turnPlayer === socket.id && selectedCards.length > 0) {

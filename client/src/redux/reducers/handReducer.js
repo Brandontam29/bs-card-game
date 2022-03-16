@@ -26,11 +26,13 @@ const handReducer = (state = initialState, action) => {
         case SELECT_CARD: {
             return {
                 ...state,
-                selectedCards: [...state.cards, action.payload],
+                selectedCards: [...state.selectedCards, action.payload],
             };
         }
         case DESELECT_CARD: {
-            const difference = state.cards.filter((card) => card.code === action.payload.code);
+            const difference = state.selectedCards.filter(
+                (card) => card.code !== action.payload.code,
+            );
 
             return {
                 ...state,

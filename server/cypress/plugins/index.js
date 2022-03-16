@@ -18,6 +18,12 @@ const plugins = (on, config) => {
                 `Cypress is connecting to socket server under name: ${username} to the room: ${room}`,
             );
             socket.emit('lobby:join', username, avatar, room);
+
+            // Socket listenners
+            socket.on('get_hand', (cards) => {
+                console.log('Cypress get_hand');
+                hand = cards;
+            });
             return null;
         },
 
@@ -28,9 +34,16 @@ const plugins = (on, config) => {
             return null;
         },
 
-        playCards(cards = hand[0]) {
-            console.log(`Cypress is playing some cards`);
-            socket.emit('game:play_card', cards);
+        playCards(cards) {
+            let toPlay;
+            if (cards) {
+                toPlay = cards;
+            } else {
+                toPlay = new Array(hand[0]);
+            }
+
+            console.log(`Cypress is playing some cards`, toPlay);
+            socket.emit('game:play_card', toPlay);
 
             return null;
         },
@@ -42,14 +55,6 @@ const plugins = (on, config) => {
             return null;
         },
     });
-
-    //  Socket listenners
-    if (socket !== undefined) {
-        socket.on('get_hand', (cards) => {
-            console.log('Cypress get_hand', cards);
-            hand = cards;
-        });
-    }
 
     return config; // IMPORTANT to return a config
 };

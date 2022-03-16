@@ -17,7 +17,7 @@ const lobbyHandlers = (io, socket) => {
     };
 
     const joinLobby = (name, avatar, lobby) => {
-        console.log('lobby:join');
+        console.log('lobby:join', name);
         const user = userJoin(socket.id, name, avatar, lobby);
         socket.join(lobby);
         io.in(user.lobby).emit('update_players', getRoomUsers(user.lobby));

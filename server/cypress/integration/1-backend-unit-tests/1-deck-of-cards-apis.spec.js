@@ -1,10 +1,12 @@
 /// <reference types="cypress" />
 
-import { getNewDeck } from '../../../deckOfCardsApi/getNewDeck.js';
-import { drawAllCards } from '../../../deckOfCardsApi/drawAllCards.js';
-import { cardsToPile } from '../../../deckOfCardsApi/cardsToPile.js';
-import { getPile } from '../../../deckOfCardsApi/getPile.js';
-import { reshuffleDeck } from '../../../deckOfCardsApi/reshuffleDeck.js';
+const { getNewDeck } = require('../../../src/deckOfCardsApi/getNewDeck.js');
+const { drawAllCards } = require('../../../src/deckOfCardsApi/drawAllCards.js');
+const { cardsToPile } = require('../../../src/deckOfCardsApi/cardsToPile.js');
+const { getPile } = require('../../../src/deckOfCardsApi/getPile.js');
+const {
+    reshuffleDeck,
+} = require('../../../src/deckOfCardsApi/reshuffleDeck.js');
 
 describe('Test functions in the folder deckOfCardsApi', () => {
     const pileName = 'cypress_pile';

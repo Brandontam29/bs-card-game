@@ -1,4 +1,4 @@
-const { getPile } = require('./getPile.js');
+const { getPile } = require('./getPile.ts');
 
 const rankPlayers = (deckId, players) => {
     let rankedPlayers = [];

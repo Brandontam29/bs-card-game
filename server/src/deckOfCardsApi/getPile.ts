@@ -1,25 +1,28 @@
-const axios = require('axios');
-const HttpError = require('../models/http-error.js');
+import axios from 'axios';
+import HttpError from '../models/http-error.js';
+import { Cards } from '../types';
 
-const getPile = async (deck_id, pile_name) => {
+const getPile = async (deck_id: string, pile_name: string): Promise<Cards> => {
+    // const deck = deck_id.parse()
+    // const pile = pile_name.parse()
+
+    const deck = deck_id;
+    const pile = pile_name;
     const response = await axios
-        .get(
-            `https://deckofcardsapi.com/api/deck/${deck_id}/pile/${pile_name}/list/`,
-        )
+        .get(`https://deckofcardsapi.com/api/deck/${deck}/pile/${pile}/list/`)
         .then((res) => {
             const cardsArr = res.data.piles[pile_name].cards;
-
             return cardsArr;
         })
         .catch((err) => {
-            const error = new HttpError(err.messsage, 500);
+            const error = new HttpError(err.message, 500);
             return error;
         });
 
     return response;
 };
 
-module.exports = { getPile };
+export { getPile };
 // const exampleResponse = {
 //     success: true,
 //     deck_id: 'ojfgzb2v6qdz',

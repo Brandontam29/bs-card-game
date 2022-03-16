@@ -27,10 +27,15 @@ describe('2 player plays one card at a time until they win', () => {
 
         cy.get('button[data-cy=start_game]').click();
 
+        // Player plays one card
         cy.get('button > img[alt*="of"]').first().click();
-
         cy.get('button[data-cy=play_cards]').click();
 
+        //Cypress plays one card
         cy.task('playCards');
+
+        // Player plays one card
+        cy.get('button > img[alt*="of"]').first().click();
+        cy.get('button[data-cy=play_cards]').click();
     });
 });
