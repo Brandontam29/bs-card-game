@@ -1,6 +1,4 @@
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-// import * as AppPropTypes from '../../../lib/PropTypes';
 
 const propTypes = {};
 

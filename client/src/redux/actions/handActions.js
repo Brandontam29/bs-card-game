@@ -12,6 +12,7 @@ export const setHand = (payload) => ({
 export const sortHand = () => ({
     type: SORT_HAND,
 });
+
 export const selectCard = (payload) => ({
     type: SELECT_CARD,
     payload,

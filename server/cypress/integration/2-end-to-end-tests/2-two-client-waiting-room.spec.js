@@ -33,6 +33,9 @@ describe('Emulate two client events', () => {
 
         cy.wrap(null).then(() => cy.task('sendMessage', message2));
 
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(500);
+
         cy.get('ul[data-cy=players] li').last().should('include.text', name2);
 
         cy.get('ul[data-cy=messages] li')

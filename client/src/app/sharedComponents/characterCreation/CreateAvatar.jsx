@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Avatar from 'boring-avatars';
 
-// import { setAvatar as setAvatarAction } from '../../../redux/actions/playerActions';
+import { setAvatar as setAvatarAction } from '../../../redux/actions/playerActions';
 
 import Chevron from '../icons/Chevron';
 import Dice from '../icons/Dice';
@@ -86,8 +86,12 @@ CreateAvatar.propTypes = propTypes;
 CreateAvatar.defaultProps = defaultProps;
 
 const WithReduxContainer = connect(
-    () => ({}),
-    () => ({}),
+    ({ player }) => ({
+        avatar: player.avatar,
+    }),
+    (dispatch) => ({
+        setAvatar: (value) => dispatch(setAvatarAction(value)),
+    }),
 )(CreateAvatar);
 
 export default WithReduxContainer;

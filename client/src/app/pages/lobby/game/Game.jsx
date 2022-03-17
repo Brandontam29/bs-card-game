@@ -14,27 +14,31 @@ import Clock from './Clock';
 import { setPannelOpen as setPannelOpenAction } from '../../../../redux/actions/siteActions';
 
 const propTypes = {
+    socket: AppPropTypes.socket.isRequired,
     players: AppPropTypes.players.isRequired,
     playerCardsLeft: AppPropTypes.playerCardsLeft.isRequired,
 };
 
 const defaultProps = {};
 
-const Game = ({ players, playerCardsLeft }) => {
+const Game = ({ socket, players, playerCardsLeft }) => {
     // TODO Implement style array to put players based on number of players
 
     return (
         <div className="relative">
-            {players.map((player, key) => (
-                <OtherPlayer
-                    key={player.name + player.avatar + key}
-                    player={player}
-                    handSize={playerCardsLeft[player.id]}
-                />
-            ))}
+            {players.map(
+                (player, key) =>
+                    player.id !== socket.id && (
+                        <OtherPlayer
+                            key={player.name + player.avatar + key}
+                            player={player}
+                            handSize={playerCardsLeft[player.id]}
+                        />
+                    ),
+            )}
 
             <div>
-                Center Pile
+                Center Pile Clock:
                 <Clock />
             </div>
             <Player />
@@ -48,7 +52,8 @@ Game.propTypes = propTypes;
 Game.defaultProps = defaultProps;
 
 const WithReduxContainer = connect(
-    ({ lobby, game }) => ({
+    ({ site, lobby, game }) => ({
+        socket: site.socket,
         players: lobby.players,
         inGame: lobby.pannelContent,
         playerCardsLeft: game.playerCardsLeft,

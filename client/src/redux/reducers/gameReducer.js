@@ -8,7 +8,7 @@ import {
 
 const initialState = {
     turnPlayer: 'someone',
-    cardNeeded: 'A',
+    cardNeeded: '',
     callingBS: true,
     playerCardsLeft: {},
     ranking: [],

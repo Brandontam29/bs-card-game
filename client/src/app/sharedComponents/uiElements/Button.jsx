@@ -1,7 +1,10 @@
+/* eslint-disable react/button-has-type */
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { classNames } from '../../../lib/classNames';
 
 const propTypes = {
+    type: PropTypes.string,
     className: PropTypes.string,
     href: PropTypes.string,
     to: PropTypes.string,
@@ -9,9 +12,11 @@ const propTypes = {
     onClick: PropTypes.func,
     disabled: PropTypes.bool,
     children: PropTypes.node,
+    dataCy: PropTypes.string,
 };
 
 const defaultProps = {
+    type: 'button',
     className: '',
     href: null,
     to: null,
@@ -19,11 +24,13 @@ const defaultProps = {
     onClick: () => {},
     disabled: false,
     children: <div />,
+    dataCy: '',
 };
-const Button = ({ className, href, to, exact, onClick, disabled, children }) => {
+
+const Button = ({ type, className, href, to, exact, onClick, disabled, children, dataCy }) => {
     if (href) {
         return (
-            <a href={href} className={`${className}`}>
+            <a href={href} data-cy={dataCy} className={classNames([className])}>
                 {children}
             </a>
         );
@@ -31,14 +38,20 @@ const Button = ({ className, href, to, exact, onClick, disabled, children }) => 
 
     if (to) {
         return (
-            <Link to={to} exact={exact} className={`${className}`}>
+            <Link to={to} exact={exact} data-cy={dataCy} className={classNames([className])}>
                 {children}
             </Link>
         );
     }
 
     return (
-        <button type="button" onClick={onClick} disabled={disabled} className={`${className}`}>
+        <button
+            type={type}
+            onClick={onClick}
+            disabled={disabled}
+            data-cy={dataCy}
+            className={classNames([className])}
+        >
             {children}
         </button>
     );

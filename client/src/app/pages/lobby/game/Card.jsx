@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -12,6 +12,7 @@ import { classNames } from '../../../../lib/classNames';
 
 const propTypes = {
     card: AppPropTypes.card,
+    selectedCards: AppPropTypes.cards.isRequired,
     selectCard: PropTypes.func.isRequired,
     deselectCard: PropTypes.func.isRequired,
     className: PropTypes.string,
@@ -27,7 +28,7 @@ const defaultProps = {
     className: null,
 };
 
-const Card = ({ card, selectCard, deselectCard, className }) => {
+const Card = ({ card, selectedCards, selectCard, deselectCard, className }) => {
     const [selected, setSelected] = useState(false);
 
     const onClickCard = () => {
@@ -39,6 +40,12 @@ const Card = ({ card, selectCard, deselectCard, className }) => {
         setSelected(true);
         return selectCard(card);
     };
+
+    useEffect(() => {
+        if (selectedCards.length === 0) {
+            setSelected(false);
+        }
+    }, [selectedCards]);
 
     return (
         <button
@@ -60,7 +67,9 @@ Card.propTypes = propTypes;
 Card.defaultProps = defaultProps;
 
 const WithReduxContainer = connect(
-    () => ({}),
+    ({ hand }) => ({
+        selectedCards: hand.selectedCards,
+    }),
     (dispatch) => ({
         selectCard: (value) => dispatch(selectCardAction(value)),
         deselectCard: (value) => dispatch(deselectCardAction(value)),

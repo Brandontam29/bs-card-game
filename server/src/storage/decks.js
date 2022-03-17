@@ -47,6 +47,7 @@ const getCardClock = (lobbyCode) => {
 
 const getTurnCard = (lobbyCode) => {
     const deck = decks.find((deck) => deck.lobbyCode === lobbyCode);
+    console.log(convertClockToCard(deck.cardClock));
     return convertClockToCard(deck.cardClock);
 };
 

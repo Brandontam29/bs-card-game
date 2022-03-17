@@ -111,9 +111,9 @@ const SocketListeners = ({
         setPlayerCardsLeft(obj);
     });
 
-    socketio.off('udpated_clock').on('udpated_clock', (id) => {
-        console.log('udpated_clock', id);
-        setCardNeeded(id);
+    socketio.off('udpated_clock').on('udpated_clock', (cardValue) => {
+        console.log('udpated_clock', cardValue);
+        setCardNeeded(cardValue);
     });
 
     socketio.off('udpated_turn').on('udpated_turn', (id) => {

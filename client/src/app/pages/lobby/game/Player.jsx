@@ -15,7 +15,7 @@ const defaultProps = {
     className: '',
 };
 
-const UserPlayerCard = ({ player, className }) => {
+const Player = ({ player, className }) => {
     return (
         <div className={classNames([className])}>
             <h4>{player.name}</h4>
@@ -24,14 +24,14 @@ const UserPlayerCard = ({ player, className }) => {
     );
 };
 
-UserPlayerCard.propTypes = propTypes;
-UserPlayerCard.defaultProps = defaultProps;
+Player.propTypes = propTypes;
+Player.defaultProps = defaultProps;
 
 const WithReduxContainer = connect(
-    ({ player, hand }) => ({
+    ({ player }) => ({
         player: player,
     }),
     () => ({}),
-)(UserPlayerCard);
+)(Player);
 
 export default WithReduxContainer;

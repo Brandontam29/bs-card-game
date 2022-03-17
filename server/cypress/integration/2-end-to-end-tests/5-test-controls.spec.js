@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe('2 player plays one card at a time until they win', () => {
+describe('Sort Cards adn Deselect Cards', () => {
     const name = 'Brandon Tam';
     const message = 'Hi how are you doing?';
 
@@ -21,24 +21,13 @@ describe('2 player plays one card at a time until they win', () => {
                 cy.log(text);
                 lobbyCode = text;
             });
+
         cy.wrap(null).then(() =>
             cy.task('connect', { username: name2, room: lobbyCode }),
         );
 
         cy.get('button[data-cy=start_game]').click();
 
-        // Player plays one card
-        cy.get('button > img[alt*="of"]').first().click();
-        cy.get('button[data-cy=play_cards]').click();
-        cy.get('div').contains('27').should('exist');
-        cy.get('[data-cy=clock_card').should('have.text', '2');
-        //Cypress plays one card
-        cy.task('playCards');
-        cy.get('div').contains('26').should('exist');
-        cy.get('[data-cy=clock_card').should('have.text', '3');
-
-        // Player plays one card
-        cy.get('button > img[alt*="of"]').first().click();
-        cy.get('button[data-cy=play_cards]').click();
+        cy.get('button[data-cy=sort_cards]').click();
     });
 });

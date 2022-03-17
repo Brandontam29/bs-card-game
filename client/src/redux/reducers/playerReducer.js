@@ -1,8 +1,8 @@
-import { SET_NAME, SET_CONNECTED } from '../actions/playerActions';
+import { SET_NAME, SET_AVATAR, SET_CONNECTED } from '../actions/playerActions';
 
 const initialState = {
     name: '',
-    // avatar: '010101',
+    avatar: Math.floor(Math.random() * 10 ** 6).toString(),
     connected: false,
 };
 
@@ -12,6 +12,11 @@ const playerReducer = (state = initialState, action) => {
             return {
                 ...state,
                 name: action.payload,
+            };
+        case SET_AVATAR:
+            return {
+                ...state,
+                avatar: action.payload,
             };
         case SET_CONNECTED:
             return {

@@ -20,7 +20,7 @@ const Hand = ({ hand, className }) => {
     return (
         <div className={classNames(['flex flex-row flex-wrap', className])}>
             {hand.map((card) => (
-                <Card card={card} />
+                <Card key={card.code} card={card} />
             ))}
         </div>
     );

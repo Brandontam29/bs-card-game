@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import * as AppPropTypes from '../../../../lib/PropTypes';
+import { classNames } from '../../../../lib/classNames';
 
 import {
     deselectAll as deselectAllAction,
     sortHand as sortHandAction,
 } from '../../../../redux/actions/handActions';
+import Button from '../../../sharedComponents/uiElements/Button';
 
-import { classNames } from '../../../../lib/classNames';
+// import { classNames } from '../../../../lib/classNames';
 
 const propTypes = {
     socket: AppPropTypes.socket.isRequired,
@@ -22,10 +24,9 @@ const propTypes = {
 const defaultProps = {};
 
 const Controls = ({ socket, turnPlayer, deselectAll, selectedCards, sortHand }) => {
-    const [enabled, setEnabled] = useState(false);
+    const [disabled, setDisabled] = useState(true);
 
     const onPlay = () => {
-        console.log(selectedCards);
         socket.emit('game:play_card', selectedCards);
         deselectAll();
     };
@@ -38,31 +39,40 @@ const Controls = ({ socket, turnPlayer, deselectAll, selectedCards, sortHand }) 
     };
 
     useEffect(() => {
-        console.log(selectedCards);
-    }, [selectedCards]);
-
-    useEffect(() => {
         if (turnPlayer === socket.id && selectedCards.length > 0) {
-            setEnabled(true);
+            return setDisabled(false);
         }
+        return setDisabled(true);
     }, [turnPlayer, socket.id, selectedCards]);
-
+    const styles =
+        'px-5 py-2.5 border border-black border-solid bg-slate-100 mr-5 disabled:bg-gray-400 hover:bg-gray-50';
     return (
         <div>
-            <button
+            <Button
                 type="button"
                 onClick={onPlay}
-                data-cy="play_cards"
-                // className={classNames([{ disabled: !enabled }])}
+                dataCy="play_cards"
+                disabled={disabled}
+                className={classNames([styles])}
             >
                 Play
-            </button>
-            <button type="button" onClick={onDeselect} className="">
+            </Button>
+            <Button
+                type="button"
+                onClick={onDeselect}
+                dataCy="deselect_cards"
+                className={classNames([styles])}
+            >
                 Deselect
-            </button>
-            <button type="button" onClick={onSort} className="">
+            </Button>
+            <Button
+                type="button"
+                onClick={onSort}
+                dataCy="sort_cards"
+                className={classNames([styles])}
+            >
                 Sort
-            </button>
+            </Button>
         </div>
     );
 };

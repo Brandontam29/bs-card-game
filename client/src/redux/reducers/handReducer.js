@@ -6,6 +6,8 @@ import {
     SORT_HAND,
 } from '../actions/handActions';
 
+import { sortCards } from '../../lib/utils';
+
 const initialState = { cards: [], selectedCards: [] };
 
 const handReducer = (state = initialState, action) => {
@@ -17,7 +19,8 @@ const handReducer = (state = initialState, action) => {
             };
         }
         case SORT_HAND: {
-            const sortedHand = state.hand.sort((a, b) => a - b);
+            const sortedHand = state.cards.slice().sort(sortCards);
+
             return {
                 ...state,
                 cards: sortedHand,

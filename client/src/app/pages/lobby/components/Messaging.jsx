@@ -32,7 +32,6 @@ const Messaging = ({ lobbyCode, socket, messages, className }) => {
 
     useEffect(() => {
         const windowWidth = window.innerWidth;
-        console.log(windowWidth);
         if (windowWidth > 768) {
             setMinimized(false);
         }

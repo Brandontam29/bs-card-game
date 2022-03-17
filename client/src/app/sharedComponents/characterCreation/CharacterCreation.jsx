@@ -7,9 +7,13 @@ import { useParams } from 'react-router-dom';
 import * as AppPropTypes from '../../../lib/PropTypes';
 
 import CreateAvatar from './CreateAvatar';
+import { setName as setNameAction } from '../../../redux/actions/playerActions';
 
 const propTypes = {
     socket: AppPropTypes.socket.isRequired,
+    name: PropTypes.string.isRequired,
+    setName: PropTypes.func.isRequired,
+    avatar: PropTypes.string.isRequired,
     className: PropTypes.string,
 };
 
@@ -17,10 +21,8 @@ const defaultProps = {
     className: null,
 };
 
-const CharacterCreation = ({ socket, className }) => {
-    const [name, setName] = useState('');
+const CharacterCreation = ({ socket, name, setName, avatar, className }) => {
     const [lobbyCode, setLobbyCode] = useState('');
-    const [avatar, setAvatar] = useState(Math.floor(Math.random() * 10 ** 6).toString());
     const { lid } = useParams();
 
     const onCreateLobby = () => {
@@ -52,7 +54,7 @@ const CharacterCreation = ({ socket, className }) => {
                     className="border border-solid border-black px-2 w-full"
                     data-cy="name"
                 />
-                <CreateAvatar avatar={avatar} setAvatar={setAvatar} />
+                <CreateAvatar />
             </form>
             {!lid ? (
                 <>
@@ -106,10 +108,14 @@ CharacterCreation.propTypes = propTypes;
 CharacterCreation.defaultProps = defaultProps;
 
 const WithReduxContainer = connect(
-    ({ site }) => ({
+    ({ site, player }) => ({
+        name: player.name,
+        avatar: player.avatar,
         socket: site.socket,
     }),
-    () => ({}),
+    (dispatch) => ({
+        setName: (value) => dispatch(setNameAction(value)),
+    }),
 )(CharacterCreation);
 
 export default WithReduxContainer;

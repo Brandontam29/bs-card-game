@@ -1,19 +1,18 @@
-/* eslint-disable react/no-array-index-key */
-// import { useEffect } from 'react';
-// import PropTypes from 'prop-types';
-// import { Route } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import * as AppPropTypes from '../../../../lib/PropTypes';
-
 const propTypes = {
-    cardNeeded: AppPropTypes.card.isRequired,
+    cardNeeded: PropTypes.string.isRequired,
 };
 
 const defaultProps = {};
 
 const Clock = ({ cardNeeded }) => {
-    return <div className="">{cardNeeded}</div>;
+    return (
+        <div data-cy="clock_card" className="">
+            {cardNeeded}
+        </div>
+    );
 };
 
 Clock.propTypes = propTypes;

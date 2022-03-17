@@ -3,28 +3,19 @@ import { useRoutes } from 'react-router-dom';
 import { Lobby, Home, NotFound } from './pages/lazyloadPages';
 
 import Layout from './sharedComponents/navigation/Layout';
-import SocketListeners from './sharedComponents/listeners/SocketListeners';
 
 const Routing = () => {
-    const PageWrapper = (children) => {
-        return (
-            <SocketListeners>
-                <Layout>{children}</Layout>
-            </SocketListeners>
-        );
-    };
-
     const routes = useRoutes([
         {
             path: '/lobby/:lid',
             exact: true,
-            element: PageWrapper(<Lobby />),
+            element: <Lobby />,
         },
-        { path: '/', element: PageWrapper(<Home />) },
-        { path: '*', element: PageWrapper(<NotFound />) },
+        { path: '/', element: <Home /> },
+        { path: '*', element: <NotFound /> },
     ]);
 
-    return routes;
+    return <Layout>{routes}</Layout>;
 };
 
 export default Routing;
