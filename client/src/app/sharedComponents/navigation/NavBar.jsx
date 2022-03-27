@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 // import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { classNames } from '../../../lib/classNames';
 
 // import * as AppPropTypes from '../../lib/PropTypes';
 import {
@@ -24,12 +25,18 @@ const NavBar = ({ setPannelOpen, setPannelContent }) => {
         setPannelContent(content);
         setPannelOpen(true);
     };
+    const buttonClass = 'py-5 font-sans';
 
     return (
-        <nav className="flex-initial bg-gray-100">
+        <nav className="flex-initial bg-gray-100 font-sans">
             <div className="max-w-6xl mx-auto px-4">
                 <div className="flex justify-between">
-                    <div className="flex items-center py-5 px-2 text-gray-700 hover:text-gray-900 ">
+                    <div
+                        className={classNames([
+                            'flex items-center text-gray-700 hover:text-gray-900',
+                            buttonClass,
+                        ])}
+                    >
                         {/* <!-- logo --> */}
                         <Link to="/">
                             <span className="font-bold">Cheat</span>
@@ -37,15 +44,19 @@ const NavBar = ({ setPannelOpen, setPannelContent }) => {
                     </div>
 
                     {/* <!-- secondary nav --> */}
-                    <div className="flex items-center">
+                    <div className="flex items-center gap-8">
                         <button
-                            className="mr-8"
                             type="button"
                             onClick={() => onButtonClick('rules')}
+                            className={classNames([buttonClass])}
                         >
                             How to Play
                         </button>
-                        <button type="button" onClick={() => onButtonClick('feedback')}>
+                        <button
+                            type="button"
+                            onClick={() => onButtonClick('feedback')}
+                            className={classNames([buttonClass])}
+                        >
                             Give Feedback
                         </button>
                     </div>

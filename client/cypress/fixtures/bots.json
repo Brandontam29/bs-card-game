@@ -1,5 +1,21 @@
 {
+    "playerCardsLeft": {
+        "playerId": 22,
+        "111111": 3,
+        "222222": 1,
+        "333333": 27,
+        "444444": 13,
+        "555555": 40
+    },
+
     "players": [
+        {
+            "name": "Mister Tester",
+            "id": "playerId",
+            "avatar": "199901",
+            "lobby": "ABCDEF",
+            "handSize": 27
+        },
         {
             "id": "111111",
             "name": "Cypress_Bot 1",
@@ -25,6 +41,13 @@
             "id": "444444",
             "name": "Cypress_Bot 4",
             "avatar": "444444",
+            "lobby": "ABCDEF",
+            "handSize": 3
+        },
+        {
+            "id": "555555",
+            "name": "Cypress_Bot 5",
+            "avatar": "555555",
             "lobby": "ABCDEF",
             "handSize": 3
         }

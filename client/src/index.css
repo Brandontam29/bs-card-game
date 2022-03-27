@@ -3,13 +3,32 @@
 @tailwind utilities;
 
 @layer base {
+    @font-face {
+        font-family: 'Nunito';
+        font-weight: 400;
+        src: url('./assets/fonts/Nunito-Regular.ttf') format('ttf');
+    }
+
+    @font-face {
+        font-family: 'Nunito';
+        font-weight: 700;
+        src: url('./assets/fonts/Nunito-Bold.ttf') format('ttf');
+    }
+
+    @font-face {
+        font-family: 'Nunito';
+        font-weight: 400;
+        font-style: italic;
+        src: url('./assets/fonts/Nunito-Italic.ttf') format('ttf');
+    }
+
     h1,
     h2,
     h3,
     h4,
     h5,
     h6 {
-        @apply text-yellow-900 font-header;
+        @apply font-header;
     }
 
     h1 {
@@ -25,30 +44,30 @@
     h4 {
         @apply text-xl;
     }
-}
 
-html,
-body {
-    height: 100%;
+    html,
+    body {
+        height: 100%;
 
-    margin: 0;
-    padding: 0;
-}
+        margin: 0;
+        padding: 0;
+    }
 
-body {
-    overflow-x: hidden;
+    body {
+        overflow-x: hidden;
 
-    font-size: 16px;
-    line-height: 1.25;
-    font-family: 'courier', Courier, monospace;
+        font-size: 16px;
+        line-height: 1.45;
 
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
 
-body > div {
-    display: flex;
-    flex-direction: column;
+    body > div {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
 
-    background-color: #79cf90;
+        background-color: #79cf90;
+    }
 }

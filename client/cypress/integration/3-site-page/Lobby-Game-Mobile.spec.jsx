@@ -19,6 +19,7 @@ import {
 import { setAvatar, setConnected, setName } from '../../../src/redux/actions/playerActions';
 import { setHand } from '../../../src/redux/actions/handActions';
 import { setSocket } from '../../../src/redux/actions/siteActions';
+import { setPlayerCardsLeft } from '../../../src/redux/actions/gameActions';
 
 describe('Lobby component testing', () => {
     const store = configureStore();
@@ -28,7 +29,8 @@ describe('Lobby component testing', () => {
         store.dispatch(setInGame(true));
 
         cy.fixture('bots.json').then((file) => {
-            store.dispatch(setPlayers(file.players.slice(0, 1)));
+            store.dispatch(setPlayers(file.players.slice(0, 6)));
+            store.dispatch(setPlayerCardsLeft(file.playerCardsLeft));
         });
 
         cy.fixture('player.json').then((player) => {
@@ -99,6 +101,7 @@ describe('Lobby component testing', () => {
     // });
 
     // it('Normal Desktop Screen (1920 x 950)', () => {
+    //     cy.viewport(1920, 950);
     //     mount(
     //         <HelmetProvider>
     //             <ReduxProvider store={store}>

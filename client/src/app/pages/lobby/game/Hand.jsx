@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 // import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -17,8 +18,23 @@ const defaultProps = {
 };
 
 const Hand = ({ hand, className }) => {
+    const [handClass, setHandClass] = useState(
+        'grid-cols-[repeat(20,22px)] grid-rows-[repeat(2,30px)]',
+    );
+
+    useEffect(() => {
+        const defaultString = 'grid-cols-[repeat(27,22px)]';
+    }, [hand]);
+
     return (
-        <div className={classNames(['flex flex-row flex-wrap', className])}>
+        <div
+            className={classNames([
+                // 'absolute inset-x-0 bottom-0',
+                `grid mx-auto `,
+                handClass,
+                className,
+            ])}
+        >
             {hand.map((card) => (
                 <Card key={card.code} card={card} />
             ))}

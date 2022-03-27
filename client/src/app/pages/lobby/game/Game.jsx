@@ -22,25 +22,44 @@ const propTypes = {
 const defaultProps = {};
 
 const Game = ({ socket, players, playerCardsLeft }) => {
-    // TODO Implement style array to put players based on number of players
+    const playerIndex = players.findIndex((player) => player.id === socket.id);
+    console.table(players);
+    console.log(playerIndex);
+    const centerLeft = 'top-1/2 left-0 translate-y-[-50%]';
+    const topLeft = 'top-0 left-0';
+    const topCenter = 'top-0 right-1/2 translate-x-1/2';
+    const topRight = 'top-0 right-0';
+    const centerRight = 'top-1/2 right-0 translate-y-[-50%]';
 
+    const styles = {
+        2: [topCenter],
+        3: [topLeft, topRight],
+        4: [centerLeft, topCenter, centerRight],
+        5: [centerLeft, topLeft, topRight, centerRight],
+        6: [centerLeft, topLeft, topCenter, topRight, centerRight],
+    };
+    console.log(socket.id);
     return (
-        <div className="relative">
-            {players.map(
-                (player, key) =>
-                    player.id !== socket.id && (
-                        <OtherPlayer
-                            key={player.name + player.avatar + key}
-                            player={player}
-                            handSize={playerCardsLeft[player.id]}
-                        />
-                    ),
-            )}
+        <div className="relative h-full flex flex-grow justify-end flex-col ">
+            {/* renders the players in order of their turn */}
+            {players.slice(playerIndex + 1, players.length).map((player, key) => (
+                <OtherPlayer
+                    key={player.name + player.avatar + player.id}
+                    player={player}
+                    handSize={playerCardsLeft[player.id]}
+                    className={styles[players.length][key]}
+                />
+            ))}
+            {players.slice(0, playerIndex).map((player, key) => (
+                <OtherPlayer
+                    key={player.name + player.avatar + player.id}
+                    player={player}
+                    handSize={playerCardsLeft[player.id]}
+                    className={styles[players.length][players.length - 1 - playerIndex + key]}
+                />
+            ))}
+            <Clock />
 
-            <div>
-                Center Pile Clock:
-                <Clock />
-            </div>
             <Player />
             <Hand />
             <Controls />

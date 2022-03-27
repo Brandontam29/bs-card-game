@@ -2,11 +2,12 @@
 module.exports = {
     content: ['./src/**/*.{js,jsx,ts,tsx}'],
     theme: {
-        fontFamily: {
-            header: ['arial', 'sans-serif'],
-            body: ['roboto', 'serif'],
-        },
         extend: {
+            fontFamily: {
+                header: ['Nunito', 'arial', 'sans-serif'],
+                sans: ['Nunito', 'arial', 'sans-serif'],
+            },
+
             colors: {
                 green: {
                     DEFAULT: '#79CF90',

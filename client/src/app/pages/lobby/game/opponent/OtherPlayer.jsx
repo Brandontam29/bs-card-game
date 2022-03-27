@@ -18,8 +18,8 @@ const defaultProps = {
 
 const OtherPlayer = ({ player, handSize, className }) => {
     return (
-        <div className={classNames([className])}>
-            <h4>{player.name}</h4>
+        <div className={classNames(['absolute flex flex-col items-center', className])}>
+            <h4 className="text-base">{player.name}</h4>
             <Avatar name={player.avatar} square="true" variant="beam" size={40} />
             <HiddenCards handSize={handSize} />
         </div>

@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
-import cardBack from '../../../../../images/cardBack.png';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import cardBack from '../../../../../assets/images/cardBack.png';
 import { classNames } from '../../../../../lib/classNames';
 // import * as AppPropTypes from '../../../../lib/PropTypes';
 
@@ -14,11 +16,45 @@ const defaultProps = {
 };
 
 const HiddenCards = ({ handSize, className }) => {
-    // create different images for overlapping cards
+    const [cardCount, setCardCount] = useState(1);
+    const [overlap, setOverlap] = useState('15px');
+    const gridStyle = `grid-cols-[repeat(${cardCount},${overlap})]`;
+
+    useEffect(() => {
+        if (handSize === 1) {
+            return setCardCount(1);
+        }
+        if (handSize === 2) {
+            return setCardCount(2);
+        }
+        if (handSize < 6) {
+            setOverlap('20px');
+            return setCardCount(3);
+        }
+        if (handSize < 10) {
+            setOverlap('15px');
+            return setCardCount(4);
+        }
+        if (handSize < 15) {
+            setOverlap('10px');
+            return setCardCount(5);
+        }
+        if (handSize < 20) {
+            return setCardCount(6);
+        }
+        if (handSize < 25) {
+            return setCardCount(7);
+        }
+
+        return setCardCount(8);
+    }, [handSize]);
+
     return (
-        <div className={classNames([className])}>
-            <div>cards : {handSize}</div>
-            <img alt="card backs" src={cardBack} className="w-9 h-auto" />
+        <div className={classNames(['relative grid', `grid-cols-[repeat(8,15px)]`, gridStyle])}>
+            {new Array(cardCount).fill(
+                <img alt="card backs" src={cardBack} className="w-10 h-auto block max-w-none" />,
+            )}
+            <div className="absolute justify-self-center self-center">{handSize}</div>
         </div>
     );
 };

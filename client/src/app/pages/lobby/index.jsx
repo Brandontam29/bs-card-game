@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
-// import { io } from 'socket.io-client';
 import { connect } from 'react-redux';
 
 // import * as AppPropTypes from '../../../lib/PropTypes';
@@ -11,10 +10,8 @@ import Login from './login/Login';
 import WaitingRoom from './waitingRoom/WaitingRoom';
 import Game from './game/Game';
 import Messaging from './components/Messaging';
-// import NotConnected from './notConnected/notConnected';
 
 const propTypes = {
-    // socket: PropTypes.string.isRequired,
     inGame: PropTypes.bool.isRequired,
     connected: PropTypes.bool.isRequired,
 };
@@ -28,10 +25,10 @@ const Lobby = ({ inGame, connected }) => {
         return <Login />;
     }
     return (
-        <div className="relative">
+        <>
             {inGame ? <Game /> : <WaitingRoom />}
             <Messaging />
-        </div>
+        </>
     );
 };
 
@@ -39,8 +36,7 @@ Lobby.propTypes = propTypes;
 Lobby.defaultProps = defaultProps;
 
 const WithReduxContainer = connect(
-    ({ site, player, lobby }) => ({
-        // socket: site.socket,
+    ({ player, lobby }) => ({
         connected: player.connected,
         inGame: lobby.inGame,
     }),

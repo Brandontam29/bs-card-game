@@ -1,8 +1,5 @@
 {
-    "name": "Mister Tester",
-    "id": "playerId",
-    "avatar": "199901",
-    "hand": [
+    "cards": [
         {
             "code": "4D",
             "image": "https://deckofcardsapi.com/static/img/4D.png",
@@ -142,9 +139,7 @@
             },
             "value": "9",
             "suit": "HEARTS"
-        }
-    ],
-    "largeHand": [
+        },
         {
             "code": "6C",
             "image": "https://deckofcardsapi.com/static/img/6C.png",
