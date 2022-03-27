@@ -1,6 +1,5 @@
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
-import { useEffect } from 'react';
 import cardBack from '../../../../../assets/images/cardBack.png';
 import { classNames } from '../../../../../lib/classNames';
 // import * as AppPropTypes from '../../../../lib/PropTypes';
@@ -50,9 +49,14 @@ const HiddenCards = ({ handSize, className }) => {
     }, [handSize]);
 
     return (
-        <div className={classNames(['relative grid', `grid-cols-[repeat(8,15px)]`, gridStyle])}>
+        <div
+            className={classNames([
+                'relative grid',
+                `grid-cols-[repeat(8,10px)] translate-x-[-10px]`,
+            ])}
+        >
             {new Array(cardCount).fill(
-                <img alt="card backs" src={cardBack} className="w-10 h-auto block max-w-none" />,
+                <img alt="card backs" src={cardBack} className="w-8 h-auto block max-w-none" />,
             )}
             <div className="absolute justify-self-center self-center">{handSize}</div>
         </div>

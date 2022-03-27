@@ -19,7 +19,7 @@ const defaultProps = {
 
 const Hand = ({ hand, className }) => {
     const [handClass, setHandClass] = useState(
-        'grid-cols-[repeat(20,22px)] grid-rows-[repeat(2,30px)]',
+        'grid-cols-[repeat(16,28px)] grid-rows-[30px,30px,40px]',
     );
 
     useEffect(() => {
@@ -27,14 +27,7 @@ const Hand = ({ hand, className }) => {
     }, [hand]);
 
     return (
-        <div
-            className={classNames([
-                // 'absolute inset-x-0 bottom-0',
-                `grid mx-auto `,
-                handClass,
-                className,
-            ])}
-        >
+        <div className={classNames([`grid`, handClass, className])}>
             {hand.map((card) => (
                 <Card key={card.code} card={card} />
             ))}

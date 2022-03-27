@@ -45,7 +45,6 @@ const Messaging = ({ lobbyCode, socket, messages, className }) => {
                 onClick={() => setMinimized(false)}
                 className={classNames([
                     { hidden: !minimized },
-
                     'fixed top-2 w-[calc(30vw)] max-w-[80px] h-auto p-1',
                     'md:bottom-2 md:top-auto right-2 ',
                 ])}
@@ -57,7 +56,7 @@ const Messaging = ({ lobbyCode, socket, messages, className }) => {
             <div
                 className={classNames([
                     { 'top-[100vh] bottom-auto': minimized },
-                    'fixed bottom-0 right-0',
+                    'fixed bottom-0 right-0 mr-2.5',
                     'h-full max-h-[800px] w-80 mx-auto',
                     'flex flex-col',
                     'bg-white overflow-y-scroll',

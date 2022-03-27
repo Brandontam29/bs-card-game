@@ -45,8 +45,9 @@ const Controls = ({ socket, turnPlayer, deselectAll, selectedCards, sortHand }) 
         return setDisabled(true);
     }, [turnPlayer, socket.id, selectedCards]);
 
-    const styles =
-        'absolute px-5 py-2.5 border border-black border-solid bg-slate-100 mr-5 disabled:bg-gray-400 hover:bg-gray-50';
+    const buttonStyles =
+        'absolute m-1.5 px-2 py-1 border border-black border-solid
+         rounded disabled:bg-gray-400 hover:bg-gray-50 text-sm';
 
     return (
         <>
@@ -55,7 +56,7 @@ const Controls = ({ socket, turnPlayer, deselectAll, selectedCards, sortHand }) 
                 onClick={onPlay}
                 dataCy="play_cards"
                 disabled={disabled}
-                className={classNames(['', styles])}
+                className={classNames(['bottom right-1/2 translate-x-1/2', buttonStyles])}
             >
                 Play
             </Button>
@@ -63,7 +64,7 @@ const Controls = ({ socket, turnPlayer, deselectAll, selectedCards, sortHand }) 
                 type="button"
                 onClick={onDeselect}
                 dataCy="deselect_cards"
-                className={classNames([styles])}
+                className={classNames(['bottom-0 left-0 bg-red', buttonStyles])}
             >
                 Deselect
             </Button>
@@ -71,7 +72,7 @@ const Controls = ({ socket, turnPlayer, deselectAll, selectedCards, sortHand }) 
                 type="button"
                 onClick={onSort}
                 dataCy="sort_cards"
-                className={classNames([styles])}
+                className={classNames(['bottom-0 right-0 bg-blue-300', buttonStyles])}
             >
                 Sort
             </Button>

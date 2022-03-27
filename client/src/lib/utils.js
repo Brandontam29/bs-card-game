@@ -3,12 +3,16 @@ export const add = (num1, num2) => {
     return num1 + num2;
 };
 
-export const sortCards = (a, b) => {
-    const codeA = a.code;
-    const codeB = b.code;
-    if (codeA < codeB) return -1;
-    if (codeA > codeB) return 1;
-    return 0;
+export const sortCards = (arr) => {
+    const algo = (a, b) => {
+        const codeA = a.value;
+        const codeB = b.value;
+        if (codeA < codeB) return -1;
+        if (codeA > codeB) return 1;
+        return 0;
+    };
+
+    return arr.slice().sort(algo);
 };
 
 export const convertClockToCard = (cardClock) => {
@@ -16,16 +20,16 @@ export const convertClockToCard = (cardClock) => {
 
     switch (number) {
         case 1: {
-            return 'ACE';
+            return 'Ace';
         }
         case 11: {
-            return 'JACK';
+            return 'Jack';
         }
         case 12: {
-            return 'QUEEN';
+            return 'Queen';
         }
         case 13: {
-            return 'KING';
+            return 'King';
         }
         default:
             return `${number}`;

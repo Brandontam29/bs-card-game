@@ -11,7 +11,6 @@ import OtherPlayer from './opponent/OtherPlayer';
 import Hand from './Hand';
 import Controls from './Controls';
 import Clock from './Clock';
-import { setPannelOpen as setPannelOpenAction } from '../../../../redux/actions/siteActions';
 
 const propTypes = {
     socket: AppPropTypes.socket.isRequired,
@@ -23,8 +22,7 @@ const defaultProps = {};
 
 const Game = ({ socket, players, playerCardsLeft }) => {
     const playerIndex = players.findIndex((player) => player.id === socket.id);
-    console.table(players);
-    console.log(playerIndex);
+
     const centerLeft = 'top-1/2 left-0 translate-y-[-50%]';
     const topLeft = 'top-0 left-0';
     const topCenter = 'top-0 right-1/2 translate-x-1/2';
@@ -38,9 +36,10 @@ const Game = ({ socket, players, playerCardsLeft }) => {
         5: [centerLeft, topLeft, topRight, centerRight],
         6: [centerLeft, topLeft, topCenter, topRight, centerRight],
     };
-    console.log(socket.id);
+
     return (
-        <div className="relative h-full flex flex-grow justify-end flex-col ">
+        <div className="relative h-full flex flex-grow justify-end flex-col">
+            {/* overflow-y-hidden */}
             {/* renders the players in order of their turn */}
             {players.slice(playerIndex + 1, players.length).map((player, key) => (
                 <OtherPlayer
@@ -59,9 +58,10 @@ const Game = ({ socket, players, playerCardsLeft }) => {
                 />
             ))}
             <Clock />
-
-            <Player />
-            <Hand />
+            <div className="flex m-x-auto w-auto">
+                <Player />
+                <Hand />
+            </div>
             <Controls />
         </div>
     );
@@ -77,9 +77,7 @@ const WithReduxContainer = connect(
         inGame: lobby.pannelContent,
         playerCardsLeft: game.playerCardsLeft,
     }),
-    (dispatch) => ({
-        setPannelOpen: (value) => dispatch(setPannelOpenAction(value)),
-    }),
+    () => ({}),
 )(Game);
 
 export default WithReduxContainer;

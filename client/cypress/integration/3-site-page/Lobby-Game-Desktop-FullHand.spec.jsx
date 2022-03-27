@@ -19,6 +19,7 @@ import {
 import { setAvatar, setConnected, setName } from '../../../src/redux/actions/playerActions';
 import { setHand } from '../../../src/redux/actions/handActions';
 import { setSocket } from '../../../src/redux/actions/siteActions';
+import { setPlayerCardsLeft } from '../../../src/redux/actions/gameActions';
 
 describe('In game desktop full hand size', () => {
     const store = configureStore();
@@ -28,13 +29,14 @@ describe('In game desktop full hand size', () => {
         store.dispatch(setInGame(true));
 
         cy.fixture('bots.json').then((file) => {
-            store.dispatch(setPlayers(file.players.slice(0, 1)));
+            store.dispatch(setPlayers(file.players.slice(0, 6)));
+            store.dispatch(setPlayerCardsLeft(file.playerCardsLeft));
         });
 
         cy.fixture('player.json').then((player) => {
             store.dispatch(setName(player.name));
             store.dispatch(setAvatar(player.avatar));
-            store.dispatch(setHand(player.largeHand));
+            store.dispatch(setHand(player.hand));
         });
 
         cy.fixture('socket.json').then((socket) => {

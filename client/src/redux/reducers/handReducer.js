@@ -19,7 +19,7 @@ const handReducer = (state = initialState, action) => {
             };
         }
         case SORT_HAND: {
-            const sortedHand = state.cards.slice().sort(sortCards);
+            const sortedHand = sortCards(state.cards);
 
             return {
                 ...state,
