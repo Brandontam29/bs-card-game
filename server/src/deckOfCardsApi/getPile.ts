@@ -7,7 +7,12 @@ const getPile = async (deck_id: string, pile_name: string): Promise<Cards> => {
     // const pile = pile_name.parse()
 
     const deck = deck_id;
-    const pile = pile_name;
+    const pile = pile_name.replaceAll('-', '_');
+
+    console.log(
+        'url request',
+        `https://deckofcardsapi.com/api/deck/${deck}/pile/${pile}/list/`,
+    );
     const response = await axios
         .get(`https://deckofcardsapi.com/api/deck/${deck}/pile/${pile}/list/`)
         .then((res) => {

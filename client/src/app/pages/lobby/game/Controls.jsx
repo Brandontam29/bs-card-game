@@ -46,8 +46,7 @@ const Controls = ({ socket, turnPlayer, deselectAll, selectedCards, sortHand }) 
     }, [turnPlayer, socket.id, selectedCards]);
 
     const buttonStyles =
-        'absolute m-1.5 px-2 py-1 border border-black border-solid
-         rounded disabled:bg-gray-400 hover:bg-gray-50 text-sm';
+        'absolute m-1.5 px-2 py-1 border border-black border-solid rounded disabled:bg-gray-400 hover:bg-gray-50 text-sm';
 
     return (
         <>

@@ -1,3 +1,7 @@
+import { Server as ServerType, Socket as SocketType } from 'socket.io';
+
+export type Socket = Readonly<SocketType>;
+export type Server = Readonly<ServerType>;
 export interface Card {
     code: string;
     image: string;
@@ -24,6 +28,16 @@ export type PileList = Readonly<{
 }>;
 
 export type Cards = [Card];
+
+export interface Player {
+    id: string;
+    name: string;
+    avatar: string;
+}
+
+export interface CardsLeft {
+    [key: string]: number;
+}
 
 export interface ServerToClientEvents {
     'game:start_game': () => void;

@@ -15,23 +15,18 @@ export const sortCards = (arr) => {
     return arr.slice().sort(algo);
 };
 
-export const convertClockToCard = (cardClock) => {
-    const number = (cardClock % 13) + 1;
-
-    switch (number) {
-        case 1: {
-            return 'Ace';
-        }
-        case 11: {
-            return 'Jack';
-        }
-        case 12: {
-            return 'Queen';
-        }
-        case 13: {
-            return 'King';
-        }
-        default:
-            return `${number}`;
+export const capitalize = (str) => {
+    if (typeof str === 'number') {
+        return str;
     }
+
+    if (typeof str !== 'string') {
+        return 'Error';
+    }
+
+    if (str.length === 1) {
+        return str;
+    }
+
+    return str[0].toUpperCase() + str.slice(1, str.length).toLowerCase();
 };

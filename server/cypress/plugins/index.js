@@ -24,6 +24,7 @@ const plugins = (on, config) => {
                 console.log('Cypress get_hand');
                 hand = cards;
             });
+
             return null;
         },
 

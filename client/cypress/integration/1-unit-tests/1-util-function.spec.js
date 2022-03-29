@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-import { add } from '../../../src/lib/utils';
+import { add, capitalize } from '../../../src/lib/utils';
 import { classNames } from '../../../src/lib/classNames';
 
 describe('Test functions in utils (/src/lib/utils)', () => {
@@ -27,5 +27,22 @@ describe('Test functions in utils (/src/lib/utils)', () => {
 
         expect(classNames(invalidArgument)).to.be.a('string');
         expect(classNames(invalidArgument)).to.be.empty();
+    });
+
+    it('Test capitalize()', () => {
+        const upperStr = 'QUEEN';
+        const lowerStr = 'queen';
+
+        const digit = 9;
+        const number = 33;
+
+        const invalidArgument = null;
+
+        expect(capitalize(upperStr)).to.be.equal('Queen');
+        expect(capitalize(lowerStr)).to.equal('Queen');
+
+        expect(capitalize(digit)).to.be.equal(digit);
+        expect(capitalize(number)).to.equal(number);
+        expect(capitalize(invalidArgument)).to.equal('Error');
     });
 });

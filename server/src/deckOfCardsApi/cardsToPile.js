@@ -7,9 +7,10 @@ const cardsToPile = async (deck_id, pile_name, cards) => {
         cardCodes += `${card.code},`;
     });
 
+    const pileName = pile_name.replaceAll('-', '_');
     const response = await axios
         .get(
-            `https://deckofcardsapi.com/api/deck/${deck_id}/pile/${pile_name}/add/?cards=${cardCodes}`,
+            `https://deckofcardsapi.com/api/deck/${deck_id}/pile/${pileName}/add/?cards=${cardCodes}`,
         )
         .then((res) => {
             return res.data;

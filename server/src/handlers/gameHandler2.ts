@@ -8,44 +8,17 @@ const { rankPlayers } = require('../deckOfCardsApi/rankPlayers.js');
 const { reshuffleDeck } = require('../deckOfCardsApi/reshuffleDeck.js');
 const { getPile } = require('../deckOfCardsApi/getPile.ts');
 
-const {
-    userJoin,
-    getCurrentUser,
-    userLeave,
-    getRoomUsers,
-} = require('../storage/users.js');
-const {
-    newPileRecord,
-    addRecord,
-    getLastRecord,
-    deletePileRecord,
-} = require('../storage/histories.js');
-const {
-    newDeck,
-    getDeckId,
-    incrementTurn,
-    setTurn,
-    getTurn,
-    incrementCardClock,
-    getCardClock,
-    getTurnCard,
-    dumpDeck,
-} = require('../storage/decks.js');
-
-const {
-    newPlayerCardsLeft,
-    setPlayerCardsLeft,
-    getPlayerCardsLeft,
-    deletePlayerCardsLeft,
-} = require('../storage/cardsLeft.ts');
+import * as game from '../storage';
 
 const { getTurnPlayerId } = require('../utils/getTurnPlayerId.js');
 
 const gameHandlers = (io, socket) => {
-    const startGame = async (lobby) => {
+    const startGame = async (lobby: string) => {
         console.log('game:start', lobby);
+
         // Get new deck and distribute cards
         const getNewDeckResponse = await getNewDeck();
+
         const deck = newDeck(getNewDeckResponse.deck_id, lobby);
         console.log('deck_id', deck.id);
         const drawAllCardsResponse = await drawAllCards(deck.id);
@@ -53,6 +26,7 @@ const gameHandlers = (io, socket) => {
         const players = getRoomUsers(lobby);
         const numOfPlayers = players.length;
 
+        game.initialize(lobby);
         // Consider splitCards to return [[cards],[cards]] instead of {player1: [cards], player2: [cards]}
         // It was fun playing with objects
         const hands = splitCards(drawAllCardsResponse.cards, numOfPlayers);

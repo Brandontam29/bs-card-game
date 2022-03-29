@@ -1,3 +1,4 @@
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Avatar from 'boring-avatars';
 
@@ -8,6 +9,7 @@ import { classNames } from '../../../../../lib/classNames';
 
 const propTypes = {
     player: AppPropTypes.player.isRequired,
+    turnPlayer: PropTypes.string.isRequired,
     handSize: PropTypes.number.isRequired,
     className: PropTypes.string,
 };
@@ -16,9 +18,17 @@ const defaultProps = {
     className: null,
 };
 
-const OtherPlayer = ({ player, handSize, className }) => {
+const OtherPlayer = ({ player, turnPlayer, handSize, className }) => {
+    const active = player.id === turnPlayer;
+
     return (
-        <div className={classNames(['absolute flex flex-col items-center p-2', className])}>
+        <div
+            className={classNames([
+                'absolute flex flex-col items-center p-2',
+                { 'border solid border-yellow-300': active },
+                className,
+            ])}
+        >
             <h4 className="text-sm">{player.name}</h4>
             <Avatar name={player.avatar} square="true" variant="beam" size={40} />
             <HiddenCards handSize={handSize} />
@@ -29,4 +39,11 @@ const OtherPlayer = ({ player, handSize, className }) => {
 OtherPlayer.propTypes = propTypes;
 OtherPlayer.defaultProps = defaultProps;
 
-export default OtherPlayer;
+const WithReduxContainer = connect(
+    ({ game }) => ({
+        turnPlayer: game.turnPlayer,
+    }),
+    () => ({}),
+)(OtherPlayer);
+
+export default WithReduxContainer;
