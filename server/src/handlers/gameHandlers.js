@@ -37,7 +37,7 @@ const {
     setPlayerCardsLeft,
     getPlayerCardsLeft,
     deletePlayerCardsLeft,
-} = require('../storage/cardsLeft.ts');
+} = require('../storage/remainings.ts');
 
 const { getTurnPlayerId } = require('../utils/getTurnPlayerId.js');
 

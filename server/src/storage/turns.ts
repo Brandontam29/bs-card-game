@@ -1,4 +1,4 @@
-const turns = new Map();
+const turns = new Map<string, number>();
 
 const newTurn = (lobby: string) => {
     turns.set(lobby, 0);
@@ -9,7 +9,11 @@ const getTurn = (lobby: string) => {
 };
 
 const incrementTurn = (lobby: string) => {
-    let turn = turns.get(lobby);
+    const turn = turns.get(lobby);
+    if (turn === undefined) {
+        return undefined;
+    }
+
     turns.set(lobby, turn + 1);
 };
 

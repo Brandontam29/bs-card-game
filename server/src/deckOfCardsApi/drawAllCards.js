@@ -5,7 +5,7 @@ const drawAllCards = async (deck_id) => {
     const response = await axios
         .get(`https://deckofcardsapi.com/api/deck/${deck_id}/draw/?count=54`)
         .then((res) => {
-            return res.data;
+            return res.data.cards;
         })
         .catch((err) => {
             const error = new HttpError(err.messsage, 500);

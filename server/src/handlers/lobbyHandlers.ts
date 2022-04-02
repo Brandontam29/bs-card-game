@@ -3,11 +3,12 @@ const { formatMessage } = require('../utils/formatMessage.js');
 import { newPlayer, deletePlayer } from '../storage/players';
 import { Player } from '../types';
 import * as game from '../storage';
+import { Socket } from 'socket.io';
 
-const lobbyHandlers = (io, socket) => {
+const lobbyHandlers = (io: Socket, socket: Socket) => {
+    const botName = 'Game';
     // Standard event emitter for creating and joining lobby
     const emit = (lobby: string, player: Player, players: Player[]) => {
-        const botName = 'Game';
         socket.join(lobby);
         io.in(lobby).emit('update_players', players);
         io.in(lobby).emit(
@@ -42,17 +43,22 @@ const lobbyHandlers = (io, socket) => {
     };
 
     const disconnectLobby = () => {
-        deletePlayer(socket.id);
+        const lobby = game.getLobby(socket.id);
+        const player = game.getPlayer(socket.id);
 
-        if (user) {
-            io.in(user.lobby).emit(
-                'new_message',
-                formatMessage(botName, `${user.name} has left the chat`),
-            );
-
-            // Send users and lobby info
-            io.in(user.lobby).emit('update_players', getRoomUsers(user.lobby));
+        if (lobby) {
+            const players = game.roomPlayers(lobby);
+            io.in(lobby).emit('update_players', players);
         }
+
+        if (player && lobby) {
+            io.in(lobby).emit(
+                'new_message',
+                formatMessage(botName, `${player.name} has left the chat`),
+            );
+        }
+
+        game.removePlayer(socket.id);
     };
 
     socket.on('lobby:create', createLobby);

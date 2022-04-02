@@ -5,12 +5,7 @@ const cors = require('cors');
 const { Server } = require('socket.io');
 
 import { ErrorRequestHandler, Request, Response, NextFunction } from 'express';
-import {
-    ClientToServerEvents,
-    ServerToClientEvents,
-    InterServerEvents,
-    SocketData,
-} from './types';
+import { Server } from './types';
 
 const registerMessageHandlers = require('./handlers/messageHandlers.js');
 const registerGameHandlers = require('./handlers/gameHandlers.js');
@@ -76,7 +71,7 @@ mongoose
         });
 
         const io = new Server(server);
-        io.on('connection', (socket: InterServerEvents) => {
+        io.on('connection', (socket: Server) => {
             console.log('connected');
             registerMessageHandlers(io, socket);
             registerLobbyHandlers(io, socket);

@@ -1,4 +1,4 @@
-const lobbies = new Map();
+const lobbies = new Map<string, string>();
 
 const newPlayerLobby = (playerId: string, lobby: string) => {
     lobbies.set(playerId, lobby);

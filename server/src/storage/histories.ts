@@ -1,13 +1,18 @@
-const histories = new Map();
+const histories = new Map<string, number[]>();
 
 // Track number of cards placed in the center pile
 const newHistory = (lobby: string) => {
-    const history: number[] = [];
-    histories.set(lobby, history);
+    histories.set(lobby, []);
 };
 
 const addHistory = (lobby: string, number: number) => {
     const history = histories.get(lobby);
+
+    if (history === undefined) {
+        histories.set(lobby, [number]);
+        return;
+    }
+
     history.push(number);
 };
 

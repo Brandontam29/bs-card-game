@@ -7,14 +7,7 @@ const getNewDeck = async () => {
             'https://deckofcardsapi.com/api/deck/new/shuffle/?jokers_enabled=true',
         )
         .then((res) => {
-            const obj = {
-                success: res.data.success,
-                deck_id: res.data.deck_id,
-                remaining: res.data.remaining,
-                shuffled: res.data.shuffled,
-            };
-
-            return obj;
+            return res.data.deck_id;
         })
         .catch((err) => {
             const error = new HttpError(err.messsage, 500);

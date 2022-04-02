@@ -15,7 +15,7 @@ export interface Card {
 
 export interface Pile {
     remaining: number;
-    cards?: Cards;
+    cards?: Card[];
 }
 
 export type PileList = Readonly<{
@@ -26,8 +26,6 @@ export type PileList = Readonly<{
         [key: string]: Pile;
     };
 }>;
-
-export type Cards = [Card];
 
 export interface Player {
     id: string;
@@ -42,7 +40,7 @@ export interface CardsLeft {
 export interface ServerToClientEvents {
     'game:start_game': () => void;
     'game:get_hand': (lobby: string) => void;
-    'game:play_card': (cards: Cards) => void;
+    'game:play_card': (cards: Card[]) => void;
     'game:callout': () => void;
     'game:restart_game': (lobby: string) => void;
 }

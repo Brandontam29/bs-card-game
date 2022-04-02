@@ -1,4 +1,6 @@
-const players = new Map();
+import { Player } from '../types';
+
+const players = new Map<string, Player>();
 
 const newPlayer = (id: string, name: string, avatar: string) => {
     const user = { id, name, avatar };
