@@ -1,9 +1,6 @@
 import { Card } from '../types';
 
-const splitCards = (
-    cardsArr: Card[],
-    numOfPlayers: number,
-): Array<Card[]> | undefined => {
+const splitCards = (cardsArr: Card[], numOfPlayers: number): Array<Card[]> => {
     if (cardsArr.length !== 54) {
         throw Error('Please restart your game');
     }

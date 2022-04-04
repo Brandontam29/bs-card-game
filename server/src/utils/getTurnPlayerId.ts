@@ -1,13 +1,11 @@
 import { Player } from '../types';
 
-const getTurnPlayerId = (players: Player[], turn: number) => {
+export const getTurnPlayerId = (players: Player[], turn: number) => {
     const index = turn % players.length;
     const turnPlayerId = players[index].id;
 
     return turnPlayerId;
 };
-
-export { getTurnPlayerId };
 
 /*
     0 % 4 = 0

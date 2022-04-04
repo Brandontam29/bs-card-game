@@ -1,11 +1,11 @@
-const { lobbyCodeGenerator } = require('../utils/lobbyCodeGenerator.js');
-const { formatMessage } = require('../utils/formatMessage.js');
-import { newPlayer, deletePlayer } from '../storage/players';
+import { lobbyCodeGenerator } from '../utils/lobbyCodeGenerator';
+import { formatMessage } from '../utils/formatMessage';
+import { newPlayer } from '../storage/players';
 import { Player } from '../types';
 import * as game from '../storage';
-import { Socket } from 'socket.io';
+import { Server, Socket } from 'socket.io';
 
-const lobbyHandlers = (io: Socket, socket: Socket) => {
+export const lobbyHandlers = (io: Server, socket: Socket) => {
     const botName = 'Game';
     // Standard event emitter for creating and joining lobby
     const emit = (lobby: string, player: Player, players: Player[]) => {
@@ -28,7 +28,7 @@ const lobbyHandlers = (io: Socket, socket: Socket) => {
 
         game.initialize(lobbyCode);
         game.addPlayer(lobbyCode, player);
-        const roomPlayers = game.roomPlayers(lobbyCode);
+        const roomPlayers = game.players(lobbyCode);
 
         emit(lobbyCode, player, roomPlayers);
     };
@@ -37,17 +37,17 @@ const lobbyHandlers = (io: Socket, socket: Socket) => {
         const player = newPlayer(socket.id, name, avatar);
 
         game.addPlayer(lobby, player);
-        const roomPlayers = game.roomPlayers(lobby);
+        const roomPlayers = game.players(lobby);
 
         emit(lobby, player, roomPlayers);
     };
 
     const disconnectLobby = () => {
-        const lobby = game.getLobby(socket.id);
-        const player = game.getPlayer(socket.id);
+        const lobby = game.lobby(socket.id);
+        const player = game.player(socket.id);
 
         if (lobby) {
-            const players = game.roomPlayers(lobby);
+            const players = game.players(lobby);
             io.in(lobby).emit('update_players', players);
         }
 
@@ -65,5 +65,3 @@ const lobbyHandlers = (io: Socket, socket: Socket) => {
     socket.on('lobby:join', joinLobby);
     socket.on('lobby:disconnect', disconnectLobby);
 };
-
-module.exports = lobbyHandlers;

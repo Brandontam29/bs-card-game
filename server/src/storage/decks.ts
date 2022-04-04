@@ -1,6 +1,6 @@
-const decks = new Map<string, string | null>();
+const decks = new Map<string, string | undefined>();
 
-const newDeck = (lobby: string, deckId: string | null = null) => {
+const newDeck = (lobby: string, deckId: string | undefined = undefined) => {
     decks.set(lobby, deckId);
 };
 
@@ -11,11 +11,7 @@ const setDeck = (lobby: string, deckId: string) => {
 const getDeck = (lobby: string) => {
     const deck = decks.get(lobby);
 
-    if (deck) {
-        return deck;
-    }
-
-    return Error('You do not have a deck of cards');
+    return deck;
 };
 
 const deleteDeck = (lobby: string) => {

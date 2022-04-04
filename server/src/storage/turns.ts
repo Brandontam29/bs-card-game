@@ -1,7 +1,11 @@
 const turns = new Map<string, number>();
 
+// Determines who is the turn player
 const newTurn = (lobby: string) => {
     turns.set(lobby, 0);
+};
+const setTurn = (lobby: string, turn: number) => {
+    turns.set(lobby, turn);
 };
 
 const getTurn = (lobby: string) => {
@@ -21,6 +25,6 @@ const deleteTurn = (lobby: string) => {
     turns.delete(lobby);
 };
 
-export { newTurn, getTurn, incrementTurn, deleteTurn };
+export { newTurn, getTurn, incrementTurn, deleteTurn, setTurn };
 
 module.exports = { newTurn, getTurn, incrementTurn, deleteTurn };

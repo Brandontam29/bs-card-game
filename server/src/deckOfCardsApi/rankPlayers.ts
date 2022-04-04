@@ -1,11 +1,12 @@
-const { getPile } = require('./getPile.ts');
+import { Player } from '../types';
+import { getPile } from './getPile';
 
-const rankPlayers = (deckId, players) => {
+export const rankPlayers = async (deckId: string, players: Player[]) => {
     let rankedPlayers = [];
 
     for (let i = 0; i < players.length; i++) {
         const playerId = players[i].id;
-        const cards = getPile(deckId, playerId);
+        const cards = await getPile(deckId, playerId);
         rankedPlayers.push({
             name: players[i].name,
             remaining: cards.length,
@@ -16,5 +17,3 @@ const rankPlayers = (deckId, players) => {
 
     return rankedPlayers;
 };
-
-module.exports = { rankPlayers };

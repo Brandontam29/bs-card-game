@@ -1,5 +1,4 @@
-import { convertClockToCard } from '../utils/convertClockToCard.js';
-
+// Determines what card to play
 const clocks = new Map<string, number>();
 
 const newClock = (lobby: string) => {
@@ -9,7 +8,7 @@ const newClock = (lobby: string) => {
 const getClock = (lobby: string) => {
     const clock = clocks.get(lobby);
 
-    if (typeof clock === 'number') return convertClockToCard(clock);
+    if (clock === undefined) return undefined;
 
     return clock;
 };
@@ -27,10 +26,3 @@ const deleteClock = (lobby: string) => {
     clocks.delete(lobby);
 };
 export { newClock, getClock, incrementClock, deleteClock };
-
-module.exports = {
-    newClock,
-    getClock,
-    incrementClock,
-    deleteClock,
-};

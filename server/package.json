@@ -1,8 +1,9 @@
 {
     "name": "cheat-card-game-server",
+    "main": "./src/server.ts",
     "scripts": {
         "cypress": "npx cypress open",
-        "server": "npx nodemon index.ts"
+        "server": "npx nodemon"
     },
     "dependencies": {
         "axios": "^0.24.0",
@@ -24,7 +25,7 @@
         "@types/dotenv": "^8.2.0",
         "@types/express": "^4.17.13",
         "@types/node": "^17.0.21",
-        "cypress": "^9.5.2",
+        "cypress": "^9.5.3",
         "eslint": "^8.2.0",
         "eslint-config-prettier": "^8.3.0",
         "eslint-plugin-cypress": "^2.12.1",

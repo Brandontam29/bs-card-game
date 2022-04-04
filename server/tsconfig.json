@@ -13,7 +13,6 @@
         "strictFunctionTypes": true,
         "strictPropertyInitialization": true,
 
-        "useUnknownInCatchVariables": false,
         "esModuleInterop": true,
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,

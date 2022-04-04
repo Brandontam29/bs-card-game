@@ -1,24 +1,25 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const { Server } = require('socket.io');
+import express from 'express';
+import bodyParser from 'body-parser';
+import mongoose from 'mongoose';
+import cors from 'cors';
+import { Server } from 'socket.io';
 
 import { ErrorRequestHandler, Request, Response, NextFunction } from 'express';
-import { Server } from './types';
+import { Server as ServerType, Socket } from './types';
 
-const registerMessageHandlers = require('./handlers/messageHandlers.js');
-const registerGameHandlers = require('./handlers/gameHandlers.js');
-const registerLobbyHandlers = require('./handlers/lobbyHandlers.js');
+import { messageHandlers as registerMessageHandlers } from './handlers/messageHandlers';
+import { gameHandlers as registerGameHandlers } from './handlers/gameHandlers';
+import { lobbyHandlers as registerLobbyHandlers } from './handlers/lobbyHandlers';
 
 // const deckRoutes  = require('./routes/deckRoutes'));
 // const pileRoutes  = require('./routes/pileRoutes'));
 // const matchRoutes  = require('./routes/matchRoutes.js');
 // const userRoutes  = require('./routes/userRoutes.js');
-const HttpError = require('./models/http-error.js');
-const dotenv = require('dotenv');
 
-dotenv.config();
+import { HttpError } from './errors/HttpError';
+
+import 'dotenv/config';
+
 const app = express();
 app.use(bodyParser.json());
 
@@ -37,11 +38,11 @@ app.use(
 );
 
 // Routes
-// const onConnection = (io, socket) => {
-//     registerLobbyHandlers(io, socket);
-//     registerGameHandlers(io, socket);
-//     registerMessageHandlers(io, socket);
-// };
+const onConnection = (io: ServerType, socket: Socket) => {
+    registerLobbyHandlers(io, socket);
+    registerGameHandlers(io, socket);
+    registerMessageHandlers(io, socket);
+};
 
 // app.use('/api/user', userRoutes);
 // app.use('/api/match', matchRoutes);
@@ -64,18 +65,16 @@ const port = 4000;
 // Connections
 
 mongoose
-    .connect(uri, { useNewUrlParser: true })
+    .connect(uri)
     .then(() => {
         const server = app.listen(port, () => {
             console.log(`Cheat Card Game at http://localhost:${port}`);
         });
 
         const io = new Server(server);
-        io.on('connection', (socket: Server) => {
+        io.on('connection', (socket: Socket) => {
             console.log('connected');
-            registerMessageHandlers(io, socket);
-            registerLobbyHandlers(io, socket);
-            registerGameHandlers(io, socket);
+            onConnection(io, socket);
         });
     })
     .catch((err: Error) => {

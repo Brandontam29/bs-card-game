@@ -8,11 +8,12 @@ const newRemaining = (lobby: string, obj: CardsLeftType | {} = {}) => {
 
 const setPlayerRemaining = (lobby: string, id: string, numOfCards: number) => {
     const object = remainings.get(lobby);
+
     if (object === undefined) {
         return;
     }
 
-    object.id = numOfCards;
+    object[id] = numOfCards;
 };
 
 const getRemaining = (lobby: string) => {

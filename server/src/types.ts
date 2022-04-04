@@ -1,7 +1,13 @@
 import { Server as ServerType, Socket as SocketType } from 'socket.io';
 
-export type Socket = Readonly<SocketType>;
-export type Server = Readonly<ServerType>;
+export type Socket = SocketType;
+export type Server = ServerType;
+export interface Message {
+    author: string;
+    text: string;
+    time: string;
+}
+
 export interface Card {
     code: string;
     image: string;

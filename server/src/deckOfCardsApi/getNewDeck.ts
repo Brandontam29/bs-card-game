@@ -1,7 +1,7 @@
-const axios = require('axios');
-const HttpError = require('../models/http-error.js');
+import axios from 'axios';
+import { HttpError } from '../errors/HttpError';
 
-const getNewDeck = async () => {
+export const getNewDeck = async () => {
     const response = await axios
         .get(
             'https://deckofcardsapi.com/api/deck/new/shuffle/?jokers_enabled=true',
@@ -10,14 +10,17 @@ const getNewDeck = async () => {
             return res.data.deck_id;
         })
         .catch((err) => {
-            const error = new HttpError(err.messsage, 500);
-            return error;
+            if (err instanceof Error) {
+                console.error(err);
+            }
+
+            const error = new HttpError('API Error', 500);
+            throw error;
         });
 
     return response;
 };
 
-module.exports = { getNewDeck };
 // const exmaple_response = {
 //     success: true,
 //     deck_id: '29dj3x5w4nf1',

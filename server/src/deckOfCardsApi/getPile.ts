@@ -1,8 +1,11 @@
 import axios from 'axios';
-import HttpError from '../models/http-error.js';
-import { Cards } from '../types';
+import { HttpError } from '../errors/HttpError';
+import { Card } from '../types';
 
-const getPile = async (deck_id: string, pile_name: string): Promise<Cards> => {
+export const getPile = async (
+    deck_id: string,
+    pile_name: string,
+): Promise<Card[]> => {
     // const deck = deck_id.parse()
     // const pile = pile_name.parse()
 
@@ -16,14 +19,17 @@ const getPile = async (deck_id: string, pile_name: string): Promise<Cards> => {
             return cardsArr;
         })
         .catch((err) => {
-            const error = new HttpError(err.message, 500);
-            return error;
+            if (err instanceof Error) {
+                console.error(err);
+            }
+
+            const error = new HttpError('API Error', 500);
+            throw error;
         });
 
     return response;
 };
 
-export { getPile };
 // const exampleResponse = {
 //     success: true,
 //     deck_id: 'ojfgzb2v6qdz',

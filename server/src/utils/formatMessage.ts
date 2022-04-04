@@ -1,11 +1,13 @@
+import { Message } from '../types';
+
 const currentTime = () => {
     const today = new Date();
     return today.getHours() + ':' + today.getMinutes();
 };
 
-const formatMessage = (name, text) => {
+export const formatMessage = (author: string, text: string): Message => {
     return {
-        name,
+        author,
         text,
         time: currentTime(),
     };

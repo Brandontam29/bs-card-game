@@ -1,8 +1,15 @@
-const { cardsToPile } = require('../deckOfCardsApi/cardsToPile.js');
-const { drawAllCards } = require('../deckOfCardsApi/drawAllCards.js');
-const { getNewDeck } = require('../deckOfCardsApi/getNewDeck.js');
-const { rankPlayers } = require('../deckOfCardsApi/rankPlayers.js');
-const { reshuffleDeck } = require('../deckOfCardsApi/reshuffleDeck.js');
-const { getPile } = require('../deckOfCardsApi/getPile.ts');
+import { cardsToPile } from './cardsToPile';
+import { drawAllCards } from './drawAllCards';
+import { getNewDeck } from './getNewDeck';
+import { rankPlayers } from './rankPlayers';
+import { reshuffleDeck } from './reshuffleDeck';
+import { getPile } from './getPile';
 
-export {}
+export {
+    cardsToPile,
+    drawAllCards,
+    getNewDeck,
+    rankPlayers,
+    reshuffleDeck,
+    getPile,
+};
