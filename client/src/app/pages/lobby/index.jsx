@@ -10,15 +10,17 @@ import Login from './login/Login';
 import WaitingRoom from './waitingRoom/WaitingRoom';
 import Game from './game/Game';
 import Messaging from './components/Messaging';
+import PostGame from './postGame/PostGame';
 
 const propTypes = {
-    inGame: PropTypes.bool.isRequired,
     connected: PropTypes.bool.isRequired,
+    inGame: PropTypes.bool.isRequired,
+    postGame: PropTypes.bool.isRequired,
 };
 
 const defaultProps = {};
 
-const Lobby = ({ inGame, connected }) => {
+const Lobby = ({ connected, inGame, postGame }) => {
     useEffect(() => {});
 
     if (!connected) {
@@ -27,6 +29,7 @@ const Lobby = ({ inGame, connected }) => {
     return (
         <>
             {inGame ? <Game /> : <WaitingRoom />}
+            {postGame && <PostGame />}
             <Messaging />
         </>
     );
@@ -39,6 +42,7 @@ const WithReduxContainer = connect(
     ({ player, lobby }) => ({
         connected: player.connected,
         inGame: lobby.inGame,
+        lobby: lobby.postGame,
     }),
     (dispatch) => ({ setSocket: (value) => dispatch(setSocketAction(value)) }),
 )(Lobby);

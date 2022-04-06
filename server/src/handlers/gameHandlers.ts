@@ -70,41 +70,52 @@ export const gameHandlers = (io: Server, socket: Socket) => {
     };
 
     const playCard = async (cards: Card[]) => {
-        console.log('game:play_card', cards);
-        // Move the played cards
-        const lobby = game.lobby(socket.id);
-        const deckId = game.deck(lobby);
+        try {
+            console.log('game:play_card', cards);
+            // Move the played cards
+            const lobby = game.lobby(socket.id);
+            const deckId = game.deck(lobby);
 
-        // Move
-        await cardsToPile(deckId, 'center_pile', cards);
-        const hand = await getPile(deckId, socket.id);
-        const cardsRemaining = hand.length;
+            // Move
+            await cardsToPile(deckId, 'center_pile', cards);
+            const hand = await getPile(deckId, socket.id);
+            const cardsRemaining = hand.length;
 
-        // Check if they won the game
-        if (cardsRemaining === 0) {
-            console.log('finished game');
-            const players = game.players(lobby);
-            const ranks = rankPlayers(deckId, players);
+            // Update cards left in hand, add history, increment clock
+            game.play(lobby, socket.id, cardsRemaining, cards.length);
 
-            io.in(lobby).emit('finished_game', ranks);
+            const turnCard = game.turnCard(lobby);
+            const turnPlayerId = game.turnPlayer(lobby);
+            const remaining = game.remaining(lobby);
 
-            game.reset(lobby);
-            return;
+            // Responses
+            io.to(socket.id).emit('get_hand', hand);
+            io.in(lobby).emit('update_player_cards_left', remaining);
+
+            io.in(lobby).emit('udpated_clock', turnCard);
+
+            // Check if they won the game
+            if (cardsRemaining === 0) {
+                console.log('finished game');
+                const players = game.players(lobby);
+                const ranks = await rankPlayers(deckId, players);
+                io.in(lobby).emit('finished_game', ranks);
+
+                game.reset(lobby);
+                return;
+            }
+
+            io.in(lobby).emit('udpated_turn', turnPlayerId);
+        } catch (err) {
+            if (err instanceof Error) {
+                console.error(err);
+
+                const lobby = game.lobby(socket.id);
+                io.in(lobby).emit('error', err.message);
+            }
+
+            throw new HttpError('Error with Playing Cards', 500);
         }
-
-        // Update cards left in hand, add history, increment clock
-        game.play(lobby, socket.id, cardsRemaining, cards.length);
-
-        const turnCard = game.turnCard(lobby);
-        const turnPlayerId = game.turnPlayer(lobby);
-        const remaining = game.remaining(lobby);
-
-        // Responses
-        socket.on('game:callout', callout);
-        io.to(socket.id).emit('get_hand', hand);
-        io.in(lobby).emit('update_player_cards_left', remaining);
-        io.in(lobby).emit('udpated_turn', turnPlayerId);
-        io.in(lobby).emit('udpated_clock', turnCard);
     };
 
     const callout = async () => {
@@ -144,7 +155,6 @@ export const gameHandlers = (io: Server, socket: Socket) => {
         const remaining = game.remaining(lobby);
 
         // Responses
-        socket.off('game:callout', () => {});
         io.in(lobby).emit('udpated_turn', loserId);
         io.in(socket.id).emit('update_player_cards_left', remaining);
         io.to(loserId).emit('get_hand', loserHand);

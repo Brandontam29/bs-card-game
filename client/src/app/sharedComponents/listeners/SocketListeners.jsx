@@ -6,13 +6,14 @@ import { useNavigate } from 'react-router-dom';
 
 import * as AppPropTypes from '../../../lib/PropTypes';
 
-import { setSocket as setSocketAction } from '../../../redux/actions/siteActions';
+import { setError, setSocket as setSocketAction } from '../../../redux/actions/siteActions';
 import { setConnected as setConnectedAction } from '../../../redux/actions/playerActions';
 import {
     setPlayers as setPlayersAction,
     setLobbyCode as setLobbyCodeAction,
     addMessage as addMessageAction,
     setInGame as setInGameAction,
+    setPostGame as setPostGameAction,
 } from '../../../redux/actions/lobbyActions';
 import { setHand as setHandAction } from '../../../redux/actions/handActions';
 import {
@@ -34,6 +35,8 @@ const propTypes = {
     setRanking: PropTypes.func.isRequired,
     setCardNeeded: PropTypes.func.isRequired,
     setPlayerCardsLeft: PropTypes.func.isRequired,
+    setPostGame: PropTypes.func.isRequired,
+
     children: PropTypes.node,
 };
 
@@ -59,6 +62,7 @@ const SocketListeners = ({
     setInGame,
     setCardNeeded,
     setPlayerCardsLeft,
+    setPostGame,
     children,
 }) => {
     const navigate = useNavigate();
@@ -123,8 +127,13 @@ const SocketListeners = ({
 
     socketio.off('finished_game').on('finished_game', (ranks) => {
         console.log('finished_game', ranks);
-        setInGame(false);
         setRanking(ranks);
+        setPostGame(true); // this function also sets in game false
+    });
+
+    socketio.off('error').on('error', (message) => {
+        console.log('error', message);
+        setError(message);
     });
 
     return children;
@@ -149,6 +158,7 @@ const WithReduxContainer = connect(
         setInGame: (value) => dispatch(setInGameAction(value)),
         setCardNeeded: (value) => dispatch(setCardNeededAction(value)),
         setPlayerCardsLeft: (value) => dispatch(setPlayerCardsLeftAction(value)),
+        setPostGame: (value) => dispatch(setPostGameAction(value)),
     }),
 )(SocketListeners);
 

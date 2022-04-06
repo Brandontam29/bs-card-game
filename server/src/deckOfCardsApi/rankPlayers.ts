@@ -9,6 +9,7 @@ export const rankPlayers = async (deckId: string, players: Player[]) => {
         const cards = await getPile(deckId, playerId);
         rankedPlayers.push({
             name: players[i].name,
+            avatar: players[i].avatar,
             remaining: cards.length,
         });
     }

@@ -1,4 +1,5 @@
 export const SET_IN_GAME = 'SET_IN_GAME';
+export const SET_POST_GAME = 'SET_POST_GAME';
 export const SET_PLAYERS = 'SET_PLAYERS';
 export const REMOVE_PLAYER = 'REMOVE_PLAYER';
 export const INCREMENT_ROUND = 'INCREMENT_ROUND';
@@ -9,6 +10,11 @@ export const SET_MESSAGES = 'SET_MESSAGES';
 
 export const setInGame = (payload) => ({
     type: SET_IN_GAME,
+    payload,
+});
+
+export const setPostGame = (payload) => ({
+    type: SET_POST_GAME,
     payload,
 });
 

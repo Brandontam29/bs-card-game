@@ -1,5 +1,6 @@
 import {
     SET_IN_GAME,
+    SET_POST_GAME,
     SET_PLAYERS,
     INCREMENT_ROUND,
     SET_ROUND,
@@ -10,6 +11,7 @@ import {
 
 const initialState = {
     inGame: false,
+    postGame: false,
     players: [],
     round: 0,
     lobbyCode: null,
@@ -22,6 +24,11 @@ const lobbyReducer = (state = initialState, action) => {
             return {
                 ...state,
                 inGame: action.payload,
+            };
+        case SET_POST_GAME:
+            return {
+                ...state,
+                postGame: action.payload,
             };
         case SET_PLAYERS:
             return {
