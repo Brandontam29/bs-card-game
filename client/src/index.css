@@ -29,6 +29,7 @@
     h5,
     h6 {
         @apply font-header;
+        font-weight: bold;
     }
 
     h1 {
@@ -70,4 +71,5 @@
 
         background-color: #79cf90;
     }
+
 }

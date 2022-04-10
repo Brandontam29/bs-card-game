@@ -23,6 +23,7 @@ export const setPlayerCardsLeft = (payload) => ({
     payload,
 });
 
-export const setRanking = () => ({
+export const setRanking = (payload) => ({
     type: SET_RANKING,
+    payload,
 });

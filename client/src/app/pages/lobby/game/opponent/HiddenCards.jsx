@@ -20,6 +20,9 @@ const HiddenCards = ({ handSize, className }) => {
     const gridStyle = `grid-cols-[repeat(${cardCount},${overlap})]`;
 
     useEffect(() => {
+        if (handSize === 0) {
+            return setCardCount(0);
+        }
         if (handSize === 1) {
             return setCardCount(1);
         }

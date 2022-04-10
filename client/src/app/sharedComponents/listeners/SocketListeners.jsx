@@ -125,9 +125,9 @@ const SocketListeners = ({
         setTurnPlayer(id);
     });
 
-    socketio.off('finished_game').on('finished_game', (ranks) => {
-        console.log('finished_game', ranks);
-        setRanking(ranks);
+    socketio.off('finished_game').on('finished_game', (ranking) => {
+        console.log('finished_game', ranking);
+        setRanking(ranking);
         setPostGame(true); // this function also sets in game false
     });
 

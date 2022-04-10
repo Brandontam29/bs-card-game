@@ -15,6 +15,14 @@ export const player = PropTypes.shape({
     lobby: PropTypes.string,
 });
 
+export const ranking = PropTypes.arrayOf(
+    PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        avatar: PropTypes.string.isRequired,
+        remaining: PropTypes.number.isRequired,
+    }),
+);
+
 export const players = PropTypes.arrayOf(player);
 
 export const socket = PropTypes.any;

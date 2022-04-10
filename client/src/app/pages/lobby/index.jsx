@@ -21,7 +21,9 @@ const propTypes = {
 const defaultProps = {};
 
 const Lobby = ({ connected, inGame, postGame }) => {
-    useEffect(() => {});
+    useEffect(() => {
+        console.log('Post Game', postGame);
+    });
 
     if (!connected) {
         return <Login />;
@@ -42,7 +44,7 @@ const WithReduxContainer = connect(
     ({ player, lobby }) => ({
         connected: player.connected,
         inGame: lobby.inGame,
-        lobby: lobby.postGame,
+        postGame: lobby.postGame,
     }),
     (dispatch) => ({ setSocket: (value) => dispatch(setSocketAction(value)) }),
 )(Lobby);

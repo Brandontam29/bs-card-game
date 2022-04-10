@@ -1,25 +1,45 @@
-const propTypes = {};
+import { PropTypes } from 'prop-types';
+import CloseButton from './CloseButton';
+
+const propTypes = {
+    closePannel: PropTypes.func.isRequired,
+};
 
 const defaultProps = {};
 
-const Rules = () => {
+const Rules = ({ closePannel }) => {
     return (
-        <div>
-            <h2>The rules</h2>
-            <p>Each player take turn playing 1-4 cards into the center pile face-down.</p>
-            <p>Any player can decide to call BS on another one for placing the wrong cards.</p>
-            <p>
-                When BS is called, the last cards a player placed is then revealed. If the cards are
-                the right one, the player calling out takes the entire center pile. If the cards are
-                not the right ones, the player who placed them takes the entire pile.
-            </p>
+        <>
+            <div className="flex flex-row justify-between flex-grow m-2">
+                <h2>The rules</h2>
+                <CloseButton onClick={closePannel} />
+            </div>
+            <div className="flex flex-col gap-2 m-2">
+                <section>
+                    <h3>How to Win</h3>
+                    <p>
+                        The game ends when a player has played all of his cards. Those with the less
+                        cards are placed higher.
+                    </p>
+                </section>
 
-            <p>
-                When playing with Jokers, they serve as a wildcard (can substitute for any other
-                card).
-            </p>
-            <p>The game ends when a player is out of cards.</p>
-        </div>
+                <section className="flex flex-col gap-2">
+                    <h3>How to Play</h3>
+                    <p>Each player take turn playing 1-4 cards into the center pile face-down.</p>
+                    <p>Any player can callout the cards that were just played.</p>
+                    <p>
+                        <b>Callout: </b>
+                        The cards that are just played are revealed. If they are all the right
+                        cards, the player calling out takes the entire center pile.If the cards are
+                        not the right ones, the player who placed them takes the entire pile.
+                    </p>
+
+                    <p>
+                        <b>Jokers: </b>They serve as a wildcard (can substitute for any other card).
+                    </p>
+                </section>
+            </div>
+        </>
     );
 };
 
