@@ -7,6 +7,8 @@ import * as AppPropTypes from '../../../../lib/PropTypes';
 import { setSocket as setSocketAction } from '../../../../redux/actions/siteActions';
 import { classNames } from '../../../../lib/classNames';
 import MessageBubbleIcon from '../../../sharedComponents/icons/MessageBubble';
+import styles from './messaging.module.scss';
+import Bubble from './messaging/Bubble';
 
 const propTypes = {
     socket: AppPropTypes.socket.isRequired,
@@ -45,7 +47,7 @@ const Messaging = ({ lobbyCode, socket, messages, className }) => {
                 onClick={() => setMinimized(false)}
                 className={classNames([
                     { hidden: !minimized },
-                    'fixed top-2 w-[calc(30vw)] max-w-[80px] h-auto p-1',
+                    'fixed top-2 w-[calc(10vw+15px)] max-w-[80px] h-auto p-1',
                     'md:bottom-2 md:top-auto right-2 ',
                 ])}
             >
@@ -59,30 +61,37 @@ const Messaging = ({ lobbyCode, socket, messages, className }) => {
                     'fixed bottom-0 right-0 mr-2.5',
                     'h-full max-h-[800px] w-80 mx-auto',
                     'flex flex-col',
-                    'bg-white overflow-y-scroll',
+                    'bg-white rounded-t',
 
                     className,
                 ])}
             >
-                <div className="flex content-between w-full space-x-2.5">
+                {/* header */}
+                <section
+                    className={classNames([
+                        'flex justify-between w-full p-2',
+                        'border-b border-solid border-black',
+                    ])}
+                >
                     <h5>Chat: {lobbyCode}</h5>
-                    <button type="button" onClick={() => setMinimized(true)}>
-                        -
+                    <button
+                        type="button"
+                        onClick={() => setMinimized(true)}
+                        className="font-bold mt-[-4px]"
+                    >
+                        _
                     </button>
-                </div>
+                </section>
 
-                <ul className="grow" data-cy="messages">
-                    {messages.map((msg) => {
-                        return (
-                            <li key={msg.name + msg.text + msg.time} className="">
-                                {msg.name}: <span className="">{msg.text}</span>
-                            </li>
-                        );
-                    })}
+                {/* messages */}
+                <ul data-cy="messages" className={styles.messages}>
+                    {messages.map((msg) => (
+                        <Bubble key={msg.key} id={socket.id} message={msg} />
+                    ))}
                 </ul>
 
                 {/* input field for sending message */}
-                <div
+                <form
                     className={classNames([
                         'sticky bottom-0 right-0 w-full max-w-[inherit] p-1 bg-slate-300',
                         'flex flex-row',
@@ -104,7 +113,7 @@ const Messaging = ({ lobbyCode, socket, messages, className }) => {
                     >
                         Send
                     </button>
-                </div>
+                </form>
             </div>
         </>
     );

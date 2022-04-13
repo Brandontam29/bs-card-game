@@ -6,14 +6,14 @@ import * as game from '../storage';
 import { Server, Socket } from 'socket.io';
 
 export const lobbyHandlers = (io: Server, socket: Socket) => {
-    const botName = 'Game';
+    const system = 'system';
     // Standard event emitter for creating and joining lobby
     const emit = (lobby: string, player: Player, players: Player[]) => {
         socket.join(lobby);
         io.in(lobby).emit('update_players', players);
         io.in(lobby).emit(
             'new_message',
-            formatMessage(botName, `${player.name} has joined the chat`),
+            formatMessage(system, `${player.name} has joined the chat`),
         );
         socket.emit('created_lobby', lobby);
     };
@@ -54,7 +54,7 @@ export const lobbyHandlers = (io: Server, socket: Socket) => {
         if (player && lobby) {
             io.in(lobby).emit(
                 'new_message',
-                formatMessage(botName, `${player.name} has left the chat`),
+                formatMessage(system, `${player.name} has left the chat`),
             );
         }
 

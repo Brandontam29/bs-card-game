@@ -38,11 +38,17 @@ const Feedback = ({ closePannel }) => {
         <div className="">
             {submitted ? (
                 <>
-                    <h3>Thank you for your feedback</h3>
-                    <p>
-                        We read every thing you send us, but it may take some time to change things,
-                        so thank you for your patience
-                    </p>
+                    <div className="flex flex-row justify-between flex-grow m-2">
+                        <h2>Feedback</h2>
+                        <CloseButton onClick={closePannel} />
+                    </div>
+                    <div className=" flex flex-col gap-2 m-2">
+                        <p>
+                            We read every thing you send us, but it may take some time to change
+                            things.
+                        </p>
+                        <p>Thank you for your patience.</p>
+                    </div>
                 </>
             ) : (
                 <>

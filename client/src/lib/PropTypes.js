@@ -23,6 +23,14 @@ export const ranking = PropTypes.arrayOf(
     }),
 );
 
+export const message = PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    author: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+    time: PropTypes.string.isRequired,
+    key: PropTypes.string.isRequired,
+});
+
 export const players = PropTypes.arrayOf(player);
 
 export const socket = PropTypes.any;

@@ -3,9 +3,11 @@ import { Server as ServerType, Socket as SocketType } from 'socket.io';
 export type Socket = SocketType;
 export type Server = ServerType;
 export interface Message {
+    id: string;
     author: string;
     text: string;
     time: string;
+    key:string
 }
 
 export interface Card {

@@ -29,41 +29,43 @@ const PostGame = ({ ranking }) => {
     return (
         <div
             className={classNames([
-                'absolute h-[100vh] w-[100vw] top-0 left-0 ',
-                'backdrop-blur-[1.5px] bg-black/40 hover:backdrop-blur-lg',
+                'absolute h-full w-full top-0 left-0 ',
+                'backdrop-blur-[1px] bg-black/50 ',
                 'flex flex-col justify-center items-center',
             ])}
         >
-            {ranking.length >= 2 && (
-                <>
+            <div className="flex flex-row">
+                <div>
+                    1<sup>st</sup> <PlayerCard player={ranking[0]} />
+                </div>
+                <div>
+                    2<sup>st</sup>
+                    <PlayerCard player={ranking[1]} />
+                </div>
+                {ranking.length > 2 && (
                     <div>
-                        1<sup>st</sup>:{ranking[0].name} <PlayerCard player={ranking[0]} />
+                        3<sup>st</sup>
+                        <PlayerCard player={ranking[2]} />
                     </div>
-                    <div>
-                        2<sup>st</sup>:{ranking[1].name}
-                        <PlayerCard player={ranking[1]} />
-                    </div>
-                    ranking
-                    {ranking.length >= 3 && (
+                )}
+            </div>
+            {ranking.length > 3 && (
+                <div className="flex flex-row">
+                    {ranking.slice(3, ranking.length).map((player) => (
                         <div>
-                            3<sup>st</sup>:{ranking[2].name}
-                            <PlayerCard player={ranking[2]} />
+                            <PlayerCard player={player} />
                         </div>
-                    )}
-                    <div>
-                        {ranking.slice(3, ranking.length).map((player) => (
-                            <div>
-                                <div>{player.name}</div>
-                                <PlayerCard player={player} />
-                            </div>
-                        ))}
-                    </div>
-                    <div>{ranking[1].name}</div>
-                    <button type="button" onClick={leavePostGame} data-cy="leave_post_game">
-                        Continue
-                    </button>
-                </>
+                    ))}
+                </div>
             )}
+            <button
+                type="button"
+                onClick={leavePostGame}
+                data-cy="leave_post_game"
+                className="rounded-md bg-sky-500 py-2 px-4 text-white"
+            >
+                Continue
+            </button>
         </div>
     );
 };

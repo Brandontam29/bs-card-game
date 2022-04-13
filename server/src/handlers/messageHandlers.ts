@@ -11,7 +11,7 @@ export const messageHandlers = (io: Server, socket: Socket) => {
             const player = game.player(socket.id);
             const lobby = game.lobby(socket.id);
 
-            io.in(lobby).emit('new_message', formatMessage(player.name, msg));
+            io.in(lobby).emit('new_message', formatMessage(player, msg));
         } catch (err) {
             if (err instanceof Error) {
                 console.error(err);
