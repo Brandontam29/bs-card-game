@@ -1,6 +1,7 @@
 {
     "messages": [
         {
+            "id": "system",
             "name": "system",
             "text": "Cypress Bot 1 has joined the chat",
             "time": "2:22",
@@ -45,17 +46,19 @@
             "time": "12:23",
             "key": "16"
         },
-        {
-            "name": "0.0",
-            "text": "Anyone here??? Looking to play a game and to talk a lot a lot a lot. Only friendly people please. ",
-            "time": "12:24",
-            "key": "17"
-        },
+
         {
             "name": "Annoying",
             "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut faucibus orci nibh, et ultrices augue sollicitudin eget. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed posuere augue in ligula tincidunt laoreet. Nullam aliquet massa dignissim suscipit pretium. Ut tristique tellus eu augue ultricies, ut vulputate leo ultrices. Proin eu molestie dolor, et congue dui. Pellentesque molestie neque ut felis dignissim, id posuere libero pulvinar. Sed non interdum lorem. Sed tincidunt metus velit, vitae auctor est porttitor sed. Integer sit amet porttitor ante. Nunc cursus eros eu elit rutrum egestas. Sed a finibus metus. Mauris luctus lacus at lectus lacinia tincidunt.",
             "time": "00:00",
             "key": "18"
+        },
+        {
+            "id": "playerId",
+            "name": "0.0",
+            "text": "I am here and I want to play a game. Are you still there Cypress???",
+            "time": "00:24",
+            "key": "19"
         }
     ]
 }

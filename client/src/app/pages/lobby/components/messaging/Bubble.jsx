@@ -15,31 +15,41 @@ const Bubble = ({ id, message }) => {
     console.log(message);
 
     // Sent from the system (check messageHandlers.ts)
-    const common = 'inline-block mb-1';
+    const common = 'block mb-1 w-[fit-content]';
     const renderBubble = () => {
         switch (message.id) {
+            // System messages
             case 'system':
                 return (
-                    <li className={classNames(['text-gray-300 text-center my-', common])}>
+                    <li className={classNames(['text-gray-300 text-center', common])}>
                         <i>{text}</i>
                     </li>
                 );
 
+            // Player messages
             case id:
                 return (
                     <li
                         className={classNames([
-                            'rounded bg-sky-400 text-white py-0.5 px-1.5',
                             common,
+                            'rounded bg-sky-400 text-white py-0.5 px-1.5 ml-auto',
+                            'max-w-[80%]',
                         ])}
                     >
                         {text}
                     </li>
                 );
 
+            // Other's messages
             default:
                 return (
-                    <li className={classNames(['rounded bg-gray-200 ', common])}>
+                    <li
+                        className={classNames([
+                            common,
+                            'rounded bg-gray-200',
+                            'max-w-[80%] mr-auto',
+                        ])}
+                    >
                         {author}: <span className="">{text}</span>
                     </li>
                 );

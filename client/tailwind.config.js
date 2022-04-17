@@ -7,6 +7,9 @@ module.exports = {
                 header: ['Nunito', 'arial', 'sans-serif'],
                 sans: ['Nunito', 'arial', 'sans-serif'],
             },
+            fontSize: {
+                base: 'clamp(2rem, 10vw, 5rem)',
+            },
 
             colors: {
                 green: {
