@@ -10,6 +10,7 @@ import {
     sortHand as sortHandAction,
 } from '../../../../redux/actions/handActions';
 import Button from '../../../sharedComponents/uiElements/Button';
+import { calculateClamp } from '../../../../lib/calculateClamp';
 
 // import { classNames } from '../../../../lib/classNames';
 
@@ -46,35 +47,38 @@ const Controls = ({ socket, turnPlayer, deselectAll, selectedCards, sortHand }) 
     }, [turnPlayer, socket.id, selectedCards]);
 
     const buttonStyles =
-        'absolute m-1.5 px-2 py-1 border border-black border-solid rounded disabled:bg-gray-400 hover:bg-gray-50 text-sm';
+        'absolute m-1.5 px-2 py-1 border border-black border-solid rounded disabled:bg-gray-400 hover:bg-gray-50';
 
     return (
         <>
-            <Button
+            <button
                 type="button"
                 onClick={onPlay}
                 dataCy="play_cards"
                 disabled={disabled}
                 className={classNames(['bottom right-1/2 translate-x-1/2', buttonStyles])}
+                style={{ fontSize: calculateClamp(14, 18) }}
             >
                 Play
-            </Button>
-            <Button
+            </button>
+            <button
                 type="button"
                 onClick={onDeselect}
                 dataCy="deselect_cards"
                 className={classNames(['bottom-0 left-0 bg-red', buttonStyles])}
+                style={{ fontSize: calculateClamp(14, 18) }}
             >
                 Deselect
-            </Button>
-            <Button
+            </button>
+            <button
                 type="button"
                 onClick={onSort}
                 dataCy="sort_cards"
                 className={classNames(['bottom-0 right-0 bg-blue-300', buttonStyles])}
+                style={{ fontSize: calculateClamp(14, 18) }}
             >
                 Sort
-            </Button>
+            </button>
         </>
     );
 };

@@ -18,7 +18,7 @@ const defaultProps = {
 const Player = ({ player, className }) => {
     return (
         <div className={classNames(['', className])}>
-            <h4 className="text-base">{player.name}</h4>
+            <h4 className="text-xl">{player.name}</h4>
             <Avatar name={player.avatar} square="true" variant="beam" size={60} />
         </div>
     );

@@ -45,6 +45,12 @@
     h4 {
         @apply text-xl;
     }
+    h5 {
+        @apply text-lg;
+    }
+    h6 {
+        @apply text-base;
+    }
 
     html,
     body {
@@ -71,5 +77,4 @@
 
         background-color: #79cf90;
     }
-
 }

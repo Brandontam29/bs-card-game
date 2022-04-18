@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-// import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
+import useWindowSize from '../../../../hooks/useWindowSize';
 import { classNames } from '../../../../lib/classNames';
 
 import * as AppPropTypes from '../../../../lib/PropTypes';
@@ -18,18 +18,30 @@ const defaultProps = {
 };
 
 const Hand = ({ hand, className }) => {
-    const [handClass, setHandClass] = useState(
-        'grid-cols-[repeat(16,28px)] grid-rows-[30px,30px,40px]',
-    );
+    const [cols, setCols] = useState(18);
+    const [rows, setRows] = useState(1);
+    const [cardWidth, setCardWidth] = useState(80);
+    const { width } = useWindowSize();
 
     useEffect(() => {
-        const defaultString = 'grid-cols-[repeat(27,22px)]';
+        const size = hand.length;
+        setCols();
     }, [hand]);
 
+    useEffect(() => {
+        setCardWidth(width);
+    }, [width]);
+
     return (
-        <div className={classNames([`grid`, handClass, className])}>
+        <div
+            className={classNames([`grid`, className])}
+            style={{
+                gridTemplateColumns: `repeat(${cols},22px)`,
+                gridTemplateRows: `repeat(${rows},22px)`,
+            }}
+        >
             {hand.map((card) => (
-                <Card key={card.code} card={card} />
+                <Card key={card.code} card={card} className={`w-[clamp()]`} />
             ))}
         </div>
     );

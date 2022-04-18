@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { capitalize } from '../../../../lib/utils';
-import cardBack from '../../../../assets/images/cardBack.png';
+import CardBackIcon from '../../../sharedComponents/icons/CardBack';
+import { calculateClamp } from '../../../../lib/calculateClamp';
 
 const propTypes = {
     cardNeeded: PropTypes.string.isRequired,
@@ -15,7 +16,7 @@ const Clock = ({ cardNeeded }) => {
             data-cy="clock_card"
             className="absolute bottom-1/2 right-1/2 translate-x-1/2 translate-y-1/2"
         >
-            <img alt="card backs" src={cardBack} className="w-16 h-auto" />
+            <CardBackIcon className="w-16 h-auto" style={{ fontSize: calculateClamp(14, 18) }} />{' '}
             <div className="absolute place-self-center">{capitalize(cardNeeded)}</div>
         </div>
     );

@@ -15,8 +15,6 @@ const Ratings = ({ rating, onChange }) => {
         onChange(e.target.value);
     };
 
-    console.log(rating);
-
     return (
         <div className={styles.rating}>
             <input

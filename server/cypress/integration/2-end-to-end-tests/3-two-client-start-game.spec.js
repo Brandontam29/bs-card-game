@@ -30,20 +30,5 @@ describe('One client from homepage to waiting room', () => {
         // Game start neutral
         cy.get('[data-cy=clock_card').should('have.text', 'Ace');
         cy.get('div').contains('27').should('exist');
-
-        // Player plays one card
-        cy.get('button > img[alt*="of"]').first().click('topLeft');
-        cy.get('button[data-cy=play_cards]').click();
-        cy.get('[data-cy=clock_card').should('have.text', '2');
-
-        // Cypress plays one card
-        cy.task('playCards');
-        cy.get('div').contains('26').should('exist');
-        cy.get('[data-cy=clock_card').should('have.text', '3');
-
-        // Player plays a second card
-        cy.get('button > img[alt*="of"]').first().click('topLeft');
-        cy.get('button[data-cy=play_cards]').click();
-        cy.get('[data-cy=clock_card').should('have.text', '4');
     });
 });

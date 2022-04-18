@@ -6,6 +6,7 @@ import * as AppPropTypes from '../../../../../lib/PropTypes';
 
 import HiddenCards from './HiddenCards';
 import { classNames } from '../../../../../lib/classNames';
+import { calculateClamp } from '../../../../../lib/calculateClamp';
 
 const propTypes = {
     player: AppPropTypes.player.isRequired,
@@ -29,7 +30,9 @@ const OtherPlayer = ({ player, turnPlayer, handSize, className }) => {
                 className,
             ])}
         >
-            <h4 className="text-sm">{player.name}</h4>
+            <h5 className="text-base" style={{ fontSize: calculateClamp(14, 18) }}>
+                {player.name}
+            </h5>
             <Avatar name={player.avatar} square="true" variant="beam" size={40} />
             <HiddenCards handSize={handSize} />
         </div>

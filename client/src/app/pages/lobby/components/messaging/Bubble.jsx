@@ -15,13 +15,13 @@ const Bubble = ({ id, message }) => {
     console.log(message);
 
     // Sent from the system (check messageHandlers.ts)
-    const common = 'block mb-1 w-[fit-content]';
+    const common = 'block mb-2 w-[fit-content]';
     const renderBubble = () => {
         switch (message.id) {
             // System messages
             case 'system':
                 return (
-                    <li className={classNames(['text-gray-300 text-center', common])}>
+                    <li className={classNames(['text-gray-300 text-center mx-auto', common])}>
                         <i>{text}</i>
                     </li>
                 );

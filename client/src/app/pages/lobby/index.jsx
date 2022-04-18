@@ -21,10 +21,6 @@ const propTypes = {
 const defaultProps = {};
 
 const Lobby = ({ connected, inGame, postGame }) => {
-    useEffect(() => {
-        console.log('Post Game', postGame);
-    });
-
     if (!connected) {
         return <Login />;
     }
