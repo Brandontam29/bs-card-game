@@ -3,7 +3,7 @@
     "main": "./src/server.ts",
     "scripts": {
         "cypress": "npx cypress open",
-        "server": "npx nodemon"
+        "dev": "npx nodemon"
     },
     "dependencies": {
         "axios": "^0.24.0",
@@ -38,3 +38,4 @@
         "typescript": "^4.6.2"
     }
 }
+

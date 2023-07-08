@@ -24,3 +24,4 @@ const matchSchema = new Schema({
 });
 
 module.exports = mongoose.model('Match', matchSchema);
+

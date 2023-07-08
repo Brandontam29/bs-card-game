@@ -16,7 +16,6 @@
         "esModuleInterop": true,
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
-        "watch": true,
         "outDir": "dist",
         "allowJs": true,
         "allowSyntheticDefaultImports": true,
@@ -31,3 +30,4 @@
     "typeRoots": ["../node_modules/@types"],
     "display": "Node 16"
 }
+

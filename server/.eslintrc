@@ -12,7 +12,8 @@
 
         "max-len": ["warn", 120],
         "arrow-body-style": ["off", "always"],
-        "linebreak-style": ["error", "windows"],
+
         "default-param-last": "off"
     }
 }
+
